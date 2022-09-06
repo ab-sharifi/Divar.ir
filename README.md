@@ -14,6 +14,9 @@
 
 # TODO
 [x] First Create Whole Front-end Of project
+
 [x] Responsive Page
-[] Start Backend
-[] Deploy Project
+
+[ ] Start Backend
+
+[ ] Deploy Project
