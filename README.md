@@ -12,3 +12,8 @@
 > If you want to Contribute in this project, you know what you are doing
 ---
 
+# TODO
+[x] First Create Whole Front-end Of project
+[x] Responsive Page
+[] Start Backend
+[] Deploy Project
