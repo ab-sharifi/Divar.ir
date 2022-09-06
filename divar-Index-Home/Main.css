@@ -1,0 +1,15 @@
+
+:root{
+
+    --brand-color:#a62626;
+    --brand-color-hover:#c93c3c;
+}
+@font-face {
+    font-family: sans;
+    src: url('../fonts/sans1.ttf');
+}
+
+.nav-item:hover{
+    background-color: #eee;
+    transition: all .5s;
+}
