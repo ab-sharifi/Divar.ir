@@ -7,4 +7,7 @@
 :root{
         font-weight: bold;
         --bs-font-sans-serif :sans !important;
+
+        --brand-color:#a62626;
+        --brand-color-hover:#c93c3c;
 }
