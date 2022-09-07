@@ -1,4 +1,3 @@
-
 @font-face {
     font-family:sans;
     src: url('../fonts/sans1.ttf');
@@ -7,4 +6,5 @@
 :root{
         font-weight: bold;
         --bs-font-sans-serif :sans !important;
+        --animation-speed : .8s;
 }

@@ -24,5 +24,8 @@ a{
 
 .hover-black:hover{
     color:black !important;
-    transition: all 1s;
+}
+
+.hover-black{
+    transition: color var(--animation-speed);
 }
