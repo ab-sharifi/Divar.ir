@@ -1,4 +1,3 @@
-
 @font-face {
     font-family:sans;
     src: url('../fonts/sans1.ttf');
@@ -10,4 +9,5 @@
 
         --brand-color:#a62626;
         --brand-color-hover:#c93c3c;
+        --animation-speed : .8s;
 }
