@@ -5,7 +5,7 @@
 
 ---
 
-### - [Ali shairfy](https://github.com/alisharify7) < Python >
+### - [Ali shairfy](https://github.com/alisharify7)  Python => (FLask)
 ### - [Mehdi Gholami](https://github.com/cc-Mehdi) < C# >
 
 > in Frond-End Of project we Both Work Together But in Back-end we decid To Develop with Python(Flask) and C#(.NET)
