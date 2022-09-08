@@ -33,7 +33,7 @@
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-mobile-size.png" > 
 
 ### 03.First Home index in (Tablet size)
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-mobile-size.png" > 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-tablet-size.png" > 
 
 
 ### 04.First Home index in (PC size)
