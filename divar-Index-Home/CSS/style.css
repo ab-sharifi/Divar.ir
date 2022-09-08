@@ -33,6 +33,14 @@ a {
     color:#000 !important;
 }
 
+.text-color-brand {
+    color: var(--brand-color) !important;
+}
+
+.bg-gray-hover:hover {
+    background-color: var(--color-gray) !important;
+}
+
 .img-card{
     width: 120px;
     height: 120px;
