@@ -39,5 +39,14 @@
 ### 04.First Home index in (PC size)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home.png" > 
 
+### 05.Product Page info (PC size)
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/pro-home.png" > 
+
+
+### 06.Product Page info (Mobile size)
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/pro-mobile-size.png" >
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/pro-mobile-foot.png" > 
+
+
 
 
