@@ -1,0 +1,26 @@
+
+.navbar{
+    font-family: sans !important;
+    font-size: 1rem;
+}
+
+.fs-10{
+    font-size:0.8rem;
+}
+
+.add-register-btn-header{
+    background-color: var(--brand-color);
+    
+}
+
+.add-register-btn-header{
+    transition: background-color 1s;
+}
+.add-register-btn-header:hover{
+    background-color: var(--brand-color-hover);
+}
+
+.nav-item:hover{
+    background-color: #eee;
+    transition: all .5s;
+}

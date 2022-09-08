@@ -1,0 +1,16 @@
+@font-face {
+    font-family: sans1;
+    src: url('./fonts/sans1.ttf');
+}
+
+
+body{
+    font-family: sans1 !important;
+}    
+
+:root{
+    --brand-color:#a62626;
+    --brand-color-hover:#c93c3c;
+}    
+
+
