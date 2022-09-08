@@ -26,3 +26,8 @@ body{
     background-color: #eee;
     transition: all .5s;
 }
+
+.img-card{
+    width: 180px;
+    height: 180px;
+}
