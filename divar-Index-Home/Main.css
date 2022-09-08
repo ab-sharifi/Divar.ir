@@ -2,6 +2,7 @@
 :root{
     --brand-color:#a62626;
     --brand-color-hover:#c93c3c;
+    --color-gray: #9e9689;
 }
 
 @font-face {

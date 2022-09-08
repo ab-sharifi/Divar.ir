@@ -2,6 +2,11 @@ body{
     font-family: sans !important;
 }
 
+a {
+    text-decoration: none !important;
+    color: var(--color-gray) !important;
+}
+
 .navbar{
     font-family: sans !important;
     font-size: 1rem;
@@ -30,4 +35,8 @@ body{
 .img-card{
     width: 180px;
     height: 180px;
+}
+
+.hover-to-light:hover {
+    color: #eee !important;
 }
