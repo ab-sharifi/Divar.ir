@@ -29,6 +29,10 @@ a {
     transition: all .5s;
 }
 
+.textLight-hover:hover {
+    color: #eee !important;
+}
+
 .img-card{
     width: 120px;
     height: 120px;
