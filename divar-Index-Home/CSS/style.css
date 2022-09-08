@@ -29,8 +29,8 @@ a {
     transition: all .5s;
 }
 
-.textLight-hover:hover {
-    color: #eee !important;
+.text-black-hover:hover {
+    color:#000 !important;
 }
 
 .img-card{
@@ -46,9 +46,13 @@ a {
     color: inherit;
 }
 
-.fs-8{font-size: .9rem;}
+.fs-8{font-size: .9rem ;}
 .fs-10{font-size: .7rem;}
+.fs-11{font-size: .8rem ;}
 
+.text-black{
+    color: black;
+}
 
 /* some media query For 767 px to fix cards  */
 @media (max-width: 1166px){
