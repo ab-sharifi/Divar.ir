@@ -143,11 +143,24 @@
 
     <div class="row mt-3">
       <div class="col-lg-8 col-md-12  ">
-        <div class="carousel bg-danger slide" data-bs-ride="carousel" data-ride="carousel"  id="carousel-cs">
+        <div class="carousel bg-danger slide" data-bs-interval="7000"  data-bs-ride="carousel" id="carousel-cs">
           <div class="carousel-inner">
-
+            <!-- control for slider -->
+            <a href="#carousel-cs" data-bs-slide="prev" role="button" class="carousel-control-prev">
+                <span class="carousel-control-prev-icon bg-dark"></span>
+            </a>
+            <a href="#carousel-cs "  data-bs-slide="next" role="button" class="carousel-control-next" >
+              <span class="carousel-control-next-icon bg-dark"></span>
+            </a>
+            <!-- control for slider -->
             <div class="carousel-item active">
               <img class="d-block carousel-img img-md-fluid" src="./images/slide1.jpg" alt="">
+              <!-- 
+                captionf or each picture
+                <div class="carousel-cation">
+                <span>تصویر 1</span>
+              </div> 
+            -->
             </div>
             <div class="carousel-item">
               <img class="d-block carousel-img img-md-fluid" src="./images/slide2.jpg" alt="">
@@ -163,7 +176,7 @@
         <div>
           <div class="container-cs  d-flex flex-direction-column mt-4">
             <div class="headers-body text-right">
-              <h1 class="fs-10 mb-4">نشت یابی رفع نم لوله بازکنی کشی فنرزنی نشتی فنرزن</h1>
+              <h1 class="fs-10 mb-4 title-costumer">نشت یابی رفع نم لوله بازکنی کشی فنرزنی نشتی فنرزن</h1>
               <h5 class="text-muted fs-8"><span>دو ساعت پیش در کرج</span> <span>مشکین دشت</span> <span>مهارت فنی و
                   خدمات</span></h5>
 
@@ -228,6 +241,8 @@
       </div>
     </div>
   </div>
+
+
 
 
 
