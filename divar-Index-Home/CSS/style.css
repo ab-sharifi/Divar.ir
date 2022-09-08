@@ -36,6 +36,10 @@ a {
     color: var(--brand-color) !important;
 }
 
+.bg-color-brand {
+    background-color: var(--brand-color) !important;
+}
+
 .bg-gray-hover:hover {
     background-color: var(--color-gray) !important;
 }
@@ -68,6 +72,11 @@ a {
 
 .text-black {
     color: black;
+}
+
+.input-focus:focus-within {
+    border: 2px solid var(--brand-color) !important;
+    box-shadow: none !important;
 }
 
 /* some media query For 767 px to fix cards  */
