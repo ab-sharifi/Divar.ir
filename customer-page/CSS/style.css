@@ -12,6 +12,9 @@
     font-size: 1.3rem;
     font-weight: bold;
 }
+.fs-info{
+    font-size: .95rem;
+}
 
 .add-register-btn-header{
     background-color: var(--brand-color);
@@ -49,4 +52,17 @@
 }
 .icon-save-share:hover{
     color: black ;
+    background-color: #eee;
+    border-radius: 50%;
+}
+.icon-save-share{
+    transition: all .8s;
+}
+
+.text-brand-hover:hover{
+    background-color: var(--brand-color-hover);
+}
+
+.customer-info-product{
+    line-height: 2;
 }
