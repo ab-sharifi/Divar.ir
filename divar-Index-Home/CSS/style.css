@@ -45,6 +45,7 @@ a {
 .fs-8{font-size: .9rem;}
 .fs-10{font-size: .7rem;}
 
+
 /* some media query For 767 px to fix cards  */
 @media (max-width: 1166px){
     .fs-8{

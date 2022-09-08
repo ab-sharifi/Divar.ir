@@ -43,3 +43,10 @@
 .btn-outline-brand{
     border:1px solid var(--brand-color);
 }
+
+.icon-save-share{
+    color: black;
+}
+.icon-save-share:hover{
+    color: black ;
+}
