@@ -52,6 +52,16 @@ a {
     }
 }
 
+@media screen and (max-width: 992px){
+        /* Start Responsive Sidebar */
+
+        aside.sidebar {
+            display: none;
+        }
+    
+        /* End Responsive Sidebar */
+}
+
 @media (max-width: 767px){
     .fs-8{
         font-size: 1rem;
