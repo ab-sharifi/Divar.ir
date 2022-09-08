@@ -4,8 +4,13 @@
     font-size: 1rem;
 }
 
-.fs-10{
+.fs-8{
     font-size:0.8rem;
+}
+
+.fs-10{
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 .add-register-btn-header{
@@ -23,4 +28,18 @@
 .nav-item:hover{
     background-color: #eee;
     transition: all .5s;
+}
+.btn-brand{
+    background-color:var(--brand-color);
+}
+.btn-cs{
+    font-size: .9rem;
+}
+
+.text-brand{
+    color: var(--brand-color);
+}
+
+.btn-outline-brand{
+    border:1px solid var(--brand-color);
 }
