@@ -7,10 +7,21 @@
 .fs-8{
     font-size:0.8rem;
 }
+.fs-7{
+    font-size:0.6rem;
+}
 
 .fs-10{
     font-size: 1.3rem;
     font-weight: bold;
+}
+
+.fs-20{
+    font-size: .8rem ;
+}
+
+.fs-21{
+    font-size: .9rem;
 }
 .fs-info{
     font-size: .95rem;
@@ -82,4 +93,17 @@
 
 .title-costumer{
     line-height: 2;
+}
+
+.focus-brand-color{
+    border-radius: 10px;;
+}
+.focus-brand-color:focus{
+    outline: 2px solid var(--brand-color);
+    border: 2px solid var(--brand-color);
+    transition: all .8s;
+}
+
+.textarea-notes{
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
