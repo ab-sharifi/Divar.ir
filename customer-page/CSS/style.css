@@ -64,3 +64,13 @@
 .customer-info-product{
     line-height: 2;
 }
+
+.text-muted-hover-light:hover{
+    background-color: var(--text-muted-hover) !important;
+    color:white;
+    background-color:red;
+}
+
+.text-muted-hover-light{
+    transition: background-color .8s;
+}
