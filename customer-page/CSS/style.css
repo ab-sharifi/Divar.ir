@@ -74,3 +74,8 @@
 .text-muted-hover-light{
     transition: background-color .8s;
 }
+
+.carousel-img{
+    width:540;
+    height:420px;
+}
