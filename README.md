@@ -20,6 +20,24 @@
 - [ ] Deploy Project
 
 
-## First Index Page
+# Some Picture of Project
+
+---
+
+### First Index Page
+
+### 01.First Index page
 <img src="https://github.com/alisharify7/Html-Page/raw/main/Indexs-pages/01-Divar/divar-First-index/image/index.png" > 
+
+### 02.First Home index in (Mobile size)
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-mobile-size.png" > 
+
+### 03.First Home index in (Tablet size)
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-mobile-size.png" > 
+
+
+### 04.First Home index in (PC size)
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home.png" > 
+
+
 
