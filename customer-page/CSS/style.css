@@ -47,14 +47,12 @@
     border:1px solid var(--brand-color);
 }
 
-.icon-save-share{
-    color: black;
-}
 .icon-save-share:hover{
-    color: black ;
+    color: black  !important;
     background-color: #eee;
     border-radius: 50%;
 }
+
 .icon-save-share{
     transition: all .8s;
 }
