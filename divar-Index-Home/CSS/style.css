@@ -4,11 +4,6 @@ a {
     color: var(--color-gray) !important;
 }
 
-.fs-7{
-    /* font-size: .rem; */
-}
-
-
 .fs-8 {
     font-size: .9rem;
 }
@@ -126,17 +121,14 @@ aside.sidebar {
 }
 
 @media screen and (max-width: 992px) {
-    /* Start Responsive Sidebar */
-
+    /* Start Sidebar Right categories Menu */
     aside.sidebar {
         display: none;
     }
-
     aside.mini-sidebar {
         display: block !important;
     }
-
-    /* End Responsive Sidebar */
+    /* end of Sidebar Right categories Menu */
 }
 
 @media (max-width: 767px) {
@@ -148,12 +140,10 @@ aside.sidebar {
         font-size: .9rem;
     }
 
-    /* Start Responsive Mini Sidebar */
-
+    /* Start sidebar Bottom mobile size */
     .miniSidebar-button {
         flex-direction: column;
         font-size: .8rem;
     }
-
-    /* End Responsive Mini Sidebar */
+    /* ENd of Start sidebar Bottom mobile size */
 }
