@@ -12,7 +12,11 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>صفحه اصلی دیوار</title>
+  <title data-react-helmet="true">دیوار کرج: مرجع انواع نیازمندی و آگهی‌های نو و دست دو در شهر کرج</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://s100.divarcdn.com/static/thewall-assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://s100.divarcdn.com/static/thewall-assets/favicon-16x16.png">
+  <link rel="mask-icon" href="https://s100.divarcdn.com/static/thewall-assets/safari-pinned-tab.svg" color="#a62626">
 </head>
 
 <body>
@@ -29,7 +33,7 @@
   <i class="bi bi-geo-alt"></i>  
   <i class="bi bi-search"></i> -->
 
-  <!-- START navbar -->
+<!-- START navbar -->
   <div class="container-fluid shadow-sm fixed-top bg-white pb-sm-3 pb-lg-0 ">
     <div class="row">
       <nav class="mx-5 navbar text-center navbar-expand-lg flex-row-reverse">
@@ -43,6 +47,8 @@
 
         <div class="navbar-collapse collapse fs-8" id="mynavbar">
           <ul class="navbar-nav flex-row-reverse w-100">
+
+            
             <li class="rounded nav-item mx-2">
               <a href="" class="nav-link text-muted">
                 <span>کرج</span>
@@ -55,7 +61,7 @@
               </a>
             </li>
 
-            <!-- form search  -->
+            <!-- form search in navbar -->
             <form action="" class="bg form-inline mx-2 ">
               <div class="input-group border rounded">
                 <input aria-describedby="basic-addon1" placeholder="جستجو در آگهی ها"
@@ -66,15 +72,21 @@
 
               </div>
             </form>
-            <!-- form search  -->
+            <!-- form search in navbar  -->
 
-            <!-- left side menu  in navbar -->
-            <li class="rounded nav-item ms-auto">
-              <div class="  hover">
-                <a href="" class="nav-link text-muted">
+            <!-- left side menu in navbar -->
+            <li class="rounded nav-item ms-auto dropdown">
+              <div class="hover">
+                <a href="" class="nav-link text-muted dropdown-toggle" data-bs-toggle="dropdown">
                   <span>دیوار من</span>
                   <i class="bi bi-person-circle"></i>
                 </a>
+                <div class="dropdown-menu">
+                  <a href="" class="text-black dropdown-item">citys</a>
+                  <a href="" class="text-black dropdown-item">citys</a>
+                  <a href="" class="text-black dropdown-item">citys</a>
+                  <a href="" class="text-black dropdown-item">citys</a>
+                </div> 
               </div>
             </li>
             <li class="rounded nav-item mx-2">
@@ -95,7 +107,7 @@
               <span>ثبت آگهی</span>
             </a>
             </li>
-            <!-- left side menu  in navbar -->
+            <!-- left side menu in navbar -->
           </ul>
         </div>
 
@@ -103,6 +115,7 @@
       </nav>
     </div>
 
+    <!-- responsive header search bar -->
     <div class="navbar-nav d-md-block d-lg-none">
       <form action="" class="form-inline border p-0">
         <div class="input-group  ">
@@ -114,9 +127,10 @@
         </div>
       </form>
     </div>
-  </div>
+    <!-- responsive header search bar -->
 
-  <!-- END navbar -->
+  </div>
+<!-- END of navbar -->
 
 
   <div class="container-fluid mt-5 pt-5" dir="rtl">
@@ -124,7 +138,7 @@
 
       <!-- START SIDEBAR -->
       <aside class="col-md-3 position-fixed sidebar">
-        <h6>دسته‌ها</h6>
+        <span class="h6">دسته‌ها</span>
         <ul class="list-group border-bottom pb-3">
           <li class="list-group-item border-0">
             <a class="d-flex flex-row text-muted fs-8 text-black-hover" href="#">
@@ -210,7 +224,7 @@
               onclick="sidebarButtons_animation('selectAmountIcon')" data-bs-toggle="collapse"
               data-bs-target="#selectAmount" href="#">
               <label id="selectAmountIcon" class="transition-all-1s"><i
-                  class="bi bi-caret-down"></i></label>&nbsp;&nbsp;قیمت
+               class="bi bi-caret-down"></i></label>&nbsp;&nbsp;قیمت
             </a>
           </div>
 
