@@ -1,7 +1,5 @@
 # > Divar.ir
 ## implementation of Divar WebSite
-## In this Repository We Try To Reimplementation Divar (Front-end and Back-end)
-## Fully Responsive Via Boostrap 5.2v
 
 ---
 
@@ -14,10 +12,12 @@
 ---
 
 # TODO
-- [x] First Create Whole Front-end Of project
-- [x] Responsive Page
-- [ ] Start Backend
+- [x] Front-End Of project
+- [x] Responsive page
+- [ ] Backend-End Flask
+- [ ] Back-End .NET
 - [ ] Deploy Project
+- [ ] BO BO
 
 
 # Some Picture of Project
