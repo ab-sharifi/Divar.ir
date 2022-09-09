@@ -455,14 +455,22 @@
 
 
   <!-- The Modal -->
-<div class="modal" id="selectAreaModal">
+<div class="modal" id="selectAreaModal" dir="rtl">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-header p-4 d-flex flex-column">
+        <div class="d-flex w-100 justify-content-between">
+          <h4 class="modal-title fs-5">انتخاب شهر</h4>
+          <button type="button" class="bg-transparent text-danger border-0 bg-danger-hover border-radius-30 pe-3 ps-3 fs-10" data-bs-dismiss="modal">حذف همه</button>
+        </div>
+        <div class="d-flex w-100 mt-2 p-2">
+          <div class="d-flex align-items-center bg-transparent border-danger border-radius-30 w-100 p-2">
+            <h6 class="text-danger fs-8">کرج</h6>
+            <button class="bg-transparent text-danger border-0 border-radius-circle bg-danger-hover fs-10 fw-bold p-1">X</button>
+          </div>
+        </div>
       </div>
 
       <!-- Modal body -->
