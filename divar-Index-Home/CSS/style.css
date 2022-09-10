@@ -177,3 +177,37 @@ aside.sidebar {
     }
     /* ENd of Start sidebar Bottom mobile size */
 }
+
+
+@media(max-width:450px)
+{
+    .costumer-title{
+        line-height:2;
+        font-size: .9rem;
+    }
+    .costumer-info-caption{
+        font-size: .7rem;
+    }
+
+    .btn-res-bottom{
+        font-size: .8rem;
+    }
+
+}
+
+@media(max-width:475px)
+{
+    .btn-res-bottom{
+        font-size: .7rem;
+    }
+}
+
+@media(max-width:475px)
+{
+    .btn-res-bottom{
+        font-size: .6rem;
+    }
+    .icon-btn-res-bottom{
+        display:none;
+    }
+}
