@@ -3,22 +3,13 @@
 
 ---
 
-### - [Ali shairfy](https://github.com/alisharify7)  Python => (FLask)
+### - [Ali shairfy](https://github.com/alisharify7) < Python >
 ### - [Mehdi Gholami](https://github.com/cc-Mehdi) < C# >
 
 ### in Frond-End Of project we Both Work Together But in Back-end we decid To Develop with Python(Flask) and C#(.NET)
 ### If you want to Contribute in this project, you know what TO DO
 
 ---
-
-# TODO
-- [x] Front-End Of project
-- [x] Responsive page
-- [ ] Backend-End Flask
-- [ ] Back-End .NET
-- [ ] Deploy Project
-- [ ] BO BO
-
 
 # Some Picture of Project
 
@@ -55,3 +46,11 @@
 
 
 
+
+# TODO
+- [x] Front-End Of project
+- [x] Responsive page
+- [ ] Backend-End Flask
+- [ ] Back-End .NET
+- [ ] Deploy Project
+- [ ] BO BO
