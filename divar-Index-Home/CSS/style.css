@@ -20,9 +20,16 @@ ul {
     font-size: .8rem;
 }
 
+.bg-brand-color{
+    background-color: var(--brand-color);
+}
 .add-register-btn-header {
     background-color: var(--brand-color);
 
+}
+
+.bg-light-owen{
+    background-color: var(--color-gray);
 }
 
 .add-register-btn-header:hover {
@@ -43,6 +50,9 @@ aside.sidebar {
     overflow-x:hidden;
 }
 
+.text-white{
+    color: white !important;
+}
 .text-black-hover:hover {
     color: #000 !important;
 }
@@ -65,6 +75,14 @@ aside.sidebar {
 
 .transition-all-1s {
     transition: all 1s;
+}
+
+.transition-bgcolor-1s {
+    transition: background-color 1s;
+}
+
+.cursor-pointer{
+    cursor: pointer;
 }
 
 .text-color-brand {
@@ -99,7 +117,7 @@ aside.sidebar {
 
 
 .text-black {
-    color: black;
+    color: black !important;
 }
 
 .input-focus:focus-within {
@@ -122,6 +140,7 @@ aside.sidebar {
 .bg-muted-hover:hover{
     background-color:rgba(0,0,0,0.5) !important;
 }
+.hover-light:hover {background-color:rgb(225, 221, 221) ;}
 
 
 /* some media query For 767 px to fix cards  */
