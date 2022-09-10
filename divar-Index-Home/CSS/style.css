@@ -4,6 +4,10 @@ a {
     color: var(--color-gray) !important;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .fs-8 {
     font-size: .9rem;
 }
@@ -43,6 +47,10 @@ aside.sidebar {
     color: #000 !important;
 }
 
+.border-color-brand {
+    border: 1px solid var(--brand-color);
+}
+
 .bg-danger-hover:hover {
     background-color: rgba(219, 97, 97, 0.068) !important;
 }
@@ -69,6 +77,10 @@ aside.sidebar {
 
 .bg-gray-hover:hover {
     background-color: var(--color-gray) !important;
+}
+
+.border-gray-hover:hover {
+    border-color: var(--color-gray);
 }
 
 .img-card {
