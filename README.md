@@ -53,4 +53,7 @@
 - [ ] Backend-End Flask
 - [ ] Back-End .NET
 - [ ] Deploy Project
-- [ ] BO BO
+- [x] BO BO
+- [ ] clean Code in html pages
+- [x] Bootstrap cdn 
+
