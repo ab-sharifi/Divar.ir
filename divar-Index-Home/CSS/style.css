@@ -85,7 +85,7 @@ aside.sidebar {
 }
 
 .transition-bgcolor-1s {
-    transition: background-color 1s;
+    transition: background-color 1s !important;
 }
 
 .cursor-pointer{
