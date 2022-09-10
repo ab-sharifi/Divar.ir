@@ -31,6 +31,13 @@ ul {
 .bg-light-owen{
     background-color: var(--color-gray);
 }
+.bg-light-owen-lighter{
+    background-color: var(--color-gray-lighter);
+}
+
+.rounded-cs{
+    border-radius: 10px;
+}
 
 .add-register-btn-header:hover {
 

@@ -44,7 +44,6 @@ function removeElement(elemnt_id) {
 }
 
 function check_cityTagNames() {
-    debugger;
     if (!city_tag_names.innerHTML.includes("div"))
     {
         city_tag_names.innerHTML = "<h6 class='text-muted fs-8 pt-2'>حداقل یک شهر را انتخاب کنید.</h6>";
