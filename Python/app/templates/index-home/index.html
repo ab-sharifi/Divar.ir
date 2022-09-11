@@ -6,16 +6,26 @@
   <!-- icon -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <!-- custom css -->
-  <link rel="stylesheet" href="./CSS/bootstrap.rtl.min.css" />
-  <link rel="stylesheet" href="./Main.css" />
-  <link rel="stylesheet" href="./CSS/footer.css" />
-  <link rel="stylesheet" href="./CSS/header.css" />
-  <link rel="stylesheet" href="./CSS/main-card.css" />
-  <link rel="stylesheet" href="./CSS/modal-categoris.css" />
-  <link rel="stylesheet" href="./CSS/modal-city.css" />
-  <link rel="stylesheet" href="./CSS/sidebar.css" />
-  <link rel="stylesheet" href="./CSS/modal-login-header.css" />
-  <link rel="stylesheet" href="./CSS/style.css" />
+  <!-- <link rel="stylesheet" href="./CSS/bootstrap.rtl.min.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/bootstrap.rtl.min.css') }}" />
+  <!-- <link rel="stylesheet" href="./Main.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/Main.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/footer.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/Main.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/header.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/header.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/main-card.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/main-card.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/modal-categoris.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/modal-categoris.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/modal-city.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/modal-city.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/sidebar.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/sidebar.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/modal-login-header.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/modal-login-header.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/style.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/style.css') }}" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -758,9 +768,12 @@
   </div>
   <!-- modal login user -->
 
-  <script src="./JS/jquery-3.6.1.slim.min.js"></script>
-  <script src="JS/bootstrap.bundle.min.js"></script>
-  <script src="JS/script.js"></script>
+
+  <!-- JavaScript Bundle with Popper -->
+  <!-- <script src="JS/bootstrap.bundle.min.js"></script> -->
+  <!-- <script src="JS/script.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static',filename='index-home/JS/script.js') }}"></script>
 </body>
 
 </html>

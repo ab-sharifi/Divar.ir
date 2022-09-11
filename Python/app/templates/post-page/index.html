@@ -6,9 +6,12 @@
   <!-- icon -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
   <!-- custom css -->
-  <link rel="stylesheet" href="./CSS/bootstrap.rtl.min.css" />
-  <link rel="stylesheet" href="./CSS/style.css" />
-  <link rel="stylesheet" href="./Main.css" />
+  <!-- <link rel="stylesheet" href="./CSS/bootstrap.rtl.min.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='post-page/CSS/bootstrap.rtl.min.css') }}" />
+  <!-- <link rel="stylesheet" href="./CSS/style.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='post-page/CSS/style.css') }}" />
+  <!-- <link rel="stylesheet" href="./Main.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='post-page/Main.css') }}" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -195,7 +198,7 @@
             </a>
             <!-- control for slider -->
             <div class="carousel-item active">
-              <img class="d-block carousel-img img-md-fluid" src="./images/slide1.jpg" alt="">
+              <img class="d-block carousel-img img-md-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvevp5T6-s5rdTgXopC15ZziE8dgcAywKgm1tZxUNUon9ujY5pUSgaRJjcozqMUeXuKtg&usqp=CAU" alt="">
               <!-- 
                 captionf or each picture
                 <div class="carousel-cation">
@@ -204,10 +207,10 @@
             -->
             </div>
             <div class="carousel-item">
-              <img class="d-block carousel-img img-md-fluid" src="./images/slide2.jpg" alt="">
+              <img class="d-block carousel-img img-md-fluid" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/8c/39/cc/uninterrupted-city-view.jpg?w=600&h=400&s=1" alt="">
             </div>
             <div class="carousel-item">
-              <img class="d-block carousel-img img-md-fluid" src="./images/slide3.jpg" alt="">
+              <img class="d-block carousel-img img-md-fluid" src="https://irangashttour.com/wp-content/uploads/2021/05/karaj.jpg" alt="">
             </div>
 
           </div>
@@ -612,9 +615,12 @@
   <!-- modal of categories -->
 
 
-  <script src="./JS/jquery-3.6.1.slim.min.js"></script>
-  <script src="JS/bootstrap.bundle.min.js"></script>
-  <script src="JS/script.js"></script>
+  <!-- <script src="./JS/jquery-3.6.1.slim.min.js"></script> -->
+  <script src="{{ url_for('static' , filename='post-page/JS/jquery-3.6.1.slim.min.js') }}"></script>
+  <!-- <script src="JS/bootstrap.bundle.min.js"></script> -->
+  <script src="{{ url_for('static' , filename='post-page/JS/bootstrap.bundle.min.js') }}"></script>
+  <!-- <script src="JS/script.js"></script> -->
+  <script src="{{ url_for('static' , filename='post-page/JS/script.js') }}"></script>
 </body>
 
 </html>
