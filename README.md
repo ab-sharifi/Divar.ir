@@ -19,29 +19,29 @@
 
 ### 01.First Index page
 <img src="https://github.com/alisharify7/Html-Page/raw/main/Indexs-pages/01-Divar/divar-First-index/image/index.png" style="width:50%;"> 
-
+https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/home-mobile-size.png
 ### 02.First Home index in (Mobile size)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-mobile-size.png" style="width:50%;"> 
 
 ### 03.First Home index in (Tablet size)
-<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/index-pc-mobile.png" style="width:50%;"> 
-<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/index-pc.png" style="width:50%;"> 
-<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/index-pc1.png" style="width:50%;"> 
-<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/customer-mobile-1.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/index-pc-mobile.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/index-pc.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/index-pc1.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/customer-mobile-1.png" style="width:50%;"> 
 
 
 
 
 ### 04.First Home index in (PC size)
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/home.png" style="width:50%;"> 
 
 ### 05.Product Page info (PC size)
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/pro-home.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/pro-home.png" style="width:50%;"> 
 
 
 ### 06.Product Page info (Mobile size)
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/pro-mobile-size.png" style="width:50%;">
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/pro-mobile-foot.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/pro-mobile-size.png" style="width:50%;">
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/python/Readme-files/pro-mobile-foot.png" style="width:50%;"> 
 
 
 
