@@ -12,10 +12,11 @@ from flask import(
     redirect,
 )
 
-from app.base_app import app
+from divar.app import app
 
 @app.route("/")
 def index():
+    print("Hellow")
     return render_template('index-home/index.html')
 
 
