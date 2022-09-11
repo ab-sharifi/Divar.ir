@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="./CSS/modal-categoris.css" />
   <link rel="stylesheet" href="./CSS/modal-city.css" />
   <link rel="stylesheet" href="./CSS/sidebar.css" />
+  <link rel="stylesheet" href="./CSS/modal-login-header.css" />
   <link rel="stylesheet" href="./CSS/style.css" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,7 +32,7 @@
 <body>
 
 
-<!-- START navbar -->
+  <!-- START navbar -->
   <div class="container-fluid shadow-sm fixed-top bg-white pb-sm-3 pb-lg-0 ">
     <div class="row">
       <nav class="mx-5 navbar text-center navbar-expand-lg flex-row-reverse">
@@ -62,8 +63,9 @@
 
             <!-- form search in navbar -->
             <form action="" class="form-inline w-25 bg-light-owen-lighter rounded">
-              <div class="input-group ">
-                <input dir="rtl" class="border-0 form-control p-0 bg-light-owen-lighter" type="text"  placeholder="جستجو در آگهی ها">
+              <div class="input-group">
+                <input dir="rtl" class="border-0 form-control p-0 bg-light-owen-lighter" type="text"
+                  placeholder="جستجو در آگهی ها">
                 <button class="border-0 input-group-text btn bg-light-owen-lighter">
                   <i class=" bi bi-search" id=""></i>
                 </button>
@@ -82,6 +84,7 @@
                 <!-- دیوار من dropdown -->
                 <div class="dropdown-menu text-muted fs-11  ">
                   <a href="" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
+                    <!-- if user login to website show username and phone number here  -->
                     <div class="fs-11 ">
                       <div class="px-1 py-2">
                         <span>کاربر دیوار</span>
@@ -92,6 +95,15 @@
                         <span class="text-muted-light">09375465654</span>
                       </div>
                     </div>
+                    <!-- if user login  -->
+                    <!-- if not login we show ورود  -->
+                    <!-- اگر کاربر وارد نشده بود باید دکمه ورود تنها نشان داده شود و اگر شده ب.ود دیوار من و خروج -->
+                    <a href="" data-bs-toggle="modal" data-bs-target="#login-user-modal"
+                      class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
+                      <span>ورود</span>
+                      <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                    <!-- if not login we show ورود  -->
                   </a>
                   <a href="" class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
                     <span>آگهی های من</span>
@@ -165,13 +177,13 @@
     <!-- responsive header search bar -->
 
   </div>
-<!-- END of navbar -->
+  <!-- END of navbar -->
 
 
-<div class="container-fluid mt-5 pt-5" dir="rtl">
+  <div class="container-fluid mt-5 pt-5" dir="rtl">
     <div class="row">
 
-<!-- START SIDEBAR mini sidebar down -->
+      <!-- START SIDEBAR mini sidebar down -->
       <aside class="col-md-3 position-fixed bottom-0 sidebar ">
         <div class="position-static h-auto">
           <span class="h6">دسته‌ها</span>
@@ -241,8 +253,7 @@
             <div class="d-flex flex-column">
               <a class="text-muted fs-8 w-100 p-3 text-black-hover" onclick="sidebarButtons_animation('selectAreaIcon')"
                 data-bs-toggle="collapse" data-bs-target="#selectArea" href="#">
-                <label id="selectAreaIcon" class="transition-all-1s"><i
-                    class="bi bi-caret-down pe-3"></i></label>محل
+                <label id="selectAreaIcon" class="transition-all-1s"><i class="bi bi-caret-down pe-3"></i></label>محل
               </a>
 
               <div id="selectArea" class="collapse">
@@ -259,8 +270,7 @@
               <a class=" text-muted fs-8 w-100 p-3 text-black-hover"
                 onclick="sidebarButtons_animation('selectAmountIcon')" data-bs-toggle="collapse"
                 data-bs-target="#selectAmount" href="#">
-                <label id="selectAmountIcon" class="transition-all-1s"><i
-                    class="bi bi-caret-down pe-3"></i></label>قیمت
+                <label id="selectAmountIcon" class="transition-all-1s"><i class="bi bi-caret-down pe-3"></i></label>قیمت
               </a>
             </div>
 
@@ -347,20 +357,21 @@
       <aside class="d-none col-12 mini-sidebar position-fixed bottom-0 start-0 border-top bg-white">
         <div class="d-flex align-items-center justify-content-between">
 
-          <a class="d-flex align-items-center text-color-brand p-3 fs-10 miniSidebar-button btn-res-bottom" href="#"><span>دیوار آگهی‌ها</span></a>
+          <a class="d-flex align-items-center text-color-brand p-3 fs-10 miniSidebar-button btn-res-bottom"
+            href="#"><span>دیوار آگهی‌ها</span></a>
           <!-- open categorie modal -->
           <button data-bs-target="#opencategories" data-bs-toggle="modal"
-          class="d-flex align-items-center bg-transparent border-0 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom "><i
-          class="bi bi-list-ul pe-3 icon-btn-res-bottom "></i><span>دسته‌ها</span>
-        </button>
-        <!-- open categorie modal -->
-          
+            class="d-flex align-items-center bg-transparent border-0 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom "><i
+              class="bi bi-list-ul pe-3 icon-btn-res-bottom "></i><span>دسته‌ها</span>
+          </button>
+          <!-- open categorie modal -->
+
           <button
             class="d-flex align-items-center bg-transparent border-0 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"><i
               class="bi bi-plus-circle-fill  pe-3 icon-btn-res-bottom ">
             </i><span>ثبت آگهی</span>
           </button>
-          
+
           <a class="  d-flex align-items-center text-muted h-100 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"
             href="#"><i class="bi bi-chat-fill pe-3 icon-btn-res-bottom "></i><span>چت</span>
           </a>
@@ -368,12 +379,12 @@
           <a class="  d-flex align-items-center text-muted h-100 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"
             href="#"><i class="bi bi-person-fill pe-3  icon-btn-res-bottom "></i><span>دیوار من</span>
           </a>
-        
-          </div>
-      </aside>
-<!-- END SIDEBAR mini sidebar down -->
 
-<!-- start MAIN CARD -->
+        </div>
+      </aside>
+      <!-- END SIDEBAR mini sidebar down -->
+
+      <!-- start MAIN CARD -->
       <div class="col-md-12 col-lg-9 ms-auto">
         <div class="row" dir="ltr">
           <!-- card start -->
@@ -422,14 +433,14 @@
           <!-- card start -->
         </div>
       </div>
-<!-- END MAIN CARD -->
+      <!-- END MAIN CARD -->
     </div>
-</div>
+  </div>
 
 
 
-<!-- all Modals here modals (For Search) -->
-<!-- The Modal Citys-->
+  <!-- all Modals here modals (For Search) -->
+  <!-- The Modal Citys-->
   <div class="modal fade" id="selectAreaModal" dir="rtl">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -626,9 +637,9 @@
       </div>
     </div>
   </div>
-<!-- End of The Modal Citys-->
+  <!-- End of The Modal Citys-->
 
-<!-- modal of categories -->
+  <!-- modal of categories -->
   <div class="modal fade" id="opencategories" dir="rtl">
     <div class="modal-dialog  modal-dialog-centered">
       <div class="modal-content ">
@@ -696,11 +707,60 @@
       </div>
     </div>
   </div>
-<!-- modal of categories -->
+  <!-- modal of categories -->
 
+  <!-- modal login user -->
+  <div class="modal fade " id="login-user-modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header p-4 w-100">
+          <div class="d-flex justify-content-between w-100">
+            <span class="btn btn-close" data-bs-dismiss="modal"></span>
+            <h5>ورود به حساب کاربری</h5>
+          </div>
+        </div>
+        <div class="modal-body ">
+          <h4 class="text-start px-2 py-3">ایمیل خود را وارد کنید</h4>
+          <p dir="rtl" class="fs-8 p-2 text-muted">برای استفاده از امکانات دیوار، لطفاً ایمیل خود را وارد کنید. کد تأیید
+            به این ایمیل ارسال خواهد شد.</p>
+          <div>
+            <!-- email -->
+            <form id="form-register-login" action="/" class="form-inline py-3">
+              <div class="input-group">
+                <input type="text" name="" 
+                  id="email-form-register-login"
+                  class="form-control p-2"
+                  placeholder="temp@temp.org">
+              </div>
+              <!-- email -->
+              <div class="terms py-4 fs-8 text-start border-bottom pb-5">
+                <span>
+                  <a href="#" class="text-color-brand">شرایط استفاده از خدمات</a>
+                  و
+                  <a href="#" class="text-color-brand">
+                    حریم خصوصی
+                  </a>
+                  دیوار را می پذیرم
+                </span>
+              </div>
+              <div class=" d-flex">
+                <input  type="submit" id="btn-confirm-login-user"
+                value="تایید"
+                 class="mt-3 btn bg-color-brand text-white px-5 py-2 fs-5 ms-auto">        
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- modal login user -->
 
   <script src="./JS/jquery-3.6.1.slim.min.js"></script>
   <script src="JS/bootstrap.bundle.min.js"></script>
   <script src="JS/script.js"></script>
 </body>
+
 </html>
