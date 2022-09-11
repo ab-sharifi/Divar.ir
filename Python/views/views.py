@@ -1,5 +1,3 @@
-# all views for all routes located in here
-
 
 from flask import(
     render_template,
