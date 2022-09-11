@@ -24,10 +24,10 @@
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-mobile-size.png" style="width:50%;"> 
 
 ### 03.First Home index in (Tablet size)
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/index-pc-mobile.png" style="width:50%;"> 
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/index-pc.png" style="width:50%;"> 
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/index-pc1.png" style="width:50%;"> 
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/customer-mobile-1.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/index-pc-mobile.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/index-pc.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/index-pc1.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/python/Readme-files/customer-mobile-1.png" style="width:50%;"> 
 
 
 
