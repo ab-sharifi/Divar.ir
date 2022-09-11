@@ -18,9 +18,9 @@
 ### First Index Page
 
 ### 01.First Index page
-<img src="https://github.com/alisharify7/Html-Page/raw/main/Python/Indexs-pages/01-Divar/divar-First-index/image/index.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Html-Page/raw/main/Indexs-pages/01-Divar/divar-First-index/image/index.png" style="width:50%;"> 
 ### 02.First Home index in (Mobile size)
-<img src="https://github.com/alisharify7/Divar.ir/blob/main/Readme-files/home-mobile-size.png" style="width:50%;"> 
+<img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/home-mobile-size.png" style="width:50%;"> 
 
 ### 03.First Home index in (Tablet size)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/index-pc-mobile.png" style="width:50%;"> 
