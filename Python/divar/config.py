@@ -4,7 +4,15 @@ class config:
     TEMPLATES_AUTO_RELOAD = True
     SESSION_PERMANENT = False
     SESSION_TYPE = "filesystem"
-
+    SQLALCHEMY_DATABASE_URI = "sqlite:///ali.sqlite3"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+    # MAIL_PORT = 465
+    # MAIL_SERVER = 'smtp.gmail.com'
+    # MAIL_USERNAME = 'alisharifihashjin@gmail.com'
+    # MAIL_PASSWORD = ''
+    # MAIL_USE_TLS = False
+    # MAIL_USE_SSL = True
 class Development(config):
     FLASK_DEBUG = True
 
