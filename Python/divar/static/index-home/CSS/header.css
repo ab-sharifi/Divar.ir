@@ -34,3 +34,25 @@
     background-color: var(--color-gray);
 }
 
+.background-brand{
+    background-color:var(--brand-color);
+}
+
+.text-black{
+    color: black !important;
+}
+.out-line-brand{
+    outline: 1px solid var(--brand-color);
+}
+
+.bg-color-brand-hover:hover{
+    background-color: var(--brand-color)
+}
+.text-white-hover:hover{
+    color: white  !important;
+    transition: color 1s;
+}
+
+.brand-color-text{
+    color: var(--brand-color) !important;
+}

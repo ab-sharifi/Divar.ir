@@ -42,12 +42,14 @@
 <body>
 
 
+
+
   <!-- START navbar -->
-  <div class="container-fluid shadow-sm fixed-top bg-white pb-sm-3 pb-lg-0 ">
+  <div class="container-fluid shadow-sm position-fixed top-0 end-0 start-0 bg-white pb-sm-3 pb-lg-0 " style="z-index:100">
     <div class="row">
       <nav class="mx-5 navbar text-center navbar-expand-lg flex-row-reverse">
         <!-- brand logo -->
-        <a href="" class="d-none d-lg-block navbar-brand ps-5 pe-3 border-end">
+        <a href="{{ url_for('index') }}" class="d-none d-lg-block navbar-brand ps-5 pe-3 border-end">
           <img style="width: 50px"
             src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04LjM4NTUzIDE0LjYxNzNIOC4yODA0M0M3Ljg5NTA2IDE0LjU2NDcgNy42MzIzMiAxNC4xOTY5IDcuNjg0ODcgMTMuODExNUM4LjE1NzgxIDEwLjY5MzYgOC4zMTU0NiA1LjcxODg3IDguMzE1NDYgNS42ODM4NEM4LjM1MDQ5IDUuMjk4NDggOC42NDgyNyA0Ljk4MzE4IDkuMDUxMTUgNS4wMDA3QzkuNDM2NTIgNS4wMTgyMSA5LjczNDMgNS4zMzM1MSA5LjczNDMgNS43MTg4N0M5LjczNDMgNS45MjkwNyA5LjU1OTEzIDEwLjgxNjIgOS4wODYxOSAxNC4wMjE3QzkuMDMzNjQgMTQuMzcyIDguNzM1ODYgMTQuNjE3MyA4LjM4NTUzIDE0LjYxNzNaTTE4LjQyMjUgMTUuOTEzNUMxOC4xMjQ3IDE1LjkxMzUgMTcuODQ0NCAxNS43MjA4IDE3Ljc1NjkgMTUuNDIzQzE3LjYzNDIgMTUuMDU1MiAxNy44NDQ0IDE0LjY1MjMgMTguMjEyMyAxNC41NDcyQzIxLjUyMjkgMTMuNDk2MiAyMS41NzU0IDEyLjY5MDQgMjEuNTkzIDEyLjI1MjVDMjEuNjI4IDExLjU2OTQgMjEuMTAyNSAxMC42OTM2IDIwLjg5MjMgMTAuMzk1OEMyMC42NjQ2IDEwLjA4MDUgMjAuNzM0NyA5LjY0MjU3IDIxLjA1IDkuNDE0ODVDMjEuMzY1MiA5LjE4NzE0IDIxLjgwMzIgOS4yNTcyIDIyLjAzMDkgOS41NzI1QzIyLjEzNiA5LjcxMjYzIDIzLjA4MTkgMTEuMDI2NCAyMi45OTQzIDEyLjM0MDFDMjIuOTA2NyAxMy45MzQxIDIxLjY4MDUgMTQuOTE1IDE4LjYzMjcgMTUuODk2QzE4LjU5NzYgMTUuODk2IDE4LjU2MjYgMTUuOTAwMyAxOC41Mjc2IDE1LjkwNDdDMTguNDkyNSAxNS45MDkxIDE4LjQ1NzUgMTUuOTEzNSAxOC40MjI1IDE1LjkxMzVaTTguOTExMDIgMTguMzgzM0M4LjcwMDgyIDE4LjM4MzMgOC40OTA2MyAxOC4yOTU3IDguMzY4MDEgMTguMTIwNkM4LjEyMjc4IDE3LjgyMjggOC4xNzUzMyAxNy4zNjczIDguNDkwNjMgMTcuMTM5NkM5LjkyNjk4IDE2LjAwMTEgMTAuODkwNCAxNC45ODUxIDExLjUyMSAxNC4wOTE4QzExLjE3MDYgMTMuOTE2NiAxMC44MDI4IDEzLjY1MzggMTAuNjEwMSAxMy4yMTU5QzEwLjQzNSAxMi44MTMxIDEwLjMyOTkgMTIuMTQ3NCAxMC45NDI5IDExLjI1NDFDMTEuODE4OCA5Ljk1Nzg2IDEyLjY5NDYgOS42NjAwOCAxMy4wMjc0IDkuNTkwMDJDMTMuNDgyOCA5LjUwMjQ0IDEzLjkyMDcgOS43NjUxOCAxNC4wNDM0IDEwLjIwMzFDMTQuMTMwOSAxMC41MTg0IDE0LjM0MTEgMTEuNTE2OCAxMy43MTA1IDEzLjA0MDhDMTQuNTUxMyAxMy4wMjMzIDE1LjIxNyAxMi43OTU1IDE1LjcyNDkgMTIuMzc1MUMxNi43MDU5IDExLjU4NjkgMTYuNzU4NCAxMC4yNTU2IDE2Ljc1ODQgMTAuMjM4MUMxNi43NzU5IDkuODUyNzcgMTcuMDkxMiA5LjU1NDk4IDE3LjQ3NjYgOS41NTQ5OEMxNy44NjE5IDkuNTcyNSAxOC4xNTk3IDkuODg3OCAxOC4xNTk3IDEwLjI3MzJDMTguMTU5NyAxMC4zNDMyIDE4LjA4OTcgMTIuMjE3NSAxNi42MzU4IDEzLjQ0MzZDMTUuNzI0OSAxNC4yMTQ0IDE0LjQ4MTMgMTQuNTQ3MiAxMi45NzQ4IDE0LjQyNDZDMTIuMjU2NyAxNS41MjgxIDExLjExODEgMTYuODI0MyA5LjM0ODkzIDE4LjIyNTZDOS4yMDg4IDE4LjMzMDcgOS4wNjg2NyAxOC4zODMzIDguOTExMDIgMTguMzgzM1pNMTIuNzEyMSAxMS4zMDY2QzEyLjUxOTQgMTEuNDY0MyAxMi4zMDkyIDExLjY5MiAxMi4wODE1IDEyLjA0MjNDMTEuODUzOCAxMi4zOTI3IDExLjgzNjMgMTIuNTg1MyAxMS44NTM4IDEyLjYzNzlDMTEuODg4OCAxMi43MjU1IDEyLjA2NCAxMi44MTMxIDEyLjIzOTIgMTIuODgzMUMxMi41NzIgMTIuMjE3NSAxMi42NzcxIDExLjY5MiAxMi43MTIxIDExLjMwNjZaTTEyLjg4NzMgMTYuMjI4OEMxMi45MDQ4IDE2LjYxNDEgMTMuMjIwMSAxNi45MTE5IDEzLjU4NzkgMTYuOTExOUgxMy42MjNDMTMuNjc1NSAxNi45MTE5IDE0Ljg0OTEgMTYuODc2OSAxNi41MzA3IDE2LjQ5MTVDMTYuOTE2MSAxNi40MDM5IDE3LjE2MTMgMTYuMDM2MSAxNy4wNzM3IDE1LjY1MDdDMTYuOTg2MSAxNS4yNjU0IDE2LjYxODMgMTUuMDIwMSAxNi4yMzI5IDE1LjEwNzdDMTQuNjczOSAxNS40NDA1IDEzLjU3MDQgMTUuNDkzMSAxMy41NTI5IDE1LjQ5MzFDMTMuMTY3NSAxNS41MTA2IDEyLjg2OTcgMTUuODQzNCAxMi44ODczIDE2LjIyODhaTTEuMTMzNyAxOC4xMDNDMS4yNTYzMSAxOC4yNzgyIDEuNDg0MDMgMTguMzgzMyAxLjY5NDIzIDE4LjM4MzNDMS44MzQzNiAxOC4zODMzIDEuOTc0NDkgMTguMzQ4MyAyLjExNDYyIDE4LjI2MDdDNi41NjM4MSAxNS4wMjAxIDYuNzM4OTggMTAuNzgxMSA2LjczODk4IDEwLjYwNkM2LjczODk4IDEwLjIyMDYgNi40NDEyIDkuOTA1MzEgNi4wNTU4MyA5Ljg4NzhDNS42NzA0NyA5Ljg3MDI4IDUuMzU1MTcgMTAuMTg1NiA1LjMzNzY2IDEwLjU3MDlDNS4zMzc2NiAxMC43MTExIDUuMTYyNDkgMTQuMzAyIDEuMjkxMzUgMTcuMTIyMUMwLjk3NjA0OSAxNy4zNDk4IDAuOTA1OTgzIDE3Ljc4NzcgMS4xMzM3IDE4LjEwM1oiIGZpbGw9IiNBNjI2MjYiLz4KPC9zdmc+Cg=="
             alt="divar logo" />
@@ -93,12 +95,11 @@
                 </a>
                 <!-- دیوار من dropdown -->
                 <div class="dropdown-menu text-muted fs-11  ">
+                  {% if user_status.login == True %}
                   <a href="" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
-                    <!-- if user login to website show username and phone number here  -->
-                    {% if user_status.login == True %}
                     <div class="fs-11 ">
                       <div class="px-1 py-2">
-                        <span>کاربر دیوار</span>
+                        <span>{{user_status.name}}</span>
                         <i class="bi bi-person"></i>
                       </div>
                       <div class="p-1 ">
@@ -106,24 +107,28 @@
                         <span class="text-muted-light">{{user_status.phone}}</span>
                       </div>
                     </div>
-                    {% endif %}
-
-                    <!-- if user login  -->
-                    <!-- if not login we show ورود  -->
-                    <!-- اگر کاربر وارد نشده بود باید دکمه ورود تنها نشان داده شود و اگر شده ب.ود دیوار من و خروج -->
-                    <a href="" data-bs-toggle="modal" data-bs-target="#login-user-modal"
-                      class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
-                      <span>ورود</span>
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    <!-- if not login we show ورود  -->
-                  </a>
-                  {% if user_status.login == True %}
-                  <a href="" class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
-                    <span>آگهی های من</span>
-                    <i class=" fs-8 bi bi-book pe-1"></i>
                   </a>
                   {% endif %}
+
+                  <a href="{{url_for('login')}}"
+                    class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
+                    <span> ورود </span>
+                    <i class="bi bi-box-arrow-right"></i>
+                  </a>
+                                    
+                  <a href="{{url_for('register')}}" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+                    <span>ساخت حساب کاربری</span>
+                    <i class="bi bi-person-plus fs-8"></i>
+                  </a>
+
+                  {% if user_status.login == True %}
+                    <a href="" class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
+                      <span>آگهی های من</span>
+                      <i class=" fs-8 bi bi-book pe-1"></i>
+                    </a>
+                  {% endif %}
+
+                  {% if user_status.login == True %}
                   <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
                     <span>نشان شده ها</span>
                     <i class="bi bi-bookmark"></i>
@@ -136,15 +141,18 @@
                     <span>بازدید های اخیر</span>
                     <i class="bi bi-clock-history"></i>
                   </a>
+                  {% endif %}
+                  
                   <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
                     <span>دیوار برای کسب و کار ها</span>
                     <i class="bi bi-shop-window"></i>
                   </a>
+
                   {% if user_status.login == True %}
-                  <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
-                    <span>خروج</span>
-                    <i class="bi bi-box-arrow-right"></i>
-                  </a>
+                    <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
+                      <span>خروج</span>
+                      <i class="bi bi-box-arrow-right"></i>
+                    </a>
                   {% endif %}
 
                 </div>
@@ -415,11 +423,11 @@
                 <div class="text-start d-flex flex-column justify-content-around ">
                   <h4 class="fs-8 p-2 text-black costumer-title">اجاق گاز مبله فردارچهارشعله خیلی تمیز</h4>
                   <div>
-                    <span class="text-muted fs-8 fs-10 costumer-info-caption">در حد نو</span>
+                    <span class="text-muted fs-11  costumer-info-caption">در حد نو</span>
                     <br>
-                    <span class="text-muted fs-8 fs-10 costumer-info-caption">850000تومان</span>
+                    <span class="text-muted fs-11  costumer-info-caption">850000تومان</span>
                     <br>
-                    <span class="text-muted fs-8 fs-10 costumer-info-caption">لحاظی پیش درکرج</span>
+                    <span class="text-muted fs-11  costumer-info-caption">لحاظی پیش درکرج</span>
                   </div>
                 </div>
               </a>
@@ -435,11 +443,11 @@
                 <div class="text-start d-flex flex-column justify-content-around">
                   <h4 class="fs-8 pt-2 text-black costumer-title">اجاق گاز مبله فردارچهارشعله خیلی تمیز</h4>
                   <div>
-                    <span class="text-muted fs-8 fs-10 costumer-info-caption">در حد نو</span>
+                    <span class="text-muted fs-11  costumer-info-caption">در حد نو</span>
                     <br>
-                    <span class="text-muted fs-8 fs-10 costumer-info-caption">850000تومان</span>
+                    <span class="text-muted fs-11  costumer-info-caption">850000تومان</span>
                     <br>
-                    <span class="text-muted fs-8 fs-10 costumer-info-caption">لحاظی پیش درکرج</span>
+                    <span class="text-muted fs-11 costumer-info-caption">لحاظی پیش درکرج</span>
                   </div>
                 </div>
               </a>
@@ -456,8 +464,8 @@
 
 
 
-  <!-- all Modals here modals (For Search) -->
-  <!-- The Modal Citys-->
+<!-- all Modals here modals (For Search) -->
+<!-- The Modal Citys-->
   <div class="modal fade" id="selectAreaModal" dir="rtl">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -654,7 +662,7 @@
       </div>
     </div>
   </div>
-  <!-- End of The Modal Citys-->
+<!-- End of The Modal Citys-->
 
   <!-- modal of categories -->
   <div class="modal fade" id="opencategories" dir="rtl">
@@ -726,8 +734,8 @@
   </div>
   <!-- modal of categories -->
 
-  <!-- modal login user -->
-  <div class="modal fade " id="login-user-modal">
+<!-- modal login user -->
+  <!-- <div class="modal fade " id="login-user-modal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
         <div class="modal-header p-4 w-100">
@@ -741,16 +749,17 @@
           <p dir="rtl" class="fs-8 p-2 text-muted">برای استفاده از امکانات دیوار، لطفاً ایمیل خود را وارد کنید. کد تأیید
             به این ایمیل ارسال خواهد شد.</p>
           <div>
-            <!-- email -->
-            <form id="form-register-login" action="{{ url_for('register_user') }}" method="post" class="form-inline py-3">
+            <form id="form-register-login"
+            action="{{ url_for('index') }}" method="post"
+              class="form-inline py-3">
               <div class="input-group">
-                <input type="text" name="email" 
-                  id="email-form-register-login"
-                  class="form-control p-2"
-                  placeholder="temp@temp.org">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                </div>
-              <!-- email -->
+              <input type="text" name="email" 
+                id="email-form-register-login" 
+                required 
+                class="form-control p-2"
+                placeholder="temp@temp.org">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              </div>
               <div class="terms py-4 fs-8 text-start border-bottom pb-5">
                 <span>
                   <a href="#" class="text-color-brand">شرایط استفاده از خدمات</a>
@@ -762,25 +771,26 @@
                 </span>
               </div>
               <div class=" d-flex">
-                <input  type="submit" id="btn-confirm-login-user"
-                value="تایید"
-                 class="mt-3 btn bg-color-brand text-white px-5 py-2 fs-5 ms-auto">        
+                <input type="submit" id="btn-confirm-login-user" value="تایید"
+                  class="mt-3 btn bg-color-brand text-white px-5 py-2 fs-5 ms-auto">
               </div>
             </form>
-
+    
           </div>
         </div>
-
       </div>
     </div>
-  </div>
-  <!-- modal login user -->
+  </div> -->
+<!-- modal login user -->
+
 
 
   <!-- JavaScript Bundle with Popper -->
   <!-- <script src="JS/bootstrap.bundle.min.js"></script> -->
   <!-- <script src="JS/script.js"></script> -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
   <script src="{{ url_for('static',filename='index-home/JS/script.js') }}"></script>
 </body>
 

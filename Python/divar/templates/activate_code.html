@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div class="container mt-5 text-center">
+    <div>
+        <h1 class="mb-3">کد تایید به ایمیل شما ارسال شد</h1>
+        <span class="text-muted" >لطفا کد تایید را در کادر زیر وارد کنید تا حساب کاربریتان فعال گردید</span>
+    </div>
+    <form action="{{ url_for('verification_code') }}" method="post" class="mt-3" class="form-inline mt-3">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <div class="input-group">
+            <!-- <input type="submit" class="input-group-text text-white background-brand" value="فعال سازی" > -->
+            {{form.activate_code(class="form-control text-start",placeholder="کد تایید")}}
+            <input type="hidden" name="cs_us" value="{{user_id}}">
+        </div>
+        <div class="d-flex justify-content-between my-3 align-items-center">
+            <input type="submit" class="px-3  out-line-brand btn font-control text-black bg-color-brand-hover transition-bgcolor-1s text-white-hover " value="ارسال دوباره کد" >
+            {% if not error_time %}
+                <div class="timer_container">
+                    <span class="minute fs-2">03</span>
+                    <span>:</span>
+                    <span class="second fs-2">00</span>
+                </div>
+            {% endif %}
+            <input type="submit" class="px-3 add-register-btn-header btn font-control text-white background-brand" value="فعال سازی" >
+        </div>
+    </form>
+
+    <div dir="rtl" class="mt-5 p-3 border">
+        <p class="h6 text-center">توجه کد ارسال شده رو به هیچ وجه در دسترس دیگران قرار ندهید ! </p>
+        <span class="fs-8 text-muted " >کد ارسال شده نهایتا بین 1 الی 2 دقیقه برای شما ایمیل خواهد شد</span>
+        <br>
+        <span class="fs-8 text-muted " > در صورت عدم دریافت کد تایید بر روی دکمه ارسال دوباره کد کلیک کنید تا کد تایید دوباره ای برای شما ارسال شود</span>
+    </div>
+</div>
+
+
+{% if not hidden_timer %}
+<script>
+    let counter = 3;  
+    let total_sec = counter * 60;
+    let flag = false;
+    let minute = document.querySelector('.minute');
+    let second = document.querySelector('.second');
+    function start_timer(){
+        total_sec -= 1;
+        if (flag){
+            let timer_over=document.querySelector('.timer_container');
+            return false;
+        }
+        let now_second = Math.round(total_sec % 60);
+        let now_minute = Math.floor(total_sec / 60);
+        now_second = now_second < 10 ? "0" + now_second : now_second;
+        now_minute = now_minute < 10 ? "0" + now_minute : now_minute;
+        minute.innerHTML = now_minute; 
+        second.innerHTML = now_second; 
+        flag = now_second == 0 && now_minute == 0 ? true: false;
+        console.log(now_minute,now_second);
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+        window.setInterval(start_timer,1000); 
+    })
+</script>
+{% endif %}
+{% endblock %}

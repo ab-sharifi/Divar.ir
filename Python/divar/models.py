@@ -1,12 +1,17 @@
 from datetime import datetime
-from divar.app import db
+from .app import db
 
 
 class MailVerification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    send_time = db.Column(db.Date(),nullable=False)
-    user_id = db.Column(db.Integer)
-    active_code = db.Column(db.String(64))
+    email = db.Column(db.String(256))
+    send_time = db.Column(db.DateTime(),nullable=False)
+    exp_time = db.Column(db.DateTime(),nullable=False)
+    user_id = db.Column(db.Integer,unique=True)
+    active_code = db.Column(db.Integer)
+    # 0 not active || 1 activated
+    activated = db.Column(db.Integer,default=0)
+
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -42,6 +47,7 @@ class Post(db.Model):
     created_date = db.Column(db.Date())
     post_categories=db.Column(db.String(256))
 
+
 class Note(db.Model):
     __tablename__ = 'notes'
     id = db.Column(db.Integer, primary_key=True)
@@ -49,12 +55,14 @@ class Note(db.Model):
     user_id = db.Column(db.Integer)
     post_id = db.Column(db.Integer)
 
+
 class History(db.Model):
     __tablename__ = 'Histories'
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer)
     user_id = db.Column(db.Integer)
     last_visit = db.Column(db.Date(),default=datetime.utcnow)
+
 
 class Category(db.Model):
     __tablename__ = 'categories'
@@ -74,6 +82,7 @@ class State(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state_name = db.Column(db.String(64))
 
+
 class City(db.Model):
     __tablename__ = 'cities'
     id = db.Column(db.Integer, primary_key=True)
@@ -82,5 +91,5 @@ class City(db.Model):
 
 
 
-
-
+# todo
+# فیذ ها خالی نرن
