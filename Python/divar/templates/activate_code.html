@@ -7,10 +7,9 @@
         <h1 class="mb-3">کد تایید به ایمیل شما ارسال شد</h1>
         <span class="text-muted" >لطفا کد تایید را در کادر زیر وارد کنید تا حساب کاربریتان فعال گردید</span>
     </div>
-    <form action="{{ url_for('verification_code') }}" method="post" class="mt-3" class="form-inline mt-3">
+    <form action="{{ url_for('verification_code') }}" method="POST" class="mt-3" class="form-inline mt-3">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
         <div class="input-group">
-            <!-- <input type="submit" class="input-group-text text-white background-brand" value="فعال سازی" > -->
             {{form.activate_code(class="form-control text-start",placeholder="کد تایید")}}
             <input type="hidden" name="cs_us" value="{{user_id}}">
         </div>

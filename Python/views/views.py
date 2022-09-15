@@ -133,14 +133,14 @@ def verification_code():
     code_activation = request.form.get("activate_code",None)
 
     if cs_us == None or cs_us != str(session["user_id"]):
-        flash("خطایی در ثبت نام شما رخ داده است دوباره سعی کنید","danger")
+        flash("136 خطایی در ثبت نام شما رخ داده است دوباره سعی کنید","danger")
         return redirect(url_for("register"))
 
 
     # check code validation and time
     check_db = MailVerification.query.filter(MailVerification.user_id==session["user_id"]).first()
     if not check_db:
-        flash("خطایی رخ داده است ", "warning")
+        flash("143 خطایی رخ داده است ", "warning")
         return redirect(url_for("register"))
 
     now_time = datetime.datetime.utcnow()
@@ -151,7 +151,7 @@ def verification_code():
         user_obj = User.query.filter(User.id==session["user_id"])
         db.session.delete(user_obj)
         db.session.commit()
-        flash("کد منقضی شده است دوباره تلاش کنید", "warning")
+        flash("154 کد منقضی شده است دوباره تلاش کنید", "warning")
         return redirect(url_for("register"))
 
         
@@ -168,8 +168,8 @@ def verification_code():
             return redirect(url_for("register"))
 
         else:
-            flash("مدت اعتبار کد گذشته است دوباره امتحان کنید", "danger")
-            return redirect(url_for("register",_method="post"))
+            flash("171 مدت اعتبار کد گذشته است دوباره امتحان کنید", "danger")
+            return redirect(url_for("register"))
 
 
 @app.route("/temp")

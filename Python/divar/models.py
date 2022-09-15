@@ -89,3 +89,4 @@ class City(db.Model):
     city_name = db.Column(db.String(64))
     state_id = db.Column(db.Integer)
 
+db.create_all()

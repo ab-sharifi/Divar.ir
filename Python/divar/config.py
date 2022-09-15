@@ -1,8 +1,16 @@
 import os
 
-db_name = "ali.db"
+db_username="alisharify"
+db_password="123654"
+
 EMAIL_USERNAME = os.getenv("username")
 EMAIL_PASSWORD = os.getenv("password")
+
+if not EMAIL_USERNAME or not EMAIL_USERNAME:
+    raise("Email Username or Password is Not Set/ from config.py set it")
+if not db_username or not db_password:
+    raise("DateBase Username or Password is Not Set/ from config.py set it")
+
 
 class config:
     # created by secrets lib in python for test
@@ -11,7 +19,8 @@ class config:
     TEMPLATES_AUTO_RELOAD = True
     SESSION_PERMANENT = False
     SESSION_TYPE = "filesystem"
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{db_name}"
+    
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{db_username}:{db_password}@localhost:3307/divar"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
 class Development(config):

@@ -1,4 +1,3 @@
-from re import S
 from flask_wtf import FlaskForm
 from wtforms import(
      SubmitField,
@@ -8,11 +7,10 @@ from wtforms import(
      EmailField,)
 
 from wtforms.validators import DataRequired,InputRequired
-
+from wtforms import validators
 
 class Register(FlaskForm):
     username = StringField(validators=[InputRequired(),validators.Length(min=8, max=128)])
-    email = EmailField(validators=[InputRequired(),validators.Length(min=8,max=128)])
     password = PasswordField(validators=[InputRequired(),validators.Length(min=8,max=128)])
     password_re = PasswordField(validators=[InputRequired(),validators.Length(min=8,max=128)])
     submit = SubmitField()
