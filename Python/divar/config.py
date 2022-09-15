@@ -1,7 +1,7 @@
 import os
 
-db_username="alisharify"
-db_password="123654"
+db_username=""
+db_password=""
 
 EMAIL_USERNAME = os.getenv("username")
 EMAIL_PASSWORD = os.getenv("password")
