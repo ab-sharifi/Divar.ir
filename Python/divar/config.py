@@ -11,7 +11,6 @@ if not EMAIL_USERNAME or not EMAIL_USERNAME:
 if not db_username or not db_password:
     raise("DateBase Username or Password is Not Set/ from config.py set it")
 
-
 class config:
     # created by secrets lib in python for test
     SECRET_KEY = 'a15a278b4567a92d8e7ae65c693e7ab7dba8fc01706d68d04d6a14dc9f9c3666'

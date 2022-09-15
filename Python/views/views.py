@@ -10,11 +10,11 @@ from flask import(
     redirect,
     jsonify
 )
-from . import helpers
-from divar.app import app,db
+from divar import app,db
 from divar.forms import Register, ActiveCode
 from divar.models import MailVerification,User
 from divar.Email import send_email
+from . import helpers
 import datetime 
 
 # list of cities (hard coded)

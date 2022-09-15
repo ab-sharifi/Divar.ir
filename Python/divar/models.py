@@ -1,5 +1,5 @@
 from datetime import datetime
-from .app import db
+from divar import db
 
 
 class MailVerification(db.Model):

@@ -1,4 +1,4 @@
-from divar.app import app
+from divar import app
 
 
 if __name__ == '__main__':
