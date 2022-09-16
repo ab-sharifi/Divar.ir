@@ -10,12 +10,12 @@ from flask import(
     redirect,
     jsonify
 )
+import datetime 
+from . import helpers
 from divar import app,db
-from divar.forms import Register, ActiveCode
 from divar.models import MailVerification,User
 from divar.Email import send_email
-from . import helpers
-import datetime 
+from divar.forms import Register, ActiveCode, Login
 
 # list of cities (hard coded)
 static = ['کرج','تهران','قم','مشهد','گیلان','گلستان','شیراز','اصفهان','کرمانشاه','تبریز']
@@ -45,7 +45,33 @@ def index_city(city):
 
 @app.route("/login",methods=["POST","GET"])
 def login():
-    return render_template("login/index.html",user_status=user_status)
+    if request.method == "GET":
+        form = Login()
+        return render_template("login/index.html",user_status=user_status,form=form)
+    if request.method == "POST":
+        form= Login(request.form)
+        if form.validate_on_submit():
+            email = request.form.get("email", None) 
+            password = request.form.get("password", None) 
+            if not email:
+                flash("ایمیلی وارد نشده است","danger")
+                return render_template("login/index.html",user_status=user_status,form=form)
+            if not helpers.check_email(email):
+                flash("ایمیل وارد شده صحیح نمی باشد ","danger")
+                return render_template("login/index.html",user_status=user_status,form=form)
+            if not password:
+                flash("رمز عبوری وارد نشده است","danger")
+                return render_template("login/index.html",user_status=user_status,form=form)
+
+            # query to db
+            login_user = User.query.filter_by(email=email).first()
+            if not login_user:
+                flash("رمز عبوری وارد نشده است","danger")
+
+        else:
+                flash("خطایی در ورود به سیستم دوباره امتحان کنید","danger")
+                return render_template("login/index.html",user_status=user_status,form=form)
+
 
 
 @app.route("/register", methods=["POST","GET"])

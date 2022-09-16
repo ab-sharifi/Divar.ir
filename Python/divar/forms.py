@@ -18,3 +18,9 @@ class Register(FlaskForm):
 
 class ActiveCode(FlaskForm):
     activate_code = StringField(validators=[InputRequired()])
+
+
+class Login(FlaskForm):
+    email = EmailField(validators=[DataRequired()])
+    password = PasswordField(validators=[DataRequired(),validators.length(min=8,max=128)])
+    submit = SubmitField()
