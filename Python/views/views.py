@@ -89,12 +89,15 @@ def register():
                 flash("رمز عبور و تکرار رمز عبور یکسان نمی باشد", "danger")
                 return render_template("register/index.html",user_status=user_status, form=form)
 
+            print("now here 1")
+
             # check user duplicate in db
             db_duplicate = User.query.filter(User.email == email).first()
             if db_duplicate:
                 flash("ایمیل قبلا ثبت شده است", "danger")
                 return render_template("register/index.html",user_status=user_status, form=form)
 
+            print("now here 2")
             # add to user db 
             new_user = User(email = email,password = password,username=username)
             db.session.add(new_user)
@@ -109,6 +112,7 @@ def register():
             active_code=code)
 
             db.session.add(new_user_mail)
+            print("now here 3")
 
             if(send_email(email,code)):
                 db.session.commit()
@@ -116,7 +120,7 @@ def register():
                 form_active_code = ActiveCode()
                 return render_template("activate_code.html", user_status=user_status, user_id=new_user.id, form=form_active_code)
             else:
-                flash("خطایی رخ داده است دوباره امتحان کنید !", "danger")
+                flash("119 خطایی رخ داده است دوباره امتحان کنید !", "danger")
                 db.session.rollback()
                 return render_template("register/index.html", user_status=user_status, form=form)
         
@@ -176,3 +180,8 @@ def verification_code():
 def temp():
     form=ActiveCode()
     return render_template("activate_code.html",user_status=user_status,form=form)
+
+
+@app.route("/temp1")
+def temp1():
+    return render_template("post-page/index.html")

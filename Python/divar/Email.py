@@ -4,6 +4,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
+print(config.EMAIL_USERNAME,config.EMAIL_PASSWORD)
 def send_email(to,code):
     message = MIMEMultipart()
     message['from'] = config.EMAIL_USERNAME
@@ -17,7 +18,9 @@ def send_email(to,code):
             smtp.starttls()
             smtp.login(config.EMAIL_USERNAME,config.EMAIL_PASSWORD)
             smtp.send_message(message)
-    except:
+            print("Email send it")
+    except Exception as e:
+        print(e)
         return False
     else:
         return True
