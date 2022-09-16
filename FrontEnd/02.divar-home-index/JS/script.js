@@ -28,7 +28,7 @@ function selectCityfromArea(city_id, checkedState) {
         <h6 class="text-danger fs-8">` + city_id + `</h6>
         <button
           class="bg-transparent text-danger border-0 border-radius-circle bg-danger-hover fs-10 fw-bold px-2 py-1 ms-1"
-          onclick="removeElement('`+ 'city-tag-' + city_id + `'); check_cityTagNames(); document.querySelector('` + '#checkbox-tag-' + city_id + `').checked = false;">X</button>
+          onclick="removeElement('`+ 'city-tag-' + city_id + `'); document.querySelector('` + '#checkbox-tag-' + city_id + `').checked = false;">X</button>
       </div>
         
         `;
