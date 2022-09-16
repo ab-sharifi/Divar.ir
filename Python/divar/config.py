@@ -1,7 +1,7 @@
 import os
 
-db_username = ''
-db_password = ''
+db_username = 'temp'
+db_password = 'temp'
 
 #  os.getenv("email_username")
 #  os.getenv("email_password")

@@ -2,15 +2,36 @@
 
 {% block body %}
 
-<div class="container mt-5 pt-5" dir="rtl" style="margin-top:5rem !important;">
-    <h3>ورود به حساب کاربری</h3>
+
+
+<div class="container mt-5 pt-5" dir="rtl" style="margin-top:4rem ;">
+    
+<h1>ورود به حساب کاربری</h1>
+
+{% with messages = get_flashed_messages(True) %}
+{% if messages %}
+    {% for category,message in messages %}
+        <div class="alert alert-{{category}} py-2 my-3 show fade">
+            <div class="d-flex justify-content-between align-items-center">
+                <span>{{message}}</span>
+                <button class="btn btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
     <br>
-    <form action="">
-        <input type="hidden" value="{{csrf_token()}}">
+    <form action="{{url_for('login')}}" method="POST">
         <div class="form-group">
-            <input type="email" class="form-control text-start" placeholder="ایمیل خود را وارد کنید">
+            {{form.hidden_tag()}}
+            <label for="email-field" >
+                برای ورود به حساب کاربری ایمیل خود را وارد کنید
+            </label>
+            {{form.email(class="form-control text-start" ,placeholder="temp@gmail.com :مثال " , id="email-field")}}
             <br>
-            <input type="password" class="form-control" placeholder="رمز عبور خود را وارد کنید">
+            <label for="password-field">رمز عبور خود را وارد نمایید</label>
+            {{form.password(class="form-control", placeholder="حداقل طول پسورد 8 کاراکتر می باشد ", id="password-field")}}
             <br>
         </div>
         

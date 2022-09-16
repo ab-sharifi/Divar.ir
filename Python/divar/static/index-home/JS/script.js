@@ -18,7 +18,9 @@ function sidebarButtons_animation(icon_id) {
 function selectCityfromArea(city_id, checkedState) {
     if (city_tag_names.innerHTML.toString().includes("حداقل یک شهر را انتخاب کنید."))
         city_tag_names.innerHTML = "";
-
+        // fix bug here
+        // todo
+        // when user click on city name its display large 
     if (checkedState) {
         city_tag_names.innerHTML += `
     
@@ -26,7 +28,7 @@ function selectCityfromArea(city_id, checkedState) {
         <h6 class="text-danger fs-8">` + city_id + `</h6>
         <button
           class="bg-transparent text-danger border-0 border-radius-circle bg-danger-hover fs-10 fw-bold px-2 py-1 ms-1"
-          onclick="removeElement('`+ 'city-tag-' + city_id + `'); check_cityTagNames(); document.querySelector('` + '#checkbox-tag-' + city_id + `').checked = false;">X</button>
+          onclick="removeElement('`+ 'city-tag-' + city_id + `'); document.querySelector('` + '#checkbox-tag-' + city_id + `').checked = false;">X</button>
       </div>
         
         `;
@@ -76,4 +78,4 @@ btn_register.addEventListener('click',()=>{
         email_form_register_login.style.border = "1px solid #eee";
     }
 })
-
+// for confirm user in login in header

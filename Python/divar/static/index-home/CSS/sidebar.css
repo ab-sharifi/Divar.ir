@@ -2,19 +2,10 @@
 .text-black-hover:hover{
     color: #000 !important;
 }
-.fs-8{
-    font-size: .9rem;
-}
+
 /* find transition */
-.transition-all-1s{
-    transition: all 1s;
-}
-.fs-10{
-    font-size: .7rem;
-}
-.fs-11{
-    font-size: .8rem;
-}
+
+
 .input-focus:focus-within{
     border: 2px solid var(--brand-color) !important;
     box-shadow: none !important;
@@ -30,12 +21,8 @@ aside.sidebar {
 
 
 /* responsive mini side bar bottom */
-.text-color-brand {
-    color: var(--brand-color) !important;
-}
-.fs-10 {
-    font-size: .7rem;
-}
+
+
 .bg-gray-hover:hover {
     background-color: var(--color-gray) !important;
 }

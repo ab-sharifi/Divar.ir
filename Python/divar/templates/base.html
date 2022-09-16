@@ -10,15 +10,14 @@
     <!-- icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- custom css -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='/first_index/CSS/main.css')}}" />
-    <link rel="stylesheet" href="{{ url_for('static' , filename='first_index/CSS/style.css')}}" />
-
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.rtl.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='index-home/Main.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/header.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/modal-categoris.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/modal-city.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/style.css') }}" />
+  <!-- custom css -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='CSS/bootstrap.rtl.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='CSS/style-public.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/header.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/main-card.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/modal-city.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/sidebar.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/style.css') }}" />
     <link rel="apple-touch-icon" sizes="180x180"
       href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32"
@@ -204,14 +203,14 @@
 <!-- footer START  -->
 <div class="w-100 " >
   <div class="footer border-top border-bottom p-2 w-100 justify-content-center d-flex align-items-center">
-    <img class="cs-img-w" width="30px" 
+    <img class="cs-img-w" width="45px" 
       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnI_nD98BLjMzlF0Ppsctz-8qw2MAxHNOpY4Dj6kWaDOoavUSpm4d0IERdlhbjTxKvPA0&usqp=CAU"
       alt="" />
-    <img class="cs-img-w"  width="30px" src="https://s100.divarcdn.com/statics/2022/08/ecunion-logo.3ed4f870.png" alt="" />
+    <img class="cs-img-w"  width="45px" src="https://s100.divarcdn.com/statics/2022/08/ecunion-logo.3ed4f870.png" alt="" />
 
-    <img class="cs-img-w" width="30px"  src="https://paydarweb.net/uploads/pages/1d2ab0.png" alt="" />
+    <img class="cs-img-w" width="45px"  src="https://paydarweb.net/uploads/pages/1d2ab0.png" alt="" />
   </div>
-  <div class="fs-5 icons w-100 d-flex justify-content-center align-center">
+  <div class="fs-8 icons w-100 d-flex justify-content-center align-center">
     <a class="my-1 mx-3 text-muted hover-black" href=""><i class="bi bi-twitter"></i>
     </a>
     <a class="my-1 mx-3 text-muted hover-black" href=""><i class="bi bi-instagram"></i>
@@ -404,15 +403,10 @@
                                 </a>
                             </li>
                             <!-- End Each City -->
-
-
                         </ul>
                     </div>
-
                 </div>
-
                 <!-- END Partial view for select area in each city -->
-
             </ul>
         </div>
 
