@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Divar.Web", "Divar.Web\Divar.Web.csproj", "{854B9A6C-1B60-42D6-B87C-0CA5EF592E1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divar.Data", "Divar.Data\Divar.Data.csproj", "{968D9968-6C9F-4186-BFDF-586B59F0FA96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{854B9A6C-1B60-42D6-B87C-0CA5EF592E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{854B9A6C-1B60-42D6-B87C-0CA5EF592E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{854B9A6C-1B60-42D6-B87C-0CA5EF592E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{854B9A6C-1B60-42D6-B87C-0CA5EF592E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{968D9968-6C9F-4186-BFDF-586B59F0FA96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968D9968-6C9F-4186-BFDF-586B59F0FA96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968D9968-6C9F-4186-BFDF-586B59F0FA96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968D9968-6C9F-4186-BFDF-586B59F0FA96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75CF3085-8C14-4706-A980-1F09E4A1CD5E}
+	EndGlobalSection
+EndGlobal
