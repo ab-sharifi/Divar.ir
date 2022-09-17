@@ -11,9 +11,9 @@ EMAIL_PASSWORD = ''
 MAIL_PORT = 587
 
 if not EMAIL_USERNAME or not EMAIL_USERNAME:
-    raise ValueError("Email Username or Password is Not Set/ from config.py set it")
+    raise RuntimeError("Email Username or Password is Not Set/ from config.py set it")
 if not db_username or not db_password:
-    raise ValueError("DateBase Username or Password is Not Set/ from config.py set it")
+    raise RuntimeError("DateBase Username or Password is Not Set/ from config.py set it")
 
 class Config:
     # created by secrets lib in python for test
