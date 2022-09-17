@@ -3,9 +3,9 @@ from flask import Flask
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
+from flask_mail import Mail
 
 app = Flask(__name__)
-
 # print(app.config["FLASK_DEBUG"])
 
 if app.config["ENV"] == "development":
@@ -13,6 +13,7 @@ if app.config["ENV"] == "development":
 else:
     app.config.from_object(config.Production)
 
+mail = Mail(app)
 
 Session(app)
 db = SQLAlchemy(app)
