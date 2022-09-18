@@ -40,3 +40,17 @@ C:\Users\xmehd\Source\Repos\alisharify7\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\
 C:\Users\xmehd\Source\Repos\alisharify7\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.pdb
 C:\Users\xmehd\Source\Repos\alisharify7\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.genruntimeconfig.cache
 C:\Users\xmehd\Source\Repos\alisharify7\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\ref\Divar.Data.dll
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Data.deps.json
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Data.runtimeconfig.json
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Data.dll
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Data.pdb
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.csproj.AssemblyReference.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.AssemblyInfoInputs.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.AssemblyInfo.cs
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.csproj.CoreCompileInputs.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.dll
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\refint\Divar.Data.dll
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.pdb
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Data.genruntimeconfig.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\ref\Divar.Data.dll

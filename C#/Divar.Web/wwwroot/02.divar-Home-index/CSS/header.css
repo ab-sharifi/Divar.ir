@@ -1,18 +1,8 @@
-.fs-8 {
-    font-size: .9rem;
-}
-.cursor-pointer{
-    cursor: pointer;
-}
+
 .bg-light-owen-lighter{
     background-color: var(--color-gray-lighter);
 }
-.fs-11 {
-    font-size: .8rem;
-}
-.transition-bgcolor-1s {
-    transition: background-color 1s !important;
-}
+
 .text-muted-light{
     color: rgba(0, 0, 0, 0.4) !important;
 }

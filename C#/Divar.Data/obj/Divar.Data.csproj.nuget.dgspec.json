@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\xmehd\\source\\repos\\alisharify7\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj": {}
+    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\xmehd\\source\\repos\\alisharify7\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj": {
+    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\xmehd\\source\\repos\\alisharify7\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj",
+        "projectUniqueName": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj",
         "projectName": "Divar.Data",
-        "projectPath": "C:\\Users\\xmehd\\source\\repos\\alisharify7\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj",
+        "projectPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj",
         "packagesPath": "C:\\Users\\xmehd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\xmehd\\Source\\Repos\\alisharify7\\Divar.ir\\C#\\Divar.Data\\obj\\",
+        "outputPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\xmehd\\AppData\\Roaming\\NuGet\\NuGet.Config",

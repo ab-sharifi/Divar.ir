@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "m4fffiQ1e0YbjyBUzz+xnapIpV+pEFY969WtWHFNGdXIih4z5U6gAevdyfl16sufT0z9q2z1ZlHQrS4NJoThEA==",
+  "dgSpecHash": "QCZJxXTVD1BGxvarfj0qvwqjMWkF3rhcA92m+GfA7ugHSTbopUlbRnAB5zahzhaIMRbpiM64DXtXlZdgDzpGmA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\xmehd\\source\\repos\\alisharify7\\Divar.ir\\C#\\Divar.Web\\Divar.Web.csproj",
+  "projectFilePath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Web\\Divar.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\xmehd\\.nuget\\packages\\discordrichpresence\\1.0.175\\discordrichpresence.1.0.175.nupkg.sha512",
     "C:\\Users\\xmehd\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

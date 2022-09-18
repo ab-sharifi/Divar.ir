@@ -1,6 +1,6 @@
 @font-face {
     font-family:sans;
-    src: url('/fonts/sans1.ttf');
+    src: url('../fonts/sans1.ttf');
 }
 
 :root{
