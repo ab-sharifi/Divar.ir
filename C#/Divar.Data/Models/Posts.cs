@@ -46,6 +46,8 @@ namespace Divar.Data.Models
 
         public virtual Users Users { get; set; }
         public virtual IEnumerable<Categories> Categories { get; set; }
+        public virtual IEnumerable<Notes> Notes { get; set; }
         public virtual IEnumerable<VisitHistory> VisitHistory { get; set; }
+        public virtual IEnumerable<HistoryLog> HistoryLog { get; set; }
     }
 }

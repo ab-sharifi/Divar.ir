@@ -90,16 +90,10 @@ namespace Divar.Data.Migrations
                     b.Property<DateTime>("LastVisit")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostId")
+                    b.Property<int?>("PostsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
+                    b.Property<int?>("UsersId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -124,16 +118,10 @@ namespace Divar.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("PostId")
+                    b.Property<int?>("PostsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
+                    b.Property<int?>("UsersId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -269,16 +257,10 @@ namespace Divar.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("PostId")
+                    b.Property<int?>("PostsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
+                    b.Property<int?>("UsersId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("VisitDate")
@@ -322,16 +304,12 @@ namespace Divar.Data.Migrations
             modelBuilder.Entity("Divar.Data.Models.HistoryLog", b =>
                 {
                     b.HasOne("Divar.Data.Models.Posts", "Posts")
-                        .WithMany()
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("HistoryLog")
+                        .HasForeignKey("PostsId");
 
                     b.HasOne("Divar.Data.Models.Users", "Users")
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("HistoryLog")
+                        .HasForeignKey("UsersId");
 
                     b.Navigation("Posts");
 
@@ -341,16 +319,12 @@ namespace Divar.Data.Migrations
             modelBuilder.Entity("Divar.Data.Models.Notes", b =>
                 {
                     b.HasOne("Divar.Data.Models.Posts", "Posts")
-                        .WithMany()
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Notes")
+                        .HasForeignKey("PostsId");
 
                     b.HasOne("Divar.Data.Models.Users", "Users")
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Notes")
+                        .HasForeignKey("UsersId");
 
                     b.Navigation("Posts");
 
@@ -383,15 +357,11 @@ namespace Divar.Data.Migrations
                 {
                     b.HasOne("Divar.Data.Models.Posts", "Posts")
                         .WithMany("VisitHistory")
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PostsId");
 
                     b.HasOne("Divar.Data.Models.Users", "Users")
                         .WithMany("VisitHistory")
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsersId");
 
                     b.Navigation("Posts");
 
@@ -405,6 +375,10 @@ namespace Divar.Data.Migrations
 
             modelBuilder.Entity("Divar.Data.Models.Posts", b =>
                 {
+                    b.Navigation("HistoryLog");
+
+                    b.Navigation("Notes");
+
                     b.Navigation("VisitHistory");
                 });
 
@@ -415,6 +389,10 @@ namespace Divar.Data.Migrations
 
             modelBuilder.Entity("Divar.Data.Models.Users", b =>
                 {
+                    b.Navigation("HistoryLog");
+
+                    b.Navigation("Notes");
+
                     b.Navigation("Posts");
 
                     b.Navigation("VisitHistory");

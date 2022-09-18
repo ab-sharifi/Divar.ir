@@ -140,11 +140,9 @@ namespace Divar.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: false),
                     LastVisit = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false),
-                    PostsId = table.Column<int>(type: "int", nullable: false)
+                    UsersId = table.Column<int>(type: "int", nullable: true),
+                    PostsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -153,14 +151,12 @@ namespace Divar.Data.Migrations
                         name: "FK_HistoryLog_Posts_PostsId",
                         column: x => x.PostsId,
                         principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_HistoryLog_Users_UsersId",
                         column: x => x.UsersId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -169,11 +165,9 @@ namespace Divar.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false),
-                    PostsId = table.Column<int>(type: "int", nullable: false)
+                    UsersId = table.Column<int>(type: "int", nullable: true),
+                    PostsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -182,14 +176,12 @@ namespace Divar.Data.Migrations
                         name: "FK_Notes_Posts_PostsId",
                         column: x => x.PostsId,
                         principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Notes_Users_UsersId",
                         column: x => x.UsersId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -198,11 +190,9 @@ namespace Divar.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: false),
                     VisitDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false),
-                    PostsId = table.Column<int>(type: "int", nullable: false)
+                    UsersId = table.Column<int>(type: "int", nullable: true),
+                    PostsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -211,14 +201,12 @@ namespace Divar.Data.Migrations
                         name: "FK_VisitHistory_Posts_PostsId",
                         column: x => x.PostsId,
                         principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_VisitHistory_Users_UsersId",
                         column: x => x.UsersId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

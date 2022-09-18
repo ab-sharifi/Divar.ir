@@ -41,6 +41,8 @@ namespace Divar.Data.Models
 
         public virtual IEnumerable<Posts> Posts { get; set; }
         public virtual IEnumerable<VisitHistory> VisitHistory { get; set; }
+        public virtual IEnumerable<HistoryLog> HistoryLog { get; set; }
+        public virtual IEnumerable<Notes> Notes { get; set; }
         public virtual Cities Cities { get; set; }
     }
 }
