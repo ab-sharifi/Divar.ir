@@ -49,10 +49,10 @@
 # TODO
 - [x] Front-End Of project
 - [x] Responsive page
-- [ ] Backend-End Flask
-- [ ] Back-End .NET
+- [x] Backend-End Flask
+- [x] Back-End .NET
 - [ ] Deploy Project
 - [x] BO BO
-- [ ] clean Code in html pages
+- [x] clean Code in html pages
 - [x] Bootstrap cdn 
 

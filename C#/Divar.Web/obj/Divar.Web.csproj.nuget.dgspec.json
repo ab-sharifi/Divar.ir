@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Web\\Divar.Web.csproj": {}
+    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Web\\Divar.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Data\\Divar.Data.csproj": {
+    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Data\\Divar.Data.csproj",
+        "projectUniqueName": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj",
         "projectName": "Divar.Data",
-        "projectPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Data\\Divar.Data.csproj",
+        "projectPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj",
         "packagesPath": "C:\\Users\\xmehd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Data\\obj\\",
+        "outputPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\xmehd\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -77,18 +77,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Web\\Divar.Web.csproj": {
+    "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Web\\Divar.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Web\\Divar.Web.csproj",
+        "projectUniqueName": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Web\\Divar.Web.csproj",
         "projectName": "Divar.Web",
-        "projectPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Web\\Divar.Web.csproj",
+        "projectPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Web\\Divar.Web.csproj",
         "packagesPath": "C:\\Users\\xmehd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Web\\obj\\",
+        "outputPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\xmehd\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -105,8 +105,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Data\\Divar.Data.csproj": {
-                "projectPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Data\\Divar.Data.csproj"
+              "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj": {
+                "projectPath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj"
               }
             }
           }
@@ -125,9 +125,27 @@
               "target": "Package",
               "version": "[1.0.175, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.9, )"
             }
@@ -151,7 +169,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

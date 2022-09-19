@@ -6,7 +6,6 @@ namespace Divar.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public int CityId { get; set; }
 
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "لطفا {0} را به درستی وارد کنید")]
@@ -41,6 +40,8 @@ namespace Divar.Data.Models
 
         public virtual IEnumerable<Posts> Posts { get; set; }
         public virtual IEnumerable<VisitHistory> VisitHistory { get; set; }
+        public virtual IEnumerable<HistoryLog> HistoryLog { get; set; }
+        public virtual IEnumerable<Notes> Notes { get; set; }
         public virtual Cities Cities { get; set; }
     }
 }

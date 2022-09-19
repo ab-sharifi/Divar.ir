@@ -1,6 +1,7 @@
 using DiscordRPC;
 using Divar.Data.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,5 +32,14 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+});
+
 
 app.Run();

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bEZZ0gUT3kAkXCodcHEH0Xe7GC+tccZEKBDSTz4Kg+0ar4uO3tDPTVAKG2BXbAkBytpau4bCT5fffUeKiiWH0Q==",
+  "dgSpecHash": "bd43nwC3+rbDdLCAagOeChymWK9Q/jfWiOSn9BqoCtwLB7kQpYkxH4Fk3PqBhJafRKYjdC9hsPD2O9shrmggmA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar Backend\\Divar.Data\\Divar.Data.csproj",
+  "projectFilePath": "C:\\Users\\xmehd\\OneDrive\\Desktop\\Divar\\Divar.ir\\C#\\Divar.Data\\Divar.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\xmehd\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\xmehd\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
