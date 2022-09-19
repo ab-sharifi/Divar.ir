@@ -1,3 +1,7 @@
+import os
+import datetime 
+from . import helpers
+from .helpers import login_required 
 from flask import(
     jsonify,
     render_template,
@@ -10,16 +14,27 @@ from flask import(
     redirect,
     jsonify
 )
-import datetime 
-from . import helpers
+from werkzeug.security import(
+    check_password_hash,
+    generate_password_hash
+    )
+from werkzeug.utils import secure_filename
+
 from divar import app,db
 from divar.models import MailVerification,User
 from divar.Email import send_email
-from divar.forms import Register, ActiveCode, Login
-
+from divar.forms import Register, ActiveCode, Login,UserUpload
 # list of cities (hard coded)
+
 static = ['کرج','تهران','قم','مشهد','گیلان','گلستان','شیراز','اصفهان','کرمانشاه','تبریز']
-user_status = {"login":False, 'phone':"","name":"کاربر دیوار"}
+
+@app.before_request
+def before_Request():
+    """
+    before each request we get user status and save it to g variable 
+    """
+    g.user_status = {"login":False, 'phone':"","name":"کاربر دیوار"}
+    # update variables
 
 
 
@@ -30,7 +45,8 @@ def index():
         if not session.get("city"):
             return render_template("first-index/index.html",cities=static)
         else:
-            return render_template("home-index/index.html",user_status=user_status)
+            return render_template("home-index/index.html",user_status=g.user_status)
+    
     if request.method == "POST":
         if request.form.get("email",None) != None:
             email = request.form.get("email")
@@ -45,114 +61,76 @@ def index_city(city):
 
 @app.route("/login",methods=["POST","GET"])
 def login():
+    form = Login(request.form)
+    
     if request.method == "GET":
-        form = Login()
-        return render_template("login/index.html",user_status=user_status,form=form)
+        return render_template("login/index.html",user_status=g.user_status,form=form)
+    
     if request.method == "POST":
-        form= Login(request.form)
+        if not form.validate_on_submit():
+            return render_template("login/index.html",user_status=g.user_status,form=form)
+        
         if form.validate_on_submit():
-            email = request.form.get("email", None) 
-            password = request.form.get("password", None) 
-            if not email:
-                flash("ایمیلی وارد نشده است","danger")
-                return render_template("login/index.html",user_status=user_status,form=form)
-            if not helpers.check_email(email):
-                flash("ایمیل وارد شده صحیح نمی باشد ","danger")
-                return render_template("login/index.html",user_status=user_status,form=form)
-            if not password:
-                flash("رمز عبوری وارد نشده است","danger")
-                return render_template("login/index.html",user_status=user_status,form=form)
-
-            # query to db
-            login_user = User.query.filter_by(email=email).first()
+            # query to db to find user with email
+            login_user = User.query.filter_by(email=form.email.data).first()
             if not login_user:
-                flash("رمز عبوری وارد نشده است","danger")
-
-        else:
-                flash("خطایی در ورود به سیستم دوباره امتحان کنید","danger")
-                return render_template("login/index.html",user_status=user_status,form=form)
-
-
+                flash("ایمیل کاربر یافت نشد","danger")
+                return render_template("login/index.html",user_status=g.user_status,form=form)
+            #check user password
+            if (not check_password_hash(login_user.password ,form.password.data)):
+                flash("پسورد وارد شده صحیح نمی باشد","warning")
+                return render_template("login/index.html",user_status=g.user_status,form=form)
+            if not session.get("user_id",None):
+                session["user_id"] = login_user.id
+            return redirect(url_for("user_profile"))
 
 @app.route("/register", methods=["POST","GET"])
 def register():
-    
+    if session.get("user_id",None):
+        session.delete("user_id")
+    form = Register()
     if request.method == "GET":
-        form = Register()
-        return render_template("register/index.html",user_status=user_status,form=form)
+        return render_template("register/index.html",user_status=g.user_status,form=form)
     
+
     if request.method == "POST":
-        form = Register(request.form)
+        if not form.validate_on_submit(): 
+            return render_template("register/index.html",user_status=g.user_status,form=form)
+
         if form.validate_on_submit():
-            username = request.form.get("username", None)
-            email = request.form.get("email", None)
-            password = request.form.get("password", None)
-            password_re = request.form.get("password_re", None)
-            security_qu = request.form.get("security-question", None)
-            security_ans = request.form.get("security-answer", None)
-
-            if not username :
-                flash("نام کاربری را واردنشده است", "danger")
-                form.username = ""
-                return render_template("register/index.html",user_status=user_status,form=form)
-            if not email :
-                form.email = ""
-                flash("ایمیل وارد نشده است", "danger")
-                return render_template("register/index.html",user_status=user_status,form=form)
-            if helpers.check_email(email) == False:
-                form.email = ""
-                flash("ایمیل وارد شده صحیح نمی باشد", "danger")
-                return render_template("register/index.html",user_status=user_status,form=form)
-            if not password :
-                form.password = ""
-                flash(" رمز عبور وارد نشده است","danger")
-                return render_template("register/index.html",user_status=user_status, form=form)
-            if not password_re :
-                form.password_re = ""
-                flash("تکرار رمز عبور وارد نشده است", "danger")
-                return render_template("register/index.html",user_status=user_status, form=form)
-            if password != password_re :
-                flash("رمز عبور و تکرار رمز عبور یکسان نمی باشد", "danger")
-                return render_template("register/index.html",user_status=user_status, form=form)
-
             # check user duplicate in db
-            db_duplicate = User.query.filter(User.email == email).first()
+            db_duplicate = User.query.filter(User.email == form.email.data).first()
             if db_duplicate:
                 flash("ایمیل قبلا ثبت شده است", "danger")
-                return render_template("register/index.html",user_status=user_status, form=form)
+                return render_template("register/index.html",user_status=g.user_status, form=form)
 
             # add to user db 
-            new_user = User(email = email,password = password,username=username)
+            new_user = User(email =form.email.data,password =  generate_password_hash(form.password.data),username=form.username.data)
             db.session.add(new_user)
 
             code = helpers.code_generator()
             time_send = datetime.datetime.utcnow()
             exp_time = time_send + datetime.timedelta(minutes=3)
 
-            new_user_mail = MailVerification(email=email,send_time=time_send,
+            new_user_mail = MailVerification(email=form.email.data,send_time=time_send,
             exp_time=exp_time,
             user_id=new_user.id,
             active_code=code)
 
             db.session.add(new_user_mail)
 
-            if(send_email(email,code)):
+            if(send_email(form.email.data,code)):
                 db.session.commit()
                 session["user_id"] = new_user.id
                 form_active_code = ActiveCode()
-                return render_template("activate_code.html", user_status=user_status, user_id=new_user.id, form=form_active_code)
+                return render_template("activate_code.html", user_status=g.user_status, user_id=new_user.id, form=form_active_code)
             else:
                 flash("119 خطایی رخ داده است دوباره امتحان کنید !", "danger")
                 db.session.rollback()
-                return render_template("register/index.html", user_status=user_status, form=form)
-        
-        # if form not validate on submit
-        else:
-            form = Register(request.form)
-            return render_template("register", user_status=user_status, form=form)
-
+                return render_template("register/index.html", user_status=g.user_status, form=form)
 
 @app.route("/register/v/", methods=["POST"])
+@login_required
 def verification_code():
 
     cs_us = request.form.get("cs_us",None)
@@ -172,12 +150,13 @@ def verification_code():
     now_time = datetime.datetime.utcnow()
 
     if (now_time > check_db.exp_time):
+        # if token is expired delete user and redirect it
         mail_obj = MailVerification.query.filter(MailVerification.user_id == session["user_id"]).first()
         db.session.delete(mail_obj)
-        user_obj = User.query.filter(User.id==session["user_id"])
+        user_obj = User.query.filter(User.id==session["user_id"]).first()
         db.session.delete(user_obj)
         db.session.commit()
-        flash("154 کد منقضی شده است دوباره تلاش کنید", "warning")
+        flash("کد منقضی شده است دوباره تلاش کنید", "warning")
         return redirect(url_for("register"))
 
         
@@ -191,24 +170,46 @@ def verification_code():
             db.session.add(check_db)
             db.session.commit()
             flash("حساب کاربری با موفقیت ساخته شد ", "success")
-            return redirect(url_for("register"))
+            return redirect(url_for("login"))
 
         else:
             flash("171 مدت اعتبار کد گذشته است دوباره امتحان کنید", "danger")
             return redirect(url_for("register"))
 
 
+
+
+@app.route("/profile")
+@login_required
+def user_profile():
+    form = UserUpload()
+
+    return render_template("user/index.html",form=form)
+
+
+
+
+
+
 @app.route("/temp")
 def temp():
     form=ActiveCode()
-    return render_template("activate_code.html",user_status=user_status,form=form)
+    return render_template("activate_code.html",user_status=g.user_status,form=form)
 
 
 @app.route("/temp1")
 def temp1():
-    return render_template("post-page/index.html",user_status=user_status)
+    return render_template("post-page/index.html",user_status=g.user_status)
 
 
-@app.route("/temp2")
+@app.route("/temp2",methods=["POST","GET"])
 def temp2():
-    return render_template("user/profile.html",user_status=user_status)
+    if request.method == "GET":
+        form = UserUpload()
+        return render_template("user/profile.html",user_status=g.user_status,form=form)
+    if request.method == "POST":
+        form = UserUpload(request.form)
+        if form.validate_on_submit():
+            pass
+        else:
+            return render_template("user/profile.html",user_status=g.user_status,form=form)

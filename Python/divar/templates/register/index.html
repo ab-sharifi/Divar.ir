@@ -23,20 +23,58 @@
             <div class="mb-3">
                 <label class="mb-1  fs-8"  for="username_field "> نام کاربری برای حساب خود انتخاب کنید</label>
                 {{form.username(class="form-control text-start" ,id="username_field", placeholder="مثال: ali sharify") }}
+                {% if form.username.errors %}
+                <div class="w-100 text-center">
+                    {% for error in form.username.errors %}
+                    <span class="text-danger fs-8">
+                        {{error}}
+                    </span>
+                    {% endfor %}
+                </div>
+                {%endif%}
+                
             </div>
             <div class="mb-3">
                 <label class="mb-1 fs-8" for="emailfield "> ایمیل خود را وارد کنید</label>
-                <input type="email" name="email" class="form-control text-start" placeholder=" temp@temop.org : مثال"  id="emailfield">
+                {{form.email( class="form-control text-start" ,placeholder=" temp@temop.org : مثال"  ,id="emailfield")}}
+                {% if form.email.errors %}
+                <div class="w-100 text-center">
+                    {% for error in form.email.errors %}
+                    <span class="text-danger fs-8">
+                        {{error}}
+                    </span>
+                    {% endfor %}
+                </div>
+                {%endif%}
             </div>
             <p class="text-center w-100 fs-11 my-2 p-0"> * توجه: حداقل طول پسورد باید 8 کاراکتر باشد *</p>
             <div class="mb-3">
                 <label class="mb-1 fs-8" for="passwordfields"> رمز عبور خود را وارد کنید</label>
                 {{form.password(class="form-control text-start" ,placeholder="  روز عبور خود را از ترکیب کلمات انگلیسی بزرگ و کوچک اعداد و طولانی انتخاب کنید",id="passwordfields")}}
+                {% if form.password.errors %}
+                <div class="w-100 text-center">
+                    {% for error in form.password.errors %}
+                    <span class="text-danger fs-8">
+                        {{error}}
+                    </span>
+                    {% endfor %}
+                </div>
+                {%endif%}
             </div>
             <div class="mb-3">
                     <label class="mb-1 fs-8" for="passwordfields "> تکرار رمز عبور</label>
                     {{form.password_re(class="form-control text-start",placeholder=" رمز عبور " ,id="emailfield")}}
-            </div>
+                    {% if form.password_re.errors %}
+                    <div class="w-100 text-center">
+                        {% for error in form.password_re.errors %}
+                        <span class="text-danger fs-8">
+                            {{error}}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    {%endif%}
+
+                </div>
                     
             <div class=" my-3">
                 <div class=" text-center w-100 ">

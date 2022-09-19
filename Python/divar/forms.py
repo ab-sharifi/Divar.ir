@@ -4,23 +4,31 @@ from wtforms import(
      StringField,
      PasswordField,
      validators,
-     EmailField,)
+     EmailField,
+     FileField,
+     )
 
-from wtforms.validators import DataRequired,InputRequired
+from wtforms.validators import DataRequired,InputRequired,Email, EqualTo
 from wtforms import validators
 
 class Register(FlaskForm):
-    username = StringField(validators=[InputRequired(),validators.Length(min=8, max=128)])
-    password = PasswordField(validators=[InputRequired(),validators.Length(min=8,max=128)])
-    password_re = PasswordField(validators=[InputRequired(),validators.Length(min=8,max=128)])
+    username = StringField(validators=[InputRequired("نام کاربری وارد نشده است"),DataRequired(),validators.Length(min=8, max=128)])
+    email = EmailField(validators=[InputRequired("ایمیل وارد نشده است"), DataRequired() ,Email("آدرس ایمیل وارد شده صحیح نمی باشد")])
+    password = PasswordField(validators=[InputRequired("پسورد وارد نشده است"),DataRequired(),validators.Length(min=8,max=128)])
+    password_re = PasswordField(validators=[InputRequired("تکرار پسورد وارد نشده است"),DataRequired(),validators.Length(min=8,max=128), EqualTo('password',message="رمز عبور وارد شده یکسان نمی باشد")])
     submit = SubmitField()
 
 
 class ActiveCode(FlaskForm):
-    activate_code = StringField(validators=[InputRequired()])
+    activate_code = StringField(validators=[InputRequired(),DataRequired()])
 
 
 class Login(FlaskForm):
-    email = EmailField(validators=[DataRequired()])
-    password = PasswordField(validators=[DataRequired(),validators.length(min=8,max=128)])
+    email = EmailField(validators=[DataRequired("ایمیل وارد نشده است"),InputRequired("ایمیل وارد نشده است"),Email("آدرس ایمیل وارد شده صحیح نمی باشد")])
+    password = PasswordField(validators=[DataRequired(),InputRequired("پسورد وارد نشده است"),validators.length(min=8,max=128)])
     submit = SubmitField()
+
+
+class UserUpload(FlaskForm):
+    file = FileField(validators=[DataRequired(),InputRequired()])
+    submit = SubmitField() 

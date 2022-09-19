@@ -1,0 +1,14 @@
+.user_profile_img{
+    width:360px;
+}
+
+.modal{
+    color: var(--brand-color);
+}
+
+#form-upload{
+    border :1px dashed var(--brand-color);
+}
+.upload-icon{
+    font-size: 5rem;;
+}

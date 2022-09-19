@@ -1,6 +1,8 @@
 import re
 import random
 from divar.models import MailVerification
+from flask import render_template, flash
+
 
 def check_email(email):
     # regex for email validation
@@ -10,7 +12,6 @@ def check_email(email):
     if re.fullmatch(regex, email):
         return True
     return False
-
 
 
 def code_generator():
@@ -24,7 +25,13 @@ def code_generator():
             continue
     return ver_code
 
+from flask import redirect, session, url_for
+from functools import wraps
 
-
-
-    
+def login_required(f):
+    @wraps(f)
+    def inner(*args, **kwargs):
+        if not session.get('user_id',None):
+            return redirect(url_for("index"))
+        return f(*args, **kwargs)
+    return inner

@@ -13,8 +13,8 @@ body{
     --text-muted-hover:#c4c8cc;
     --brand-color:#a62626;
     --brand-color-hover:#c93c3c;
+    --brand-color-lighter:#d24a4a;
     --color-gray: #e2e2e29a;
-    --color-gray-lighter: #e8e8e89a;
 }
 
 a{
@@ -99,6 +99,9 @@ ul {
 }
 .bg-color-brand {
     background-color: var(--brand-color) !important;
+}
+.bg-brand-color-lighter {
+    background-color: var(--brand-color-hover) !important;
 }
 
 
