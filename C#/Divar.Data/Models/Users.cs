@@ -6,7 +6,6 @@ namespace Divar.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public int CityId { get; set; }
 
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "لطفا {0} را به درستی وارد کنید")]

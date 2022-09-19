@@ -213,9 +213,6 @@ namespace Divar.Data.Migrations
                     b.Property<int>("CitiesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 

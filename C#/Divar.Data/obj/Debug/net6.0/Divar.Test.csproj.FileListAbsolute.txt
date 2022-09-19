@@ -1,0 +1,14 @@
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Test.deps.json
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Test.runtimeconfig.json
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Test.dll
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\bin\Debug\net6.0\Divar.Test.pdb
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.csproj.AssemblyReference.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.AssemblyInfoInputs.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.AssemblyInfo.cs
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.csproj.CoreCompileInputs.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.dll
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\refint\Divar.Test.dll
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.pdb
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\Divar.Test.genruntimeconfig.cache
+C:\Users\xmehd\OneDrive\Desktop\Divar\Divar.ir\C#\Divar.Data\obj\Debug\net6.0\ref\Divar.Test.dll
