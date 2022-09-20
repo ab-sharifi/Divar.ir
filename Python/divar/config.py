@@ -1,6 +1,6 @@
 import os
 
-# temp databse
+# temp database
 db_username = 'alisharify'
 db_password = '123654'
 
