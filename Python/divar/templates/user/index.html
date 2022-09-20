@@ -63,28 +63,24 @@
   </div>
 </div>
 
+
 <div class="modal fade" id="modal-upload">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header" dir="rtl">
+      
+    <div class="modal-header" dir="rtl">
         <h4>آپلود عکس حساب کاربری</h4>
-        <button
-          id="loading-animation"
-          type="button"
-          disabled
-          class="d-none btn bg-color-brand text-white"
-        >
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
+        <button id="loading-animation" type="button" disabled class=" btn bg-color-brand text-white">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         </button>
-      </div>
-      <div class="modal-body">
-        <div id="alert-conatiner "></div>
+    </div>
 
-        <form action="/temp2" method="post" class="form-group text-center">
+    <div class="modal-body">
+        <div id="alert-container" class="">
+
+        </div>
+
+        <form action="{{url_for('user_profile')}}" id="form-upload-user" method="post" class="text-center">
           {{form.hidden_tag()}}
           <div id="form-upload" class="rounded">
             <label
@@ -96,53 +92,35 @@
                 <div class="f-flex flex-column">
                   <i class="bi bi-cloud-arrow-up-fill upload-icon"></i>
                   <br />
-                  <small class="text-muted"> فایل خود را انتخاب کنید </small>
+                  <small class="text-muted" id="filename_placeholder"> فایل خود را انتخاب کنید </small>
                 </div>
-                {{form.file(id="input_file", class="form-control d-none",
-                accept="image/png, image/jpg, image/jpeg",)}}
+                {{form.file(id="input_file",enctype="multipart/form-data", class="form-control d-none",
+                accept="image/png, image/jpg, image/jpeg")}}
               </div>
             </label>
           </div>
 
-          <div
-            id="progess_bar"
-            class="d-none overflow-auto my-2 my-1"
-            style="max-height: 160px"
-          >
-            <div class="w-100 shadow-sm bg-light my-2 py-1 px-2 rounded">
-              <div class="w-100 d-flex justify-content-between text-black">
-                <div>
-                  <i class="bi bi-card-image"></i>
-                  <span id="filename_container"></span>
-                </div>
-                <div>
-                  <span id="persentage_up"></span>
-                  <span>%</span>
-                </div>
-              </div>
-              <div class="w-100">
-                <div class="w-100 bg-white rounded">
-                  <div
-                    id="progress_barchar"
-                    class="progres bg-brand-color-lighter rounded"
-                    style="height: 6px; width: 50%"
-                  ></div>
-                </div>
-              </div>
-            </div>
+
+          <div class="progress mt-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+               role="progressbar" aria-label="Animated striped example"
+               aria-valuenow="0" aria-valuemin="0"
+               aria-valuemax="100" style="width: 0%"></div>
           </div>
 
           <div
-            class="w-100 my-2 d-flex justify-content-between align-items-center"
-          >
-            <button id="cancell-btn" class="d-none btn btn-dark" type="button">
+            class="w-100 my-2 d-flex justify-content-between align-items-center">
+            <button id="cancell-btn" class="btn btn-primary disabled"  type="button">
               لغو آپلود
             </button>
-            {{form.submit(class="btn btn-primary",value="آپلود فایل ")}}
+            {{form.submit(id="upload-btn",class="btn btn-primary",value="آپلود فایل ")}}
           </div>
         </form>
       </div>
-      <div class="modal-footer"></div>
+      <div class="modal-footer">
+        
+
+      </div>
     </div>
   </div>
 
@@ -150,4 +128,78 @@
 <div class="fixed-bottom">
     <span class="text-muted p-2">نسخه دمو</span>
 </div>
+
+
+<script>
+    const input_file = document.querySelector("#input_file");
+    const input_form = document.querySelector("#form-upload-user");
+    const upload_btn = document.querySelector("#upload-btn");
+    const filename_placeholder = document.querySelector("#filename_placeholder");
+    
+    const loading_animation = document.querySelector("#loading-animation");
+    loading_animation.classList.add("d-none");
+
+    let progress_bar = document.querySelector(".progress");
+    progress_bar.classList.add("d-none");
+
+    const alert = document.querySelector("#alert-container");
+    alert.classList.add("d-none");
+    
+    function alert_show(message,categoty)
+    {
+        alert.classList.remove("d-none");
+        let alert_message = `
+        <div class="alert alert-${category} d-flex show fade justify-content-between align-items-center">
+            <span class="btn btn-close" data-bs-dismiss="alert"></span>
+            <span class="message fs-8 p-1 text-start">${message}</span>
+            </div>`;
+            
+            alert.innerHTML = alert_message;
+            console.log(alert.innerHTML);
+    }
+
+        
+    let file_Selected = false;
+    upload_btn.disabled = true;
+
+    input_form.oninput = (e)=>{
+        if(input_file.value &&
+         (input_file.files[0].type == "image/png" || input_file.type == ", image/jpeg" || input_file.type == ", image/jpg"))
+        {
+            file_Selected = true;
+            upload_btn.disabled = false;
+            filename_placeholder.innerHTML = ` ${input_file.files[0].name }  : فایل  `;
+            progress_bar.classList.remove("d-none");
+            loading_animation.classList.remove("d-none");
+        }
+        else
+        {
+            const formats = "PNG/JPG"
+            const alert =`فایل انتخاب شده دارای فرمت نامعتبر است 
+            <br/>
+             فرمت های معتبر ${formats}`;
+            alert_show(message=alert,category="warning")
+            e,preventDefault();
+        }
+
+    };
+
+    input_form.onsubmit = (event)=>{
+        if (file_Selected)
+        {
+            event.preventDefault();    
+        }
+        else if(!file_Selected)
+        {
+            alert_show("فایلی انتخاب نشده است","danger");
+            event.preventDefault();    
+        }
+        event.preventDefault();    
+    }
+
+
+</script>
+
+
+
 {% endblock %}
