@@ -1,13 +1,12 @@
 import os
 
-db_username = ''
-db_password = ''
+# temp databse
+db_username = 'alisharify'
+db_password = '123654'
 
-#  os.getenv("email_username")
-#  os.getenv("email_password")
 
-EMAIL_USERNAME = ''
-EMAIL_PASSWORD = ''
+EMAIL_USERNAME = os.getenv("username-mail")
+EMAIL_PASSWORD = os.getenv("password-mail")
 MAIL_PORT = 587
 
 if not EMAIL_USERNAME or not EMAIL_USERNAME:

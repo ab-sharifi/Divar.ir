@@ -1,48 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <link rel="stylesheet" href="{{url_for('static', filename='CSS/style-public.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='profile_user/style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='CSS/style-public.css')}}">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %} </title>
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='CSS/style-public.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='profile_user/style.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='CSS/style-public.css')}}"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %}</title>
     <!-- icon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
     <!-- custom css -->
-  <!-- custom css -->
-  <link rel="stylesheet" href="{{ url_for('static',filename='CSS/bootstrap.rtl.min.css') }}" />
-    <link rel="apple-touch-icon" sizes="180x180"
-      href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32"
-      href="https://s100.divarcdn.com/static/thewall-assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16"
-      href="https://s100.divarcdn.com/static/thewall-assets/favicon-16x16.png">
-    <link rel="mask-icon" href="https://s100.divarcdn.com/static/thewall-assets/safari-pinned-tab.svg" color="#a62626">
-</head>
+    <!-- custom css -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='CSS/bootstrap.rtl.min.css') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://s100.divarcdn.com/static/thewall-assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://s100.divarcdn.com/static/thewall-assets/favicon-16x16.png"
+    />
+    <link
+      rel="mask-icon"
+      href="https://s100.divarcdn.com/static/thewall-assets/safari-pinned-tab.svg"
+      color="#a62626"
+    />
+  </head>
 
-<body>
-    
-        {% block navbar %}
+  <body>
+    {% block navbar %}
+    {% endblock %}
 
-        {% endblock %}
-    
+    <div class="container">
+      {% block body %}
+      {% endblock %}
+    </div>
 
-        <div class="container">
-
-            {% block body %}
-            {% endblock %}
-            
-        </div>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{url_for('static', filename='profile_user/script.js')}}">
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='profile_user/script.js')}}"
+    />
+  </body>
 </html>
