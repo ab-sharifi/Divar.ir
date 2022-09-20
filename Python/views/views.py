@@ -84,6 +84,7 @@ def login():
                 session["user_id"] = login_user.id
             return redirect(url_for("user_profile"))
 
+
 @app.route("/register", methods=["POST","GET"])
 def register():
     if session.get("user_id",None):
@@ -129,6 +130,7 @@ def register():
                 db.session.rollback()
                 return render_template("register/index.html", user_status=g.user_status, form=form)
 
+
 @app.route("/register/v/", methods=["POST"])
 @login_required
 def verification_code():
@@ -158,7 +160,6 @@ def verification_code():
         db.session.commit()
         flash("کد منقضی شده است دوباره تلاش کنید", "warning")
         return redirect(url_for("register"))
-
         
     else:
         # check code
@@ -178,13 +179,14 @@ def verification_code():
 
 
 
-
-@app.route("/profile")
+@app.route("/profile", methods=["GET", "POST"])
 @login_required
 def user_profile():
     form = UserUpload()
-
-    return render_template("user/index.html",form=form)
+    if request.method == "POST":
+        return render_template("user/index.html",form=form)
+    if request.method == "GET":
+        return render_template("user/index.html",form=form)
 
 
 
