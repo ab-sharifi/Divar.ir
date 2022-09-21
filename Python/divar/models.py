@@ -28,6 +28,7 @@ class User(db.Model):
     # 1 = account activated
     is_active = db.Column(db.Integer, default=0)
     state_id = db.Column(db.Integer,nullable=True)
+    profile_image = db.Column(db.String(95),nullable=False, default="default.jpg")
     
 
 class Post(db.Model):

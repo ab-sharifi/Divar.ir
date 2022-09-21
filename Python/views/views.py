@@ -1,4 +1,5 @@
 import os
+import uuid
 import datetime 
 from . import helpers
 from .helpers import login_required 
@@ -24,9 +25,10 @@ from divar import app,db
 from divar.models import MailVerification,User
 from divar.Email import send_email
 from divar.forms import Register, ActiveCode, Login,UserUpload
-# list of cities (hard coded)
 
+# list of cities (hard coded)
 static = ['کرج','تهران','قم','مشهد','گیلان','گلستان','شیراز','اصفهان','کرمانشاه','تبریز']
+
 
 @app.before_request
 def before_Request():
@@ -88,7 +90,7 @@ def login():
 @app.route("/register", methods=["POST","GET"])
 def register():
     if session.get("user_id",None):
-        session.delete("user_id")
+        session.pop("user_id")
     form = Register()
     if request.method == "GET":
         return render_template("register/index.html",user_status=g.user_status,form=form)
@@ -179,15 +181,53 @@ def verification_code():
 
 
 
-@app.route("/profile", methods=["GET", "POST"])
+@app.route("/profile", methods=["GET"])
 @login_required
 def user_profile():
     form = UserUpload()
-    if request.method == "POST":
-        return render_template("user/index.html",form=form)
-    if request.method == "GET":
-        return render_template("user/index.html",form=form)
 
+    if request.method == "GET":
+        user={}
+        if (session.get("user_id")):
+            img = User.query.filter(User.id==session["user_id"]).first()
+            if img:
+                img_profile = "/static/uploads/images/" + img.profile_image
+                user = {"image" : img_profile}
+            else:
+                return redirect(url_for("index"))
+        else:
+            img_default  = "/static/default.jpg"
+            user = {"image" : img_default}
+        return render_template("user/index.html",form=form,user=user)
+
+
+@app.route("/profile" , methods=["POST"])
+def profile():
+    form = UserUpload()
+
+    if request.method == "POST":
+        if form.validate_on_submit():
+            if request.files:
+                img = request.files.get("file", None)
+                image_name = str(uuid.uuid1()) + "-" + img.filename
+                image_name = secure_filename(image_name)
+                if len(image_name) > 80:
+                    image_name = image_name[:-75:-1]
+
+                check_user = User.query.filter(User.id == session["user_id"]).first()
+                if (check_user):
+                    check_user.profile_image = image_name
+                    path = (os.path.join(app.config["UPLOAD_FOLDER"],image_name))
+                    img.save(path)
+                    db.session.add(check_user)
+                    db.session.commit()
+                    return redirect(url_for("user_profile"))
+                else:
+                    return redirect(url_for("user_profile"))
+            else:
+                return redirect(url_for("user_profile"))
+        else:
+            return redirect(url_for("user_profile"))
 
 
 
