@@ -26,7 +26,7 @@
     <div class="d-flex flex-column  justify-content-center align-items-center">
       <img
         class="rounded-circle user_profile_img mt-2"
-        src="{{url_for('static',filename='image/default-profile.jpg')}}"
+        src="{{user.image}}"
         alt=""/>
         <button
         class="btn btn-danger my-2"
@@ -135,170 +135,167 @@
 
 
 <script>
-    const input_file = document.querySelector("#input_file");
-    const input_form = document.querySelector("#form-upload-user");
-    const upload_btn = document.querySelector("#upload-btn");
-    const filename_placeholder = document.querySelector("#filename_placeholder");
-    
-    const btn_cancell = document.querySelector("#cancell-btn");
-    btn_cancell.disabled=true;
-    
-    const loading_animation = document.querySelector("#loading-animation");
-    loading_animation.classList.add("d-none");
+const input_file = document.querySelector("#input_file");
+const input_form = document.querySelector("#form-upload-user");
+const upload_btn = document.querySelector("#upload-btn");
+const filename_placeholder = document.querySelector("#filename_placeholder");
 
-    let progress_bar = document.querySelector(".progress");
-    progress_bar.classList.add("d-none");
+const btn_cancell = document.querySelector("#cancell-btn");
+btn_cancell.disabled=true;
 
-    const alert = document.querySelector("#alert-container");
-    alert.classList.add("d-none");
-    
-    function alert_show(message,categoty)
+const loading_animation = document.querySelector("#loading-animation");
+loading_animation.classList.add("d-none");
+
+let progress_bar = document.querySelector(".progress");
+progress_bar.classList.add("d-none");
+
+const alert = document.querySelector("#alert-container");
+alert.classList.add("d-none");
+
+function alert_show(message,categoty)
+{
+    if (alert.classList.contains("d-none"))
     {
-        if (alert.classList.contains("d-none"))
-        {
-            alert.classList.remove("d-none");
-            console.log("deleted");
-        }
-        let alert_message = `
-        <div class="alert alert-${category} d-flex show fade justify-content-between align-items-center">
-            <span class="btn btn-close" data-bs-dismiss="alert"></span>
-            <span class="message fs-8 p-1 text-start">${message}</span>
-            </div>`;
-            
-            alert.innerHTML = alert_message;
+        alert.classList.remove("d-none");
+        console.log("deleted");
     }
-
-    let file_Selected = false;
-    upload_btn.disabled = true;
-
-    // cancell btn
-    btn_cancell.addEventListener("click",(e)=>{
-                file_Selected = false;
-                upload_btn.disabled = true;
-                filename_placeholder.innerHTML = ` فایل خود را انتخاب کنید  `;
-                if (!(progress_bar.classList.contains("d-none")))
-                {
-                    progress_bar.classList.add("d-none");
-                }
-                if(!(loading_animation.classList.contains("d-none")))
-                {
-                    loading_animation.classList.add("d-none");
-                }  
-      
-                document.querySelector("#input_area_file").disabled=false;
-                upload_btn.disabled=true;
-                xhr = null;
-                formdata = null;
-                btn_cancell.disabled = true;
-    })
-
-
-    // input form
-    input_form.oninput = function(e){
-        if(input_file.value &&  ((input_file.files[0].type).indexOf("image/") != -1))
-        {
-                file_Selected = true;
-                btn_cancell.disabled = false;
-                upload_btn.disabled = false;
-                filename_placeholder.innerHTML = ` ${input_file.files[0].name }  : فایل  `;
-                filename_placeholder.innerHTML += ` <br/>  ${(input_file.files[0].size / (1024 * 1024)).toFixed(2) } mb`;
-
-                if (progress_bar.classList.contains("d-none"))
-                {
-                    progress_bar.classList.remove("d-none");
-                    console.log(progress_bar.classList);
-                }
-                if(!(alert.classList.contains("d-none")))
-                {
-                    alert.classList.add("d-none");
-                }
-                if(!(loading_animation.classList.contains("d-none")))
-                {
-                    loading_animation.classList.remove("d-none");
-                }
-            }
-            else
-            {
-                file_Selected = false;
-                upload_btn.disabled = true;
-                filename_placeholder.innerHTML = ` فایل خود را انتخاب کنید  `;
-                if (!(progress_bar.classList.contains("d-none")))
-                {
-                    progress_bar.classList.add("d-none");
-                }
-                if(!(loading_animation.classList.contains("d-none")))
-                {
-                    loading_animation.classList.add("d-none");
-                }
-                const alert =`فایل انتخاب شده دارای فرمت نامعتبر است `;
-                alert_show(message=alert,category="warning")
-                e.preventDefault();
-        }
+    let alert_message = `
+    <div class="alert alert-${category} d-flex show fade justify-content-between align-items-center">
+        <span class="btn btn-close" data-bs-dismiss="alert"></span>
+        <span class="message fs-8 p-1 text-start">${message}</span>
+        </div>`;
         
-    };
-    
+        alert.innerHTML = alert_message;
+}
 
-    // submit form
-    input_form.onsubmit = (event)=>{
-        if (file_Selected)
-        {
-          // cancell user submit
-          // for submiting via ajax
-            event.preventDefault();    
-        }
-        else if(!file_Selected)
-        {
-            alert_show("فایلی انتخاب نشده است","danger");
-            event.preventDefault();    
-        }
-    }
+let file_Selected = false;
+upload_btn.disabled = true;
 
-    // upload btn
-    upload_btn.addEventListener("click",function(e){
-    if (loading_animation.classList.contains("d-none"))
+// cancell btn
+btn_cancell.addEventListener("click",(e)=>{
+            file_Selected = false;
+            upload_btn.disabled = true;
+            filename_placeholder.innerHTML = ` فایل خود را انتخاب کنید  `;
+            if (!(progress_bar.classList.contains("d-none")))
+            {
+                progress_bar.classList.add("d-none");
+            }
+            if(!(loading_animation.classList.contains("d-none")))
+            {
+                loading_animation.classList.add("d-none");
+            }  
+  
+            document.querySelector("#input_area_file").disabled=false;
+            upload_btn.disabled=true;
+            xhr = null;
+            formdata = null;
+            btn_cancell.disabled = true;
+})
+
+
+// input form
+input_form.oninput = function(e){
+    if(input_file.value &&  ((input_file.files[0].type).indexOf("image/") != -1))
     {
-      loading_animation.classList.remove("d-none");
-      console.log(loading_animation.classList);
+            file_Selected = true;
+            btn_cancell.disabled = false;
+            upload_btn.disabled = false;
+            filename_placeholder.innerHTML = ` ${input_file.files[0].name }  : فایل  `;
+            filename_placeholder.innerHTML += ` <br/>  ${(input_file.files[0].size / (1024 * 1024)).toFixed(2) } mb`;
+
+            if (progress_bar.classList.contains("d-none"))
+            {
+                progress_bar.classList.remove("d-none");
+                console.log(progress_bar.classList);
+            }
+            if(!(alert.classList.contains("d-none")))
+            {
+                alert.classList.add("d-none");
+            }
+            if(!(loading_animation.classList.contains("d-none")))
+            {
+                loading_animation.classList.remove("d-none");
+            }
+        }
+        else
+        {
+            file_Selected = false;
+            upload_btn.disabled = true;
+            filename_placeholder.innerHTML = ` فایل خود را انتخاب کنید  `;
+            if (!(progress_bar.classList.contains("d-none")))
+            {
+                progress_bar.classList.add("d-none");
+            }
+            if(!(loading_animation.classList.contains("d-none")))
+            {
+                loading_animation.classList.add("d-none");
+            }
+            const alert =`فایل انتخاب شده دارای فرمت نامعتبر است `;
+            alert_show(message=alert,category="warning")
+            e.preventDefault();
     }
     
-    let formdata  = new FormData();
-    formdata.append("file", input_file.files[0]);
-    formdata.append("csrf_token", document.querySelector('#csrf_token').value ); 
-    document.querySelector("#input_area_file").disabled=true;
-    upload_btn.disabled=true;
-
-    let xhr = new XMLHttpRequest();
-    xhr.upload.addEventListener("progress", function(e){
-
-        let percentage = (e.loaded / e.total) * 100 ;
-        if(Math.floor(percentage) === 100)
-        {
-          console.log("done");
-          loading_animation.classList.add("d-none");
-          loading_animation.classList.add("d-none");
-          progress_bar.classList.add("d-none");
-          document.querySelector("#input_area_file").disabled=false;
-          upload_btn.disabled=false;
-          alert_show(message="عکس با موفقیت آپدیت گردید",category="success")
-        }
-        document.querySelector("#progress-bar-spinner").setAttribute("style", "width:" + Math.round(percentage) + "%" );
-        document.querySelector("#progress-bar-spinner").setAttribute("aria-valuenow", Math.round(percentage));
-        document.querySelector("#progress-value").innerHTML=Math.floor(percentage) + "%";
-        // console.log(percentage);
-        // console.log("style", "width:" + Math.round(percentage) + "%" );
-        // progress_bar.style.width = Math.round(percentage) + "%";
-    })
-
-    xhr.open("POST" ,location.href);
-    xhr.send(formdata);
-    xhr = null;
-    formdata = null;
-    
-    
+};
 
 
+// submit form
+input_form.onsubmit = (event)=>{
+    if (file_Selected)
+    {
+      // cancell user submit
+      // for submiting via ajax
+        event.preventDefault();    
+    }
+    else if(!file_Selected)
+    {
+        alert_show("فایلی انتخاب نشده است","danger");
+        event.preventDefault();    
+    }
+}
 
-  })
+// upload btn
+upload_btn.addEventListener("click",function(e){
+if (loading_animation.classList.contains("d-none"))
+{
+  loading_animation.classList.remove("d-none");
+  console.log(loading_animation.classList);
+}
+
+let formdata  = new FormData();
+formdata.append("file", input_file.files[0]);
+formdata.append("csrf_token", document.querySelector('#csrf_token').value ); 
+document.querySelector("#input_area_file").disabled=true;
+upload_btn.disabled=true;
+
+let xhr = new XMLHttpRequest();
+xhr.upload.addEventListener("progress", function(e){
+
+    let percentage = (e.loaded / e.total) * 100 ;
+    if(Math.floor(percentage) === 100)
+    {
+      console.log("done");
+      loading_animation.classList.add("d-none");
+      loading_animation.classList.add("d-none");
+      progress_bar.classList.add("d-none");
+      document.querySelector("#input_area_file").disabled=false;
+      upload_btn.disabled=false;
+      alert_show(message="عکس با موفقیت آپدیت گردید",category="success")
+    }
+    document.querySelector("#progress-bar-spinner").setAttribute("style", "width:" + Math.round(percentage) + "%" );
+    document.querySelector("#progress-bar-spinner").setAttribute("aria-valuenow", Math.round(percentage));
+    document.querySelector("#progress-value").innerHTML=Math.floor(percentage) + "%";
+    // console.log(percentage);
+    // console.log("style", "width:" + Math.round(percentage) + "%" );
+    // progress_bar.style.width = Math.round(percentage) + "%";
+})
+
+xhr.open("POST" ,location.href);
+xhr.send(formdata);
+xhr = null;
+formdata = null;
+
+
+})
 
 </script>
 
