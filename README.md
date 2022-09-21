@@ -10,12 +10,11 @@
 ### Divar (Persian: دیوار; lit. "wall") is an Iranian Farsi classified ads and E-commerce mobile app, and an online platform for users in Iran[1] and Afghanistan.Animal rights had written a letter asking the app to remove the animal trade section. It is in the top 10 Iranian websites, according to Alexa Internet, and also in the top Iranian apps,according to Café Bazar. It has been downloaded 20 million times in 2020.It has 35 million installs,and 17 million real estate listings in 2019.
 More info : https://en.wikipedia.org/wiki/Divar_(website)
 
+---
+## 01.Who involve in This Project:
 
 ### - [Ali shairfy](https://github.com/alisharify7) < Python >
 ### - [Mehdi Gholami](https://github.com/cc-Mehdi) < C# >
-
-### in Frond-End Of project we Both Work Together But in Back-end we decid To Develop with Python(Flask) and C#(.NET)
-### If you want to Contribute in this project, you know what TO DO
 
 ---
 
@@ -36,22 +35,15 @@ More info : https://en.wikipedia.org/wiki/Divar_(website)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/index-pc1.png" style="width:50%;"> 
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/customer-mobile-1.png" style="width:50%;"> 
 
-
-
-
 ### 04.First Home index in (PC size)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/home.png" style="width:50%;"> 
 
 ### 05.Product Page info (PC size)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/pro-home.png" style="width:50%;"> 
 
-
 ### 06.Product Page info (Mobile size)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/pro-mobile-size.png" style="width:50%;">
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/pro-mobile-foot.png" style="width:50%;"> 
-
-
-
 
 
 # TODO
