@@ -3,7 +3,7 @@
 
 ---
 
-<img src="https://s.cafebazaar.ir/1/upload/icons/divar-logo-512x512.png">
+<img src="https://s.cafebazaar.ir/1/upload/icons/divar-logo-512x512.png" width="100%">
 
 ### - [Ali shairfy](https://github.com/alisharify7) < Python >
 ### - [Mehdi Gholami](https://github.com/cc-Mehdi) < C# >
