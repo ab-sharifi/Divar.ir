@@ -1,4 +1,5 @@
 import os
+from turtle import update
 import uuid
 import datetime 
 from . import helpers
@@ -39,6 +40,12 @@ def before_Request():
     # update variables
 
 
+@app.errorhandler(500)
+def error_500():
+    db.session.rollback()
+    return "Error 500"
+
+
 
 # index home route
 @app.route("/", methods=["GET","POST"])
@@ -52,6 +59,7 @@ def index():
     if request.method == "POST":
         if request.form.get("email",None) != None:
             email = request.form.get("email")
+
 
 
 @app.route("/s/<string:city>" ,methods=["GET"])
@@ -84,71 +92,125 @@ def login():
                 return render_template("login/index.html",user_status=g.user_status,form=form)
             if not session.get("user_id",None):
                 session["user_id"] = login_user.id
+            # check user account is activated or not
+            if not login_user.is_active == 1:
+                # delete user from database
+                login_user_mail = MailVerification.query.filter(MailVerification.email==login_user.email).first()
+                print(login_user_mail)
+                db.session.delete(login_user)
+                db.session.delete(login_user_mail)
+                db.session.commit()
+                db.session.rollback()
+                flash("اکانت کاربری شما فعال نمی باشد لطفا دوباره اقدام به ساخت اکانت و فعال سازی آن کنید","danger")
+                
+                return redirect(url_for("login"))
             return redirect(url_for("user_profile"))
 
 
 @app.route("/register", methods=["POST","GET"])
 def register():
-    if session.get("user_id",None):
-        session.pop("user_id")
+    """
+    register users and if user login to his account and want to register another
+    account he should logut from his last account
+
+    """
+    
     form = Register()
     if request.method == "GET":
         return render_template("register/index.html",user_status=g.user_status,form=form)
     
 
     if request.method == "POST":
-        if not form.validate_on_submit(): 
+        if not form.validate(): 
             return render_template("register/index.html",user_status=g.user_status,form=form)
 
-        if form.validate_on_submit():
+        if form.validate():
             # check user duplicate in db
-            db_duplicate = User.query.filter(User.email == form.email.data).first()
+            db_duplicate = MailVerification.query.filter(MailVerification.email == form.email.data.strip()).first()
+
             if db_duplicate:
-                flash("ایمیل قبلا ثبت شده است", "danger")
-                return render_template("register/index.html",user_status=g.user_status, form=form)
+                if (db_duplicate.activated == 1): 
+                    flash("ایمیل قبلا ثبت شده است", "danger")
+                    return render_template("register/index.html",user_status=g.user_status, form=form)
+                
+                # delete user if it already exists and did not activate his account
+                if (db_duplicate.activated == 0):
+                    old_user = User.query.filter(User.email == form.email.data.strip()).first()
+                    db.session.delete(db_duplicate)
+                    db.session.delete(old_user)
+                    db.session.commit()
+                    db.session.rollback()
+                    form.data.clear()
+                    flash("لطفا اطلاعات را پر کنید", "info")
+                    return render_template("register/index.html",user_status=g.user_status, form=form)
 
-            # add to user db 
-            new_user = User(email =form.email.data,password =  generate_password_hash(form.password.data),username=form.username.data)
-            db.session.add(new_user)
+            # duplicate request handler
+            if not db_duplicate:
+                
+                # add to user db 
+                new_user = User(email =form.email.data.strip(),password=generate_password_hash(form.password.data.strip()),
+                username=form.username.data.strip())
 
-            code = helpers.code_generator()
-            time_send = datetime.datetime.utcnow()
-            exp_time = time_send + datetime.timedelta(minutes=3)
+                # create time and code 
+                code = helpers.code_generator()
+                time_send = datetime.datetime.utcnow()
+                exp_time = time_send + datetime.timedelta(minutes=3)
 
-            new_user_mail = MailVerification(email=form.email.data,send_time=time_send,
-            exp_time=exp_time,
-            user_id=new_user.id,
-            active_code=code)
+                new_user_mail = MailVerification(email=form.email.data.strip(),send_time=time_send,
+                exp_time=exp_time,
+                user_id=new_user.id,
+                active_code=code)
+                print(new_user_mail.user_id,new_user.id)
+                db.session.add_all([new_user_mail,new_user])
 
-            db.session.add(new_user_mail)
 
-            if(send_email(form.email.data,code)):
-                db.session.commit()
-                session["user_id"] = new_user.id
-                form_active_code = ActiveCode()
-                return render_template("activate_code.html", user_status=g.user_status, user_id=new_user.id, form=form_active_code)
+                if(send_email(form.email.data.strip(),code)):
+                    # if email was succesfully send it we add users to db
+                    # otherwise we rollback it 
+                    
+                    db.session.commit()
+                    # commit for get user id
+                    new_user_mail.user_id = new_user.id
+                    db.session.add(new_user_mail)
+                    db.session.commit()
+
+                    if session.get("user_id",None):
+                        session.pop("user_id")
+                    session["user_id"] = new_user.id
+                    print(new_user.id)
+                    # remove user login session if it have
+                    form.data.clear()
+                    form_active_code = ActiveCode()
+                    return render_template("activate_code.html", user_status=g.user_status, user_id=new_user.id, form=form_active_code)
+                else:
+                    flash("119 خطایی رخ داده است دوباره امتحان کنید !", "danger")
+                    db.session.rollback()
+                    return render_template("register/index.html", user_status=g.user_status, form=form)
+
             else:
-                flash("119 خطایی رخ داده است دوباره امتحان کنید !", "danger")
-                db.session.rollback()
-                return render_template("register/index.html", user_status=g.user_status, form=form)
+                return redirect(url_for("register"))
 
 
 @app.route("/register/v/", methods=["POST"])
 @login_required
 def verification_code():
 
-    cs_us = request.form.get("cs_us",None)
-    code_activation = request.form.get("activate_code",None)
+    uuid_user_value = request.form.get("uuid_user_value",None).strip()
+    code_activation = request.form.get("activate_code", None).strip()
+    
+    if not code_activation or not uuid_user_value:
+        flash("درخواست دارای اشکال است","warning")
+        return redirect(url_for("register")) 
 
-    if cs_us == None or cs_us != str(session["user_id"]):
-        flash("136 خطایی در ثبت نام شما رخ داده است دوباره سعی کنید","danger")
+    if uuid_user_value == None or (uuid_user_value != str(session["user_id"])):
+        flash("200 خطایی در ثبت نام شما رخ داده است دوباره سعی کنید","danger")
         return redirect(url_for("register"))
 
 
     # check code validation and time
     check_db = MailVerification.query.filter(MailVerification.user_id==session["user_id"]).first()
     if not check_db:
-        flash("143 خطایی رخ داده است ", "warning")
+        flash("207 خطایی رخ داده است ", "warning")
         return redirect(url_for("register"))
 
     now_time = datetime.datetime.utcnow()
@@ -161,22 +223,20 @@ def verification_code():
         db.session.delete(user_obj)
         db.session.commit()
         flash("کد منقضی شده است دوباره تلاش کنید", "warning")
-        return redirect(url_for("register"))
-        
+        return redirect(url_for("register"))    
     else:
         # check code
         if (check_db.active_code == int(code_activation)):
             user_obj = User.query.filter(User.id==session["user_id"]).first()
             user_obj.is_active = 1
             check_db.activated = 1
-            db.session.add(user_obj)
-            db.session.add(check_db)
+            db.session.add_all([user_obj,check_db])
             db.session.commit()
             flash("حساب کاربری با موفقیت ساخته شد ", "success")
             return redirect(url_for("login"))
 
         else:
-            flash("171 مدت اعتبار کد گذشته است دوباره امتحان کنید", "danger")
+            flash("233 مدت اعتبار کد گذشته است دوباره امتحان کنید", "danger")
             return redirect(url_for("register"))
 
 
@@ -193,20 +253,23 @@ def user_profile():
             if img:
                 img_profile = "/static/uploads/images/" + img.profile_image
                 user = {"image" : img_profile}
+                return render_template("user/index.html",form=form,user=user)
             else:
                 return redirect(url_for("index"))
+                # img_default  = "/static/default.jpg"
+                # user = {"image" : img_default}
+                # return render_template("user/index.html",form=form,user=user)
         else:
-            img_default  = "/static/default.jpg"
-            user = {"image" : img_default}
-        return render_template("user/index.html",form=form,user=user)
+            return redirect(url_for("index"))
 
 
 @app.route("/profile" , methods=["POST"])
+@login_required
 def profile():
     form = UserUpload()
 
     if request.method == "POST":
-        if form.validate_on_submit():
+        if form.validate():
             if request.files:
                 img = request.files.get("file", None)
                 image_name = str(uuid.uuid1()) + "-" + img.filename
@@ -231,7 +294,34 @@ def profile():
 
 
 
-
+@app.route("/resend", methods=["POST"])
+@login_required
+def resend():
+    """
+    this view get uuid => user_id
+    and if not activated user send agian code to user account
+    """
+    form_active_code = ActiveCode()
+    uuid_user_value = request.form.get('uuid_user_value')
+    if not uuid_user_value:
+        flash("مشکلی در درخواست شما وحود دارد/ بعدا امتحان کنید","danger")
+        return redirect(url_for("register"))
+    
+    # check user is activate or not
+    validate_user_db = MailVerification.query.filter(MailVerification.user_id==uuid_user_value).first()
+    if not validate_user_db:
+        flash("مشکلی در درخواست شما وحود دارد/ بعدا امتحان کنید","danger")
+        return redirect(url_for("register"))
+    if validate_user_db.activated == 0:
+        # update activated code 
+        new_code = helpers.code_generator()
+        validate_user_db.active_code = new_code
+        # update time
+        exp_time = datetime.datetime.utcnow() +  datetime.timedelta(minutes=3)
+        validate_user_db.exp_time = exp_time
+        db.session.add(validate_user_db) 
+        db.session.commit()
+        return render_template("active_code.html",user_status=g.user_status, user_id=uuid_user_value, form=form_active_code)
 
 @app.route("/temp")
 def temp():

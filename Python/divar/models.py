@@ -7,8 +7,8 @@ class MailVerification(db.Model):
     email = db.Column(db.String(256))
     send_time = db.Column(db.DateTime(),nullable=False)
     exp_time = db.Column(db.DateTime(),nullable=False)
-    user_id = db.Column(db.Integer,unique=True)
-    active_code = db.Column(db.Integer)
+    user_id = db.Column(db.Integer,unique=True, nullable=True)
+    active_code = db.Column(db.Integer, nullable=True)
     # 0 not active || 1 activated
     activated = db.Column(db.Integer,default=0)
 

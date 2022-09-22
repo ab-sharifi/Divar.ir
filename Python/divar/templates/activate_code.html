@@ -8,13 +8,16 @@
         <span class="text-muted" >لطفا کد تایید را در کادر زیر وارد کنید تا حساب کاربریتان فعال گردید</span>
     </div>
     <form action="{{ url_for('verification_code') }}" method="POST" class="mt-3" class="form-inline mt-3">
-        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <input type="hidden" id="csrf_token" name="csrf_token" value="{{csrf_token()}}">
         <div class="input-group">
             {{form.activate_code(class="form-control text-start",placeholder="کد تایید")}}
-            <input type="hidden" name="cs_us" value="{{user_id}}">
+            <input type="hidden" name="uuid_user_value" value="{{user_id}}">
         </div>
         <div class="d-flex justify-content-between my-3 align-items-center">
-            <input type="submit" class="px-3  out-line-brand btn font-control text-black bg-color-brand-hover transition-bgcolor-1s text-white-hover " value="ارسال دوباره کد" >
+            
+            <button id="resent_btn" type="button" class="btn add-register-btn-header px-4 background-brand text-white">ارسال دوباره کد</button>
+
+
             {% if not error_time %}
                 <div class="timer_container">
                     <span class="minute fs-2">03</span>
@@ -22,11 +25,11 @@
                     <span class="second fs-2">00</span>
                 </div>
             {% endif %}
-            <input type="submit" class="px-3 add-register-btn-header btn font-control text-white background-brand" value="فعال سازی" >
+            <input type="submit" class="px-4 add-register-btn-header btn text-white background-brand" value="فعال سازی" >
         </div>
     </form>
 
-    <div dir="rtl" class="mt-5 p-3 border">
+    <div dir="rtl" class="mt-5 p-3 border rounded">
         <p class="h6 text-center">توجه کد ارسال شده رو به هیچ وجه در دسترس دیگران قرار ندهید ! </p>
         <span class="fs-8 text-muted " >کد ارسال شده نهایتا بین 1 الی 2 دقیقه برای شما ایمیل خواهد شد</span>
         <br>
@@ -34,6 +37,9 @@
     </div>
 </div>
 
+<form id="resent_form" action="{{url_for('resend')}}" method="POST">
+    <input type="hidden" name="uuid_user_value" value="{{user_id}}">
+</form>
 
 {% if not hidden_timer %}
 <script>
@@ -60,7 +66,22 @@
 
     document.addEventListener("DOMContentLoaded", function(){
         window.setInterval(start_timer,1000); 
+
+        const form_resend = document.getElementById('resent_form');
+        const btn_resend = document.getElementById('resent_btn');
+        btn_resend.addEventListener("click",(e)=>{
+            console.log("asdasdasd")
+            console.log(form_resend)
+            console.log(typeof form_resend)
+            form_resend.submit();
+            counter = 3;
+        })
     })
+    
+
+
 </script>
+
 {% endif %}
+
 {% endblock %}

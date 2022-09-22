@@ -20,7 +20,9 @@ class Register(FlaskForm):
 
 
 class ActiveCode(FlaskForm):
-    activate_code = StringField(validators=[InputRequired(),DataRequired()])
+    # This field does not have any validation methods
+    # its handel it in js in frontend
+    activate_code = StringField(validators=[])
 
 
 class Login(FlaskForm):

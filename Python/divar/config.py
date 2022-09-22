@@ -24,7 +24,7 @@ class Config:
     SESSION_COOKIE_SECURE = True
     SESSION_TYPE = "filesystem"
     
-    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{db_username}:{db_password}@localhost:3307/divar"
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{db_username}:{db_password}@localhost:3306/divar"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
