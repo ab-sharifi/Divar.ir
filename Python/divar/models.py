@@ -20,7 +20,7 @@ class User(db.Model):
     # if you are using a hash generator that create more than 128 character 
     # change password field
     password = db.Column(db.String(128),nullable=True)
-    phone = db.Column(db.Integer, unique=True,nullable=True)
+    phone = db.Column(db.Integer, unique=True,nullable=True,default=0)
     # in this app login is via email of user so email should be unique here
     email = db.Column(db.String(256),unique=True,nullable=False)
     create_time = db.Column(db.Date(),default=datetime.utcnow)

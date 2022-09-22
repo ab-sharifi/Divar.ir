@@ -36,9 +36,17 @@ def before_Request():
     """
     before each request we get user status and save it to g variable 
     """
-    g.user_status = {"login":False, 'phone':"","name":"کاربر دیوار"}
-    # update variables
-
+    g.user_status = {"login" : False, 'phone':" " ,"name":"کاربر دیوار"}
+    if session.get('user_id', False):
+        # get user phone number and name
+        UserStatus = User.query.filter(User.id==session["user_id"]).first()
+        if UserStatus:
+            if UserStatus.is_active == 1:
+                g.user_status["login"] = True
+                g.user_status["name"] = UserStatus.username
+                if UserStatus.phone == 0:
+                    g.user_status['phone'] = "شماره تماس وارد نشده است"
+        
 
 @app.errorhandler(500)
 def error_500():
@@ -96,7 +104,6 @@ def login():
             if not login_user.is_active == 1:
                 # delete user from database
                 login_user_mail = MailVerification.query.filter(MailVerification.email==login_user.email).first()
-                print(login_user_mail)
                 db.session.delete(login_user)
                 db.session.delete(login_user_mail)
                 db.session.commit()
@@ -160,7 +167,6 @@ def register():
                 exp_time=exp_time,
                 user_id=new_user.id,
                 active_code=code)
-                print(new_user_mail.user_id,new_user.id)
                 db.session.add_all([new_user_mail,new_user])
 
 
@@ -177,7 +183,6 @@ def register():
                     if session.get("user_id",None):
                         session.pop("user_id")
                     session["user_id"] = new_user.id
-                    print(new_user.id)
                     # remove user login session if it have
                     form.data.clear()
                     form_active_code = ActiveCode()
@@ -323,6 +328,25 @@ def resend():
         db.session.commit()
         return render_template("active_code.html",user_status=g.user_status, user_id=uuid_user_value, form=form_active_code)
 
+
+
+
+@app.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
+
+
+
+
+
+
+
+
+
+
+
 @app.route("/temp")
 def temp():
     form=ActiveCode()
@@ -345,3 +369,5 @@ def temp2():
             pass
         else:
             return render_template("user/profile.html",user_status=g.user_status,form=form)
+
+
