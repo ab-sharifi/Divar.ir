@@ -23,11 +23,3 @@ migrate = Migrate(app=app,db=db)
 from views.views import *
 
 
-from .forms import UserUpload
-import uuid
-from .models import User
-
-
-
-
-
