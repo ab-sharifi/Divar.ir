@@ -2,6 +2,20 @@
 
 
 {% block body %}
+
+{% with messages = get_flashed_messages(True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}} d-flex justify-content-between px-2 mt-5">
+            <span class="btn btn-close" data-bs-dismiss="alert"></span>
+            <span>{{message}}</span>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+{% endwith %}
+
+
 <div class="container mt-5 text-center">
     <div>
         <h1 class="mb-3">کد تایید به ایمیل شما ارسال شد</h1>
@@ -31,6 +45,8 @@
 
     <div dir="rtl" class="mt-5 p-3 border rounded">
         <p class="h6 text-center">توجه کد ارسال شده رو به هیچ وجه در دسترس دیگران قرار ندهید ! </p>
+        <span class="fs-10 text-muted " >در صورتی که ایمیل کدتایید را در صندوق ورودی مشاهده نکردید به قسمت spam (هرزنامه ها) مراجعه کنید</span>
+        <br>
         <span class="fs-8 text-muted " >کد ارسال شده نهایتا بین 1 الی 2 دقیقه برای شما ایمیل خواهد شد</span>
         <br>
         <span class="fs-8 text-muted " > در صورت عدم دریافت کد تایید بر روی دکمه ارسال دوباره کد کلیک کنید تا کد تایید دوباره ای برای شما ارسال شود</span>
@@ -38,6 +54,8 @@
 </div>
 
 <form id="resent_form" action="{{url_for('resend')}}" method="POST">
+    
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
     <input type="hidden" name="uuid_user_value" value="{{user_id}}">
 </form>
 
@@ -70,11 +88,7 @@
         const form_resend = document.getElementById('resent_form');
         const btn_resend = document.getElementById('resent_btn');
         btn_resend.addEventListener("click",(e)=>{
-            console.log("asdasdasd")
-            console.log(form_resend)
-            console.log(typeof form_resend)
             form_resend.submit();
-            counter = 3;
         })
     })
     

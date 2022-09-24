@@ -1,8 +1,6 @@
 {% extends "base.html" %} {% block body %}
 
 <div class="container mt-5 pt-5" dir="rtl" style="margin-top: 4rem">
-  <h1>ورود به حساب کاربری</h1>
-
   {% with messages = get_flashed_messages(True) %} {% if messages %} {% for
   category,message in messages %}
   <div class="alert alert-{{category}} py-2 my-3 show fade">
@@ -12,6 +10,8 @@
     </div>
   </div>
   {% endfor %} {% endif %} {% endwith %}
+  <h1>ورود به حساب کاربری</h1>
+
 
   <br />
   <form action="{{url_for('login')}}" method="POST">

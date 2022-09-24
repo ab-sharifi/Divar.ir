@@ -8,12 +8,15 @@ db_password = '123654'
 EMAIL_USERNAME = os.getenv("username-mail")
 EMAIL_PASSWORD = os.getenv("password-mail")
 MAIL_PORT = 587
+
 if not EMAIL_USERNAME or not EMAIL_USERNAME:
     raise RuntimeError("Email Username or Password is Not Set/ from config.py set it")
+
 if not db_username or not db_password:
     raise RuntimeError("DateBase Username or Password is Not Set/ from config.py set it")
 
 class Config:
+    DEFAULT_PICTURE = "default.jpg"
     UPLOAD_FOLDER = "C:\\Users\\alisharify\\Documents\\temp\\Divar.ir\\Python\\divar\\static\\uploads\\images"
     # created by secrets lib in python for test
     SECRET_KEY = 'a15a278b4567a92d8e7ae65c693e7ab7dba8fc01706d68d04d6a14dc9f9c3666'
@@ -21,7 +24,7 @@ class Config:
     TEMPLATES_AUTO_RELOAD = True
     
     SESSION_PERMANENT = False
-    SESSION_COOKIE_SECURE = True
+    # SESSION_COOKIE_SECURE = True
     SESSION_TYPE = "filesystem"
     
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{db_username}:{db_password}@localhost:3306/divar"

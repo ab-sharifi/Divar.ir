@@ -22,7 +22,7 @@
 {% block body %} 
 <div class="row mt-5 d-flex justify-content-center align-items-center">
   
-<div class="col-12 ">
+<div class="col-12 col-lg-6">
     <div class="d-flex flex-column  justify-content-center align-items-center">
       <img
         class="rounded-circle user_profile_img mt-2"
@@ -36,28 +36,100 @@
       </button>
     </div>
   </div>
-  <div class="col-12 border rounded">
-    <div class="info-user">
-        <div class="d-flex justify-content-between align-items-center flex-row-reverse border-bottom pt-2 ">
-            <p class="text-muted">نام کاربری</p>
-            <p class="text-muted">@alisharify</p>
+
+  <div class="col-12 col-lg-6 border rounded ">
+    <div class="info-user p-0 m-0">
+        
+      <div class="user_information d-flex justify-content-between align-items-center flex-row-reverse border-bottom px-1 py-2">
+        <div class="text-muted d-block justify-content-center align-items-center">
+              <span>نام کاربری</span>
+              <i class=" pe-1 bi bi-person-circle"></i>
         </div>
-        <div class="d-flex justify-content-between align-items-center flex-row-reverse border-bottom pt-2 ">
-            <p class="text-muted">ایمیل حساب کاربری</p>
-            <p class="text-muted">alisharify@gmail.com</p>
+        <div class="text-muted">
+          {% if user.username %}
+              <span>{{user.username}}</span>
+          {% else %}
+              <span class="fs-8">مشکلی رخ داده است</span>
+          {% endif %}
         </div>
-        <div class="d-flex justify-content-between align-items-center flex-row-reverse border-bottom pt-2 ">
-            <p class="text-muted">شماره تماس</p>
-            <p class="text-muted">+989331016879</p>
+      </div>
+
+        <div class="user_information d-flex justify-content-between align-items-center flex-row-reverse border-bottom px-1 py-2">
+          <div class="text-muted d-block justify-content-center align-items-center">
+              <span>تاریخ عضویت</span>
+              <i class="pe-1 bi bi-calendar-check"></i>
+          </div>
+          <div class="text-muted">
+            {% if user.join_date %}
+            <span>{{user.join_date}}</span>
+            {% else %}
+            <span class="fs-8">مشکلی رخ داده است</span>
+            {% endif  %}
+          </div>
+
         </div>
-        <div class="d-flex justify-content-between align-items-center flex-row-reverse border-bottom pt-2 ">
-            <p class="text-muted">استان</p>
-            <p class="text-muted">البرز</p>
+          
+        <div class="user_information d-flex justify-content-between align-items-center flex-row-reverse border-bottom px-1 py-2 ">
+
+          <div class="text-muted d-flex justify-content-between align-items-center">
+            <span>ایمیل حساب کاربری</span>
+            <i class="pe-1 bi bi-envelope-fill"></i>            
+          </div>  
+          <div class="text-muted">
+            {% if user.email %}
+              <span>{{user.email}}</span>
+            {% else %}
+              <span class="fs-8">مشکلی رخ داده است</span>
+            {% endif %}
+            </div>            
+
+          </div>
+
+        <div class="user_information d-flex justify-content-between align-items-center flex-row-reverse border-bottom px-1 py-2">
+          <div class="text-muted d-flex justify-content-between align-items-center">
+            <span>شماره تماس</span>
+            <i class="pe-1 bi bi-telephone-fill"></i>
+          </div>  
+            
+          <div class="text-muted">
+            {% if user.phone %}
+            <span>{{user.phone}}</span>
+            {% else %}
+            <span class="">تنظیم نشده است</span>
+            {% endif %}
+         </div>
+        
         </div>
-        <div class="d-flex justify-content-between align-items-center flex-row-reverse border-bottom pt-2 ">
-            <p class="text-muted">شهر</p>
-            <p class="text-muted">کرج</p>
+
+
+        <div class="user_information d-flex justify-content-between align-items-center flex-row-reverse border-bottom px-1 py-2 ">
+          <div class="text-muted d-flex justify-content-between align-items-center">
+            <span class="text-muted">استان</span>
+            <i class="pe-1 bi bi-geo-alt-fill"></i>
+          </div>  
+          <div class="text-muted">
+            {% if user.state %}
+                <span class="text-muted">{{user.state}}</span>
+            {% else %}
+            <span class="">تنظیم نشده است</span>
+            {% endif %}
+          </div>
         </div>
+
+        <div class="user_information d-flex justify-content-between align-items-center flex-row-reverse border-bottom px-1 py-2">
+          <div class="text-muted d-flex justify-content-between align-items-center">
+            <span class="text-muted">شهری</span>
+            <i class="pe-1 bi bi-geo-alt-fill"></i>
+          </div>  
+          <div class="text-muted">
+            {% if user.city %}
+                <span class="text-muted">{{user.city}}</span>
+            {% else %}
+            <span class="">تنظیم نشده است</span>
+            {% endif %}
+          </div>
+        </div>
+
 
     </div>
   </div>

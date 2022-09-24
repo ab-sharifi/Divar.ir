@@ -12,3 +12,11 @@
 .upload-icon{
     font-size: 5rem;;
 }
+
+@media (max-width:507px)
+{
+    .user_information{
+        font-size:0.7rem;
+    }
+    
+}

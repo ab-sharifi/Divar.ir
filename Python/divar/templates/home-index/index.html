@@ -733,8 +733,72 @@
           <span class="fs-5">دیوار من</span>
           <i class="bi bi-person-square"></i>
         </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">as</div>
+        <div class="modal-body">
+
+          {% if user_status.login == True %}
+          <a href="{{ url_for('profile') }}" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
+            <div class="fs-11 ">
+              <div class="px-1 py-2">
+                <span>{{user_status.name}}</span>
+                <i class="bi bi-person"></i>
+              </div>
+              <div class="p-1 ">
+                <span class="text-muted-light">تلفن</span>
+                <span class="text-muted-light">{{user_status.phone}}</span>
+              </div>
+            </div>
+          </a>
+          {% endif %}
+
+          <a href="{{url_for('login')}}"
+            class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
+            <span> ورود </span>
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+                            
+          <a href="{{url_for('register')}}" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>ساخت حساب کاربری</span>
+            <i class="bi bi-person-plus fs-8"></i>
+          </a>
+
+          {% if user_status.login == True %}
+            <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
+              <span>آگهی های من</span>
+              <i class=" fs-8 bi bi-book pe-1"></i>
+            </a>
+          {% endif %}
+
+          {% if user_status.login == True %}
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>نشان شده ها</span>
+            <i class="bi bi-bookmark"></i>
+          </a>
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>یادداشت ها</span>
+            <i class="bi bi-card-list"></i>
+          </a>
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>بازدید های اخیر</span>
+            <i class="bi bi-clock-history"></i>
+          </a>
+          {% endif %}
+          
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>دیوار برای کسب و کار ها</span>
+            <i class="bi bi-shop-window"></i>
+          </a> 
+
+          {% if user_status.login == True %}
+            <a href="{{ url_for('logout') }}" class="d-flex justify-content-between  align-items-center fs-11  px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
+              <span>خروج</span>
+              <i class="bi bi-box-arrow-right"></i>
+            </a>
+          {% endif %}
+        </div>
+        <div class="modal-footer d-flex justify-content-between fs-11">
+          <a href="#" class="text-brand">قوانین و مقررات</a>
+          <a href="#" class="text-brand">ارتباط با پشتیبانی</a>
+        </div>
       </div>
     </div>
   </div>
