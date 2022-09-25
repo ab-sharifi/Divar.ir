@@ -1,0 +1,67 @@
+@font-face {
+    font-family: YEKAN;
+    src: url(../FONTS/sans.ttf);
+}
+
+a{
+    text-decoration:none;
+}
+
+body{
+    direction:rtl !important;
+    background-color: #eee;
+    font-family:YEKAN !important;
+}
+
+.sidbar{
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0, 0.7) , rgba(0,0,0, 0.9)) ,
+    url('../IMAGES/milad-tower2.jpg');
+    background-position: center ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: -5px 7px 25px #999;
+}
+
+.sidbar-link{
+    transition: all .5s;
+}
+.sidbar-link:hover{
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.corrent{
+    background-color: #ff4436;
+    border-radius: 10px;
+    box-shadow: 2px 5px 10px #111111;
+    transition:all .5s;
+}
+
+.corrent:hover{
+    background-color: #ff4436;
+    transform : translateY(-1px) ;
+}
+
+.text-brnad{
+    color: #ff4436 !important;
+}
+
+.btn-search{
+    transition: all 1s;
+}
+
+.btn-search:hover{
+    color: white !important;
+    background-color: #ff4436 !important;
+}
+
+@media (max-width: 767px) {
+    .top-navbar{
+        position: static !important;
+    }
+    .sidbar{
+        position: static !important;
+        height: auto !important; 
+    }
+}
