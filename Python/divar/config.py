@@ -7,6 +7,7 @@ db_password = '123654'
 
 EMAIL_USERNAME = os.getenv("username-mail")
 EMAIL_PASSWORD = os.getenv("password-mail")
+
 MAIL_PORT = 587
 
 if not EMAIL_USERNAME or not EMAIL_USERNAME:

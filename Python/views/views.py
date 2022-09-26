@@ -1,7 +1,8 @@
 import os
 from turtle import update
 import uuid
-import datetime 
+import datetime
+from xml.etree.ElementTree import QName 
 from . import helpers
 from .helpers import login_required 
 from flask import(
@@ -47,7 +48,8 @@ def before_Request():
                 g.user_status["name"] = UserStatus.username
                 if not UserStatus.phone:
                     g.user_status['phone'] = "شماره تماس وارد نشده است"
-    
+
+
     # set up user_profile information
 
 
@@ -159,7 +161,6 @@ def register():
                     db.session.delete(old_user)
                     db.session.commit()
                     db.session.rollback()
-                    form.data.clear()
                     flash("لطفا اطلاعات را پر کنید", "info")
                     return render_template("register/index.html",user_status=g.user_status, form=form)
 
@@ -175,10 +176,12 @@ def register():
                 time_send = datetime.datetime.utcnow()
                 exp_time = time_send + datetime.timedelta(minutes=3)
 
-                new_user_mail = MailVerification(email=form.email.data.strip(),send_time=time_send,
-                exp_time=exp_time,
-                user_id=new_user.id,
-                active_code=code)
+                new_user_mail = MailVerification(
+                    email=form.email.data.strip(),
+                    send_time=time_send,
+                    exp_time=exp_time,
+                    active_code=code,
+                    user_mails=new_user)
                 db.session.add_all([new_user_mail,new_user])
 
 
@@ -191,7 +194,7 @@ def register():
                     new_user_mail.user_id = new_user.id
                     db.session.add(new_user_mail)
                     db.session.commit()
-
+                    
                     if session.get("user_id",None):
                         session.pop("user_id")
                     session["user_id"] = new_user.id
@@ -261,7 +264,7 @@ def verification_code():
 
 
 
-@app.route("/resend/", methods=["POST", "GET"])
+@app.route("/resend/", methods=["POST"])
 @login_required
 def resend():
     """
@@ -269,10 +272,6 @@ def resend():
     and if not activated user send agian code to user account
     """
 
-
-    if request.method == "GET":
-        return redirect(url_for("index"))
-    
     if request.method == "POST":
         form_active_code = ActiveCode()
         uuid_user_value = request.form.get('uuid_user_value')
@@ -296,6 +295,7 @@ def resend():
             # update time
             exp_time = datetime.datetime.utcnow() +  datetime.timedelta(minutes=3)
             validate_user_db.exp_time = exp_time
+            validate_user_db.send_time = datetime.datetime.utcnow()
             db.session.add(validate_user_db) 
             db.session.commit()
             if  (send_email(validate_user_db.email, new_code)):
