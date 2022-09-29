@@ -55,4 +55,4 @@ More info : https://en.wikipedia.org/wiki/Divar_(website)
 - [x] BO BO
 - [x] clean Code in html pages
 - [x] Bootstrap cdn 
-
+- [x] net tokhmi (bootstrap file dar kenar cdn)
