@@ -1,8 +1,6 @@
 import os
-from turtle import update
 import uuid
 import datetime
-from xml.etree.ElementTree import QName 
 from . import helpers
 from .helpers import login_required 
 from flask import(
@@ -24,9 +22,9 @@ from werkzeug.security import(
 from werkzeug.utils import secure_filename
 
 from divar import app,db
-from divar.models import MailVerification,User
+from divar.models import MailVerification,User,Post
 from divar.Email import send_email
-from divar.forms import Register, ActiveCode, Login,UserUpload
+from divar.forms import Register, ActiveCode, Login, UserUpload, RegisterPost
 
 # list of cities (hard coded)
 static = ['کرج','تهران','قم','مشهد','گیلان','گلستان','شیراز','اصفهان','کرمانشاه','تبریز']
@@ -49,8 +47,6 @@ def before_Request():
                 if not UserStatus.phone:
                     g.user_status['phone'] = "شماره تماس وارد نشده است"
 
-
-    # set up user_profile information
 
 
 @app.errorhandler(500)
@@ -249,7 +245,13 @@ def verification_code():
             return redirect(url_for("register"))    
         else:
             # check code
-            if (check_db.active_code == int(code_activation)):
+            try:
+                code_activation = int(code_activation)
+            except ValueError:
+                flash("کد ارسال شده نامعتبر می باشد","danger")
+                return redirect(url_for("register"))
+            
+            if (check_db.active_code == code_activation):
                 user_obj = User.query.filter(User.id==session["user_id"]).first()
                 user_obj.is_active = 1
                 check_db.activated = 1
@@ -323,7 +325,7 @@ def user_profile():
             # query for user images in db
             user_in_dn = User.query.filter(User.id==session["user_id"]).first()
             if user_in_dn:
-                img_profile = "/static/uploads/images/" + user_in_dn.profile_image
+                img_profile = "/static/uploads/profiles/" + user_in_dn.profile_image
                 
                 user = {"image" : img_profile, "join_date" : user_in_dn.create_time}
                 
@@ -363,11 +365,11 @@ def profile():
                     # delete previous picture
                     pri_img = check_user.profile_image
                     if  pri_img != app.config["DEFAULT_PICTURE"]:
-                        os.remove(os.path.join(app.config["UPLOAD_FOLDER"],pri_img))
+                        os.remove(os.path.join(app.config["UPLOAD_FOLDER"],"profiles",pri_img))
                     # replace pictures
                     
                     check_user.profile_image = image_name
-                    path = (os.path.join(app.config["UPLOAD_FOLDER"],image_name))
+                    path = (os.path.join(app.config["UPLOAD_FOLDER"],"profiles",image_name))
                     img.save(path)
                     db.session.add(check_user)
                     db.session.commit()
@@ -380,46 +382,113 @@ def profile():
             return redirect(url_for("user_profile"))
 
 
-
-
-
 @app.route("/logout/", methods=["GET"])
 @login_required
 def logout():
+    """
+    In Logout View First Delete All Session from user and redirect it to index
+    """
     session.clear()
     return redirect(url_for("index"))
 
 
-
-
-
-
-
-
-
-
-
-@app.route("/temp")
-def temp():
-    form=ActiveCode()
-    return render_template("activate_code.html",user_status=g.user_status,form=form)
-
-
-@app.route("/temp1")
-def temp1():
-    return render_template("post-page/index.html",user_status=g.user_status)
-
-
-@app.route("/temp2",methods=["POST","GET"])
-def temp2():
+@app.route("/new/", methods=["POST", "GET"])
+@login_required
+def register_post():
+    form= RegisterPost()
     if request.method == "GET":
-        form = UserUpload()
-        return render_template("user/profile.html",user_status=g.user_status,form=form)
+        return render_template("register-posts/index.html",user_status=g.user_status, form=form)
+    
     if request.method == "POST":
-        form = UserUpload(request.form)
-        if form.validate_on_submit():
-            pass
-        else:
-            return render_template("user/profile.html",user_status=g.user_status,form=form)
+        if not form.validate():
+            flash("فرم دارای اعتبار سنجی نادرست است","warning")
+            return render_template("register-posts/index.html",user_status=g.user_status, form=form)
+        if form.validate():
+            # check for validate categories  
+            categories = request.form.getlist("category")
+            print(categories)
+            # check categories to db 
+            categury_answer = helpers.check_category(categories)
+            print(categury_answer)
+            if not categury_answer:
+                flash("دسته ای برای آگهی مورد نظرانتخاب نشده است","info")
+                return redirect(url_for("register_post"))
+
+            # add to user db posts
+            user_db = User.query.filter(User.id == session["user_id"]).first()
+            if not user_db:
+                flash("خطایی رخ داد لطفا دوباره به حساب کاربری خود وارد شوید","danger")
+                return redirect(url_for("register_post"))
+            
+            # check to user select price or trade option
+            # if both is empty
+            if form.price_post.data == "" and (not request.form.get("trade-option",None)):
+                flash("لطفا وضعیت پست را تعیین کنید (فروش قیمت یا معاوضه)","info")
+                return render_template("register-posts/index.html", user_status=g.user_status, form=form)
+
+            # if both is selected
+            if form.price_post != "" and request.form.get("trade-option", False):
+                flash("یک پست نمی تواند هم قیمت و هم قابل معاوضه باشد","danger")
+                form.price_post.errors = ["خطا : پست باید دارای قیمت یا قابل معاوضه باشد"]
+                return render_template("register-posts/index.html", user_status=g.user_status, form=form)
+            
+            # check price is number
+            try:
+                form.price_post.data = int(form.price_post.data)
+            except ValueError:
+                flash("قیمت آگهی باید عدد باشد !","danger")
+                form.price_post.errors = ["خطا : قیمت پست اشتباه است !"]
+                return render_template("register-posts/index.html", user_status=g.user_status, form=form)
+            
+            post_price = 0
+            if form.price_post.data:
+                post_price = form.price_post.data
+            else:
+                post_price = request.form.get("trade-option",None)
+
+            new_post = Post(post_title=form.title_post.data.strip(),
+            post_caption = form.caption_post.data.strip(),
+            post_price = post_price,post_status="موجود",created_date=datetime.datetime.utcnow(),
+            post_categories = categury_answer,
+            user_id = user_db
+            )
+
+            # save image
+            images_list= []
+            if request.files:
+                # check number of images
+                len_imgs = request.files.getlist("post_img")
+                
+                if len_imgs > 3:
+                    flash("تعداد عکس های انتخاب شده بیش از 3 عدد است","danger")
+                    return render_template("register-posts/index.html",user_status=g.user.status, form=form) 
+
+                imgs = request.files.getlist("post_img")
+                for each in imgs:
+                    each_filename = each.filename
+                    each_filename = uuid.uuid1() + (each_filename)
+                    each_filename = secure_filename(each_filename)
+                    path = os.path.join(app.config["UPLOAD_FOLDER"], "posts", each_filename)
+                    images_list.append(each_filename)
+                    each.save(path)
+                
+                new_post.image_location = images_list
+
+                try:
+                    db.session.add(new_post)
+                    db.session.commit()
+                except:
+                    db.session.rollback()
+                
+                return redirect(url_for("my_posts"))
+
+
+@app.route("/my-divar/my-posts/", methods=["GET"])
+@login_required
+def my_posts():
+    return render_template("user-dashboard/index.html",user_status=g.user_status)
+
+
+
 
 

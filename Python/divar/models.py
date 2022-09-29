@@ -41,6 +41,9 @@ class User(db.Model):
 
     mails = db.relationship("MailVerification", backref="user_mails", lazy=True)
     posts = db.relationship("Post", backref="user_posts", lazy=True)
+    histories = db.relationship("History", backref="user_history", lazy=True)
+    notes = db.relationship("Note", backref="user_notes", lazy=True)
+    VisitHistories = db.relationship("VisitHistory", backref="user_VisitHistory", lazy=True) 
 
 class Post(db.Model):
     """
@@ -48,10 +51,10 @@ class Post(db.Model):
     """
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
-    post_title = db.Column(db.String(32))
+    post_title = db.Column(db.String(128))
     post_caption = db.Column(db.String(256))
     # each post has to be have 1 picture at least
-    image_location = db.Column(db.String(256))
+    image_location = db.Column(db.Text())
     # in this app we have price and some time (توافقی / حدودی )
     post_price = db.Column(db.String(256),nullable=False)
     # post <sell> or post <is available>
@@ -60,9 +63,12 @@ class Post(db.Model):
     # when we created post assign value to this field
     created_date = db.Column(db.DateTime())
     post_categories=db.Column(db.String(256))
-
+    
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
+    notes = db.relationship("Note", backref="post_notes", lazy=True)
+    histories = db.relationship("History", backref="post_hostories", lazy=True) 
+    VisitHistories = db.relationship("VisitHistory", backref="post_VisitHistory", lazy=True) 
 
 class Note(db.Model):
     """
@@ -71,8 +77,10 @@ class Note(db.Model):
     __tablename__ = 'notes'
     id = db.Column(db.Integer, primary_key=True)
     notes = db.Column(db.String(256))
-    user_id = db.Column(db.Integer)
-    post_id = db.Column(db.Integer)
+
+
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
 class History(db.Model):
@@ -81,17 +89,21 @@ class History(db.Model):
     """
     __tablename__ = 'Histories'
     id = db.Column(db.Integer, primary_key=True)
-    post_id = db.Column(db.Integer)
-    user_id = db.Column(db.Integer)
     last_visit = db.Column(db.Date(),default=datetime.utcnow)
+
+
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
 class Category(db.Model):
     """
     This table carries all categories in website
+    added automatically via add_CategoryDB.py script
     """
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(128), unique=True,nullable=False)
 
 
 class VisitHistory(db.Model):
@@ -100,9 +112,10 @@ class VisitHistory(db.Model):
     """
     __tablename__ = 'visit-history'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
-    post_id = db.Column(db.Integer)
     visit_date = db.Column(db.Date(),default=datetime.utcnow)
+
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
 class State(db.Model):
@@ -113,6 +126,7 @@ class State(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state_name = db.Column(db.String(64))
 
+    cities = db.relationship("City", backref="state_Cities", lazy=True)
 
 class City(db.Model):
     """
@@ -121,6 +135,7 @@ class City(db.Model):
     __tablename__ = 'cities'
     id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String(64))
-    state_id = db.Column(db.Integer)
+
+    state_id = db.Column(db.Integer, db.ForeignKey("states.id"))
 
 db.create_all()

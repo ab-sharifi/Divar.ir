@@ -4,27 +4,33 @@
 <head>
   <script src="https://kit.fontawesome.com/9acc533df2.js" crossorigin="anonymous"></script>
   <!-- icon -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <!-- custom css -->
-  <link rel="stylesheet" href="{{ url_for('static',filename='CSS/bootstrap.rtl.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='user_posts/style.css') }}" />
 
+  <link rel="stylesheet" href="{{ url_for('static',filename='CSS/bootstrap.rtl.min.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static',filename='CSS/style-public.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/header.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/modal-city.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/style.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/style.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static',filename='post-page/CSS/style.css') }}" />
-
+  
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/main-card.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='index-home/CSS/sidebar.css') }}" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-react-helmet="true">دیوار کرج: مرجع انواع نیازمندی و آگهی‌های نو و دست دو در شهر کرج</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="https://s100.divarcdn.com/static/thewall-assets/favicon-32x32.png">  
-  <link rel="apple-touch-icon" sizes="180x180" href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png  ">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://s100.divarcdn.com/static/thewall-assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://s100.divarcdn.com/static/thewall-assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16"
+    href="https://s100.divarcdn.com/static/thewall-assets/favicon-16x16.png">
   <link rel="mask-icon" href="https://s100.divarcdn.com/static/thewall-assets/safari-pinned-tab.svg" color="#a62626">
 </head>
-<body class="mt-cs">
+
+<body>
+
 
 
   <!-- START navbar -->
@@ -59,7 +65,7 @@
             <!-- form search in navbar -->
             <form action="" class="form-inline w-25 bg-light-owen-lighter rounded">
               <div class="input-group">
-                <input dir="rtl" class="border-0 form-control p-0 bg-light-owen-lighter" type="text"
+                <input dir="rtl" class="border-0 form-control p-0 bg-light-owen-lighter border-bottom" type="text"
                   placeholder="جستجو در آگهی ها">
                 <button class="border-0 input-group-text btn bg-light-owen-lighter">
                   <i class=" bi bi-search" id=""></i>
@@ -79,7 +85,7 @@
                 <!-- دیوار من dropdown -->
                 <div class="dropdown-menu text-muted fs-11  ">
                   {% if user_status.login == True %}
-                  <a href="{{url_for('profile')}}" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
+                  <a href="{{ url_for('profile') }}" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
                     <div class="fs-11 ">
                       <div class="px-1 py-2">
                         <span>{{user_status.name}}</span>
@@ -131,10 +137,10 @@
                   <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
                     <span>دیوار برای کسب و کار ها</span>
                     <i class="bi bi-shop-window"></i>
-                  </a>
+                  </a> 
 
                   {% if user_status.login == True %}
-                    <a href="{{url_for('logout')}}" class="dropdown-item px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
+                    <a href="{{ url_for('logout') }}" class="dropdown-item px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
                       <span>خروج</span>
                       <i class="bi bi-box-arrow-right"></i>
                     </a>
@@ -189,191 +195,58 @@
   </div>
   <!-- END of navbar -->
 
-  <!-- 000000000000000000000000000000000000000000000000000000000  -->
 
-<div class="container mt-5 pt-5 ">
-<!-- breadcrumb -->
-    <div class="breadcrumb-container  " dir="rtl">
-      <ol class="breadcrumb  rounded px-1 fs-8">
-        <li class="breadcrumb-item">خانه</li>
-        <li class="breadcrumb-item">مشتری</li>
-        <li class="breadcrumb-item">ماشین</li>
-        <li class="breadcrumb-item active">تایتل پیج اینجا</li>
-      </ol>
-    </div>
-<!-- breadcrumb -->
+  <div class="container-fluid mt-5 pt-5" dir="rtl">
+    <div class="row">
 
-<!-- 000000000000000000000000000000000000000000000000000000000  -->
+      <!-- START SIDEBAR mini sidebar down -->
 
-<!-- content page  MIAN -->
-    <div class="row mt-3">
-      
-    <!-- lef side picture -->
-          <div class="col-lg-8 col-md-12">
-        <div class="carousel slide" data-bs-interval="7000" data-bs-ride="carousel" id="carousel-cs">
-          <ol class="carousel-indicators">
-            <li data-bs-target="#carousel-cs" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#carousel-cs" data-bs-slide-to="1"></li>
-            <li data-bs-target="#carousel-cs" data-bs-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <!-- control for slider -->
-            <a href="#carousel-cs" data-bs-slide="prev" role="button" class="carousel-control-prev">
-              <span class="carousel-control-prev-icon bg-dark"></span>
-            </a>
-            <a href="#carousel-cs" data-bs-slide="next" role="button" class="carousel-control-next">
-              <span class="carousel-control-next-icon bg-dark"></span>
-            </a>
-            <!-- control for slider -->
-            <div class="carousel-item active">
-              <img class="d-block carousel-img img-md-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvevp5T6-s5rdTgXopC15ZziE8dgcAywKgm1tZxUNUon9ujY5pUSgaRJjcozqMUeXuKtg&usqp=CAU" alt="">
-              <!-- 
-                captionf or each picture
-                <div class="carousel-cation">
-                <span>تصویر 1</span>
-              </div> 
-            -->
-            </div>
-            <div class="carousel-item">
-              <img class="d-block carousel-img img-md-fluid" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/8c/39/cc/uninterrupted-city-view.jpg?w=600&h=400&s=1" alt="">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block carousel-img img-md-fluid" src="https://irangashttour.com/wp-content/uploads/2021/05/karaj.jpg" alt="">
-            </div>
+      <aside class="d-none col-12 mini-sidebar position-fixed bottom-0 start-0 border-top bg-white">
+        <div class="d-flex align-items-center justify-content-between">
 
-          </div>
-        </div>
-        <div class="mt-2 d-none d-lg-block">
-          <form action="">
-            <textarea dir="rtl" class="text-right p-2 focus-brand-color text-start textarea-notes"
-              placeholder="یاداشت شما .. " style="width: 100%;resize: none;" name="" id="" cols="100%"
-              rows="5"></textarea>
-          </form>
-          <div class="text-start" dir="rtl">
-            <span class="text-muted fs-8 ">
-              یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.
-            </span>
-          </div>
-          <div dir="rtl" class="mt-4 ">
-            <a href="" class="text-decoration-none text-muted fs-9 text-black-hover transition-bgcolor-1s">
-              <div class=" border-bottom py-3">
-                <i class="bi bi-question-circle"></i>
-                <span>راهنمای خرید امن</span>
-              </div>
-            </a>
-            <a href="" class="text-decoration-none text-muted fs-9 text-black-hover transition-bgcolor-1s ">
-              <div class=" border-bottom py-3">
-                <i class="bi bi-exclamation-circle"></i>
-                <span>ثبت تخلف یا مشکل آگهی</span>
-              </div>
-            </a>
-          </div>
-        </div>
-          </div>
-      <!-- lef side picture -->
-      <!-- right side info -->
-          <div class="col-lg-4 col-md-12" dir="rtl">
-        <div>
-          <div class="container-cs  d-flex flex-direction-column mt-4">
-            <div class="headers-body text-right">
-              <h1 class="h4 bold-title mb-4 title-costumer">نشت یابی رفع نم لوله بازکنی کشی فنرزنی نشتی فنرزن</h1>
-              <h5 class="text-muted fs-8"><span>دو ساعت پیش در کرج</span> <span>مشکین دشت</span> <span>مهارت فنی و
-                  خدمات</span></h5>
+          <a class="d-flex align-items-center text-color-brand p-3 fs-10 miniSidebar-button btn-res-bottom"
+            href="#"><span>دیوار آگهی‌ها</span></a>
+          <!-- open categorie modal -->
+          <button data-bs-target="#opencategories" data-bs-toggle="modal"
+            class="d-flex align-items-center bg-transparent border-0 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom "><i
+              class="bi bi-list-ul pe-3 icon-btn-res-bottom "></i><span>دسته‌ها</span>
+          </button>
+          <!-- open categorie modal -->
 
-              <div class="d-flex justify-content-between align-items-center my-4">
-                <div class="w-auto ">
-                    <a href="" class="responsive-btn btn btn-brand btn-cs px-lg-2 px-md-4 fs-11  px-4 text-white text-brand-hover">اطلاعات
-                      تماس</a>
-                    <a href=""
-                      class="responsive-btn btn btn-brand btn-cs px-lg-4 px-md-5 px-4 fs-11 text-brand bg-white btn-outline-brand">چت
-                    </a>
-                </div>
-                <div class="w-auto pe-2">
-                  <a href="#" class="icon-save-share text-muted p-2 "><i class="fs-10 fa-solid fa-bookmark"></i></a>
-                  <a href="#" class="icon-save-share text-muted p-2 "><i class="fs-10 bi bi-share-fill"></i></a>
-                </div>
-              </div>
-              <div class="customer-info fs-info">
-                <div class="d-flex justify-content-between border-bottom  p-2">
-                  <span class="text-muted">وضعیت</span>
-                  <span>نو</span>
-                </div>
-                <div class="d-flex justify-content-between border-bottom  p-2">
-                  <span class="text-muted">قیمت</span>
-                  <span>3760000 تومان</span>
-                </div>
-                <div class="d-flex justify-content-between border-bottom  p-2">
-                  <span class="text-muted">آخرین به‌روزرسانی آگهی</span>
-                  <span>یه ربع پیش</span>
-                </div>
-              </div>
-              <div class="customer-caption mt-4">
-                <span class="h5"> توضیحات</span>
-                <br>
-                <p class="customer-info-product fs-8 pt-3  border-bottom pb-5">
-                  قیمت پایین نشانه کیفیت بالا نیست،به قیمت خرید کنید پخش درب ضد سرقت ساخت با ابعاد سفارشی رنگ و طرح
-                  سفارشی
-                  درب ورودی فلزی
-                  درب چوبی
-                  رویه فلز ایرانی
-                  رویه فلز ترک
-                  رویه راش و گردو و بلوط ...
-                  جهت اطلاعات بیشتر با کارشناسان فروش تماس بگیرید
-                  ارسال به سراسر کشور
-                  آدرس کارخانه و انبار مرکزی
-                  کرج جاده قزلحصار بعد از کوچه میثم ۳/۲نرسیده به نمایندگی ایرانخودرو درب ضد سرقت آرکا
-                </p>
-              </div>
+          <button
+            class="d-flex align-items-center bg-transparent border-0 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"><i
+              class="bi bi-plus-circle-fill  pe-3 icon-btn-res-bottom ">
+            </i><span>ثبت آگهی</span>
+          </button>
 
-              <div class="category-about-product mt-4 w-100 mb-3">
-                <a href="#"
-                  class="category text-muted fs-8 px-2 py-1 overflow-hidden bg-light rounded text-muted-hover-light">مصالح
-                  ساختمای</a>
-                <a href="#"
-                  class="category text-muted fs-8 px-2 py-1 overflow-hidden bg-light rounded text-muted-hover-light">خانه
-                  و سلامت</a>
-                <a href="#"
-                  class="category text-muted fs-8 px-2 py-1 overflow-hidden bg-light rounded text-muted-hover-light">موتور
-                  و خودرو</a>
-              </div>
+          <a class="  d-flex align-items-center text-muted h-100 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"
+            href="#"><i class="bi bi-chat-fill pe-3 icon-btn-res-bottom "></i><span>چت</span>
+          </a>
 
-            </div>
-          </div>
+          <a data-bs-toggle="modal" data-bs-target="#modal-mudivar-mini" class=" d-flex align-items-center text-muted h-100 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"
+            href="#">
+              <i class="bi bi-person-fill pe-3 icon-btn-res-bottom"></i>
+              <span >دیوار من</span>
+          </a>
 
         </div>
-          </div>
-      <!-- right side info -->
+      </aside>
+      <!-- END SIDEBAR mini sidebar down -->
+
 
     </div>
-<!-- content page  MIAN -->
+  </div>
 
-<!--  000000000000000000000000000000000000000000000000000000000  -->
 
-<!-- footer of the page  -->
-    <div class=" w-100 h-100 mt-4 p-3 d-flex justify-content-between align-items-center">
-      <div class=" d-flex justify-content-center align-center">
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-twitter"></i>
-        </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-instagram"></i>
-        </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-linkedin"></i>
-        </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-github"></i></a>
-      </div>
-      <div class="text-muted fs-7">
-        <span class="px-2 border-end cursor-pointer text-black-hover ">درباره دیوار</span>
-        <span class="px-2 border-end cursor-pointer text-black-hover">پشتیبانی و قوانین</span>
-        <span class="px-2  cursor-pointer text-black-hover">بلاگ دیوار</span>
-      </div>
-    </div>
-<!-- footer of the page  -->
-
+<div class="container-fluid">
+  {% block body %}
+  {% endblock %}
 </div>
 
 
 
 <!-- all Modals here modals (For Search) -->
-  <!-- The Modal Citys-->
+<!-- The Modal Citys-->
   <div class="modal fade" id="selectAreaModal" dir="rtl">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -385,7 +258,7 @@
             <h4 class="modal-title fs-5">انتخاب شهر</h4>
             <button type="button"
               class="bg-transparent text-danger border-0 bg-danger-hover border-radius-30 pe-3 ps-3 fs-10"
-              onclick="document.querySelector('#city-tag-names').innerHTML = '<h6 class=\'text-muted fs-8 pt-2\'>حداقل یک شهر را انتخاب کنید.</h6>'; unchecked_checkboxes('city-tag-checkbox'); document.querySelector('#btnSelectCities').disabled = true;">حذف
+              onclick="document.querySelector('#city-tag-names').innerHTML ='<h6 class=\'text-muted fs-8 pt-2\'>حداقل یک شهر را انتخاب کنید.</h6>'; unchecked_checkboxes('city-tag-checkbox'); document.querySelector('#btnSelectCities').disabled = true;">حذف
               همه</button>
           </div>
 
@@ -414,7 +287,7 @@
                     <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
                       onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
                       id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left"></i></label>&nbsp;&nbsp;آذربایجان
+                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
                       غربی
                     </a>
                   </div>
@@ -428,7 +301,7 @@
                     <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
                       onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
                       id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left"></i></label>&nbsp;&nbsp;آذربایجان
+                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
                       غربی
                     </a>
                   </div>
@@ -442,7 +315,7 @@
                     <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
                       onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
                       id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left"></i></label>&nbsp;&nbsp;آذربایجان
+                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
                       غربی
                     </a>
                   </div>
@@ -456,7 +329,7 @@
                     <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
                       onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
                       id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left"></i></label>&nbsp;&nbsp;آذربایجان
+                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
                       غربی
                     </a>
                   </div>
@@ -470,7 +343,7 @@
                     <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
                       onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
                       id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left"></i></label>&nbsp;&nbsp;آذربایجان
+                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
                       غربی
                     </a>
                   </div>
@@ -486,10 +359,10 @@
             <div class="d-none d-flex flex-column overflow-auto" id="sectionShowCities">
 
               <div class="d-flex">
-                <a class="text-dark fs-6 w-100 p-3 ps-0 d-flex"
+                <a class="text-dark fs-11 w-100 p-3 ps-0 d-flex"
                   onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
                   href="#">
-                  <label class="text-muted fs-5"><i class="bi bi-arrow-right"></i></label>&nbsp;&nbsp;همه شهرها
+                  <label class="text-muted fs-5"><i class="bi bi-arrow-right pe-3"></i></label>همه شهرها
                 </a>
               </div>
 
@@ -498,46 +371,46 @@
 
                   <!-- Each City -->
                   <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-6 w-100 my-3 p-2 py-0 d-flex"
+                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
                       href="#">
-                      <input class="city-tag-checkbox mx-5" type="checkbox" name="" id="checkbox-tag-فردیس"
-                        onclick="selectCityfromArea('فردیس', this.checked)">&nbsp;&nbsp;فردیس
+                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-فردیس"
+                        onclick="selectCityfromArea('فردیس', this.checked)">فردیس
                     </a>
                   </li>
                   <!-- End Each City -->
                   <!-- Each City -->
                   <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-6 w-100 my-3 p-2 py-0 d-flex"
+                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
                       href="#">
-                      <input class="city-tag-checkbox mx-5" type="checkbox" name="" id="checkbox-tag-کرج"
-                        onclick="selectCityfromArea('کرج', this.checked)">&nbsp;&nbsp;کرج
+                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-کرج"
+                        onclick="selectCityfromArea('کرج', this.checked)">کرج
                     </a>
                   </li>
                   <!-- End Each City -->
                   <!-- Each City -->
                   <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-6 w-100 my-3 p-2 py-0 d-flex"
+                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
                       href="#">
-                      <input class="city-tag-checkbox mx-5" type="checkbox" name="" id="checkbox-tag-گوهردشت"
-                        onclick="selectCityfromArea('گوهردشت', this.checked)">&nbsp;&nbsp;گوهردشت
+                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-گوهردشت"
+                        onclick="selectCityfromArea('گوهردشت', this.checked)">گوهردشت
                     </a>
                   </li>
                   <!-- End Each City -->
                   <!-- Each City -->
                   <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-6 w-100 my-3 p-2 py-0 d-flex"
+                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
                       href="#">
-                      <input class="city-tag-checkbox mx-5" type="checkbox" name="" id="checkbox-tag-زورآباد"
-                        onclick="selectCityfromArea('زورآباد', this.checked)">&nbsp;&nbsp;زورآباد
+                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-زورآباد"
+                        onclick="selectCityfromArea('عظیمیه جنوبی (اسلام آباد)', this.checked)">زورآباد
                     </a>
                   </li>
                   <!-- End Each City -->
                   <!-- Each City -->
                   <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-6 w-100 my-3 p-2 py-0 d-flex"
+                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
                       href="#">
-                      <input class="city-tag-checkbox mx-5" type="checkbox" name="" id="checkbox-tag-عظیمیه"
-                        onclick="selectCityfromArea('عظیمیه', this.checked)">&nbsp;&nbsp;عظیمیه
+                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-عظیمیه"
+                        onclick="selectCityfromArea('عظیمیه', this.checked)">عظیمیه
                     </a>
                   </li>
                   <!-- End Each City -->
@@ -570,7 +443,7 @@
       </div>
     </div>
   </div>
-  <!-- End of The Modal Citys-->
+<!-- End of The Modal Citys-->
 
   <!-- modal of categories -->
   <div class="modal fade" id="opencategories" dir="rtl">
@@ -643,10 +516,92 @@
   <!-- modal of categories -->
 
 
+  <div class="modal" id="modal-mudivar-mini">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" dir="rtl">
+        <div class="modal-header text-muted">
+          <span class="fs-5">دیوار من</span>
+          <i class="bi bi-person-square"></i>
+        </div>
+        <div class="modal-body">
+
+          {% if user_status.login == True %}
+          <a href="{{ url_for('profile') }}" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
+            <div class="fs-11 ">
+              <div class="px-1 py-2">
+                <span>{{user_status.name}}</span>
+                <i class="bi bi-person"></i>
+              </div>
+              <div class="p-1 ">
+                <span class="text-muted-light">تلفن</span>
+                <span class="text-muted-light">{{user_status.phone}}</span>
+              </div>
+            </div>
+          </a>
+          {% endif %}
+
+          <a href="{{url_for('login')}}"
+            class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
+            <span> ورود </span>
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+                            
+          <a href="{{url_for('register')}}" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>ساخت حساب کاربری</span>
+            <i class="bi bi-person-plus fs-8"></i>
+          </a>
+
+          {% if user_status.login == True %}
+            <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
+              <span>آگهی های من</span>
+              <i class=" fs-8 bi bi-book pe-1"></i>
+            </a>
+          {% endif %}
+
+          {% if user_status.login == True %}
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>نشان شده ها</span>
+            <i class="bi bi-bookmark"></i>
+          </a>
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>یادداشت ها</span>
+            <i class="bi bi-card-list"></i>
+          </a>
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>بازدید های اخیر</span>
+            <i class="bi bi-clock-history"></i>
+          </a>
+          {% endif %}
+          
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>دیوار برای کسب و کار ها</span>
+            <i class="bi bi-shop-window"></i>
+          </a> 
+
+          {% if user_status.login == True %}
+            <a href="{{ url_for('logout') }}" class="d-flex justify-content-between  align-items-center fs-11  px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
+              <span>خروج</span>
+              <i class="bi bi-box-arrow-right"></i>
+            </a>
+          {% endif %}
+        </div>
+        <div class="modal-footer d-flex justify-content-between fs-11">
+          <a href="#" class="text-brand">قوانین و مقررات</a>
+          <a href="#" class="text-brand">ارتباط با پشتیبانی</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- JavaScript Bundle with Popper -->
+  <!-- <script src="JS/bootstrap.bundle.min.js"></script> -->
+  <!-- <script src="JS/script.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-  crossorigin="anonymous"></script>
-  <script src="{{ url_for('static' , filename='post-page/JS/script.js') }}"></script>
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+  <script src="{{ url_for('static',filename='index-home/JS/script.js') }}"></script>
 </body>
 
 </html>

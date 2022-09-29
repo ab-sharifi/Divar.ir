@@ -17,8 +17,9 @@ if not db_username or not db_password:
     raise RuntimeError("DateBase Username or Password is Not Set/ from config.py set it")
 
 class Config:
+
     DEFAULT_PICTURE = "default.jpg"
-    UPLOAD_FOLDER = "C:\\Users\\alisharify\\Documents\\temp\\Divar.ir\\Python\\divar\\static\\uploads\\images"
+    UPLOAD_FOLDER = "C:\\Users\\alisharify\\Documents\\temp\\Divar.ir\\Python\\divar\\static\\uploads"
     # created by secrets lib in python for test
     SECRET_KEY = 'a15a278b4567a92d8e7ae65c693e7ab7dba8fc01706d68d04d6a14dc9f9c3666'
     WTF_CSRF_SECRET_KEY = "c8bb66efe3a2ade70047b32af1786bb2aebeb31e7ebace965a73a582a025a06d"

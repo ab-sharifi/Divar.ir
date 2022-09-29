@@ -1,0 +1,7 @@
+#form-upload{
+    border :1px dashed var(--brand-color);
+}
+.upload-icon{
+    font-size: 5rem;;
+}
+.upload-body{}

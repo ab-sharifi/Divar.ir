@@ -1,0 +1,19 @@
+@media (max-width:682px) {
+    .hidden-responsive-burger{
+        display: none;
+    }
+    .add_register_post-responsive{
+        margin-right: auto !important;
+    }
+}
+
+@media(max-width:993px){
+    .sidebar-user-posts{
+        position:static;
+        display: none;
+    }
+    body{
+        background: red;
+
+    }
+}

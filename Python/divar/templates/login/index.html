@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block body %}
+{% extends "base.html" %} 
+{% block body %}
 
 <div class="container mt-5 pt-5" dir="rtl" style="margin-top: 4rem">
   {% with messages = get_flashed_messages(True) %} {% if messages %} {% for
@@ -21,14 +22,18 @@
         برای ورود به حساب کاربری ایمیل خود را وارد کنید
       </label>
       {{form.email(class="form-control text-start" ,placeholder="temp@gmail.com
-      :مثال " , id="email-field")}} {% if form.email.errors %}
+      :مثال " , id="email-field")}}
+      
+      {% if form.email.errors %}
       <div class="w-100 text-center">
         {% for error in form.email.errors %}
         <span class="text-danger fs-8">{{error}}</span>
         {% endfor %}
       </div>
       {% endif %}
+      
       <br />
+      
       <label for="password-field">رمز عبور خود را وارد نمایید</label>
       {{form.password(class="form-control", placeholder="حداقل طول پسورد 8
       کاراکتر می باشد ", id="password-field")}} {% if form.password.errors %}

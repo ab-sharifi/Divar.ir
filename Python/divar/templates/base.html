@@ -61,7 +61,7 @@
             <!-- form search in navbar -->
             <form action="" class="form-inline w-25 bg-light-owen-lighter rounded">
               <div class="input-group">
-                <input dir="rtl" class="border-0 form-control p-0 bg-light-owen-lighter" type="text"
+                <input dir="rtl" class="border-0 form-control p-0 bg-light-owen-lighter border-bottom" type="text"
                   placeholder="جستجو در آگهی ها">
                 <button class="border-0 input-group-text btn bg-light-owen-lighter">
                   <i class=" bi bi-search" id=""></i>
@@ -81,7 +81,7 @@
                 <!-- دیوار من dropdown -->
                 <div class="dropdown-menu text-muted fs-11  ">
                   {% if user_status.login == True %}
-                  <a href="" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
+                  <a href="{{url_for('profile')}}" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
                     <div class="fs-11 ">
                       <div class="px-1 py-2">
                         <span>{{user_status.name}}</span>
@@ -95,11 +95,13 @@
                   </a>
                   {% endif %}
 
+                  {% if not (user_status.login == True) %}
                   <a href="{{url_for('login')}}"
-                    class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
-                    <span> ورود </span>
-                    <i class="bi bi-box-arrow-right"></i>
+                  class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
+                  <span> ورود </span>
+                  <i class="bi bi-box-arrow-right"></i>
                   </a>
+              {% endif %}
                                     
                   <a href="{{url_for('register')}}" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
                     <span>ساخت حساب کاربری</span>
@@ -134,7 +136,7 @@
                   </a>
 
                   {% if user_status.login == True %}
-                    <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
+                    <a href="{{url_for('logout')}}" class="dropdown-item px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
                       <span>خروج</span>
                       <i class="bi bi-box-arrow-right"></i>
                     </a>

@@ -1,0 +1,240 @@
+{% extends "register-posts/base-register-post.html" %}
+
+{% block body %}
+
+<div>
+        {% with messages = get_flashed_messages(True) %}
+            {% if messages %}
+                {% for category,message in messages %}
+                <div class="alert alert-{{ category }} d-flex justify-content-between align-items-center show fade">
+                    <div>
+                        <span>{{ message }}</span>
+                    </div>
+                    
+                    <div>
+                        <span class="btn btn-close" data-bs-dismiss="alert"></span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <div class="header-register-post text-center mt-2">
+        <h4>ثبت آگهی</h4>        
+    </div>
+    <form action="{{url_for('register_post')}}" method="post" enctype="multipart/form-data">
+    {{form.csrf_token() }}
+    <div class="category-register-post border rounded text-center p-2 my-5">
+        <h6 class="text-muted">دسته بندی آگهی خود را انتخاب کنید</h6>  
+        <div class="form-group">
+
+        <div class="form-check ">
+            <label for="car" class="form-check-label mx-3 my-2 border-end pe-3">
+                <span>خودرو</span>
+                <input class="form-check-input" type="checkbox" name="category"
+                 id="car" value="خودرو">
+            </label>
+
+            <label for="home" class="form-check-label mx-3 my-2 border-end pe-3" dir="ltr">
+                <span>خانه</span>
+                <input class="form-check-input " type="checkbox" name="category"
+                 id="home" value="خانه">
+            </label>
+            
+            <label for="digital-products" class="form-check-label mx-3 my-2 border-end pe-3">
+                <span>کالای دیجیتال</span>
+                <input class="form-check-input " type="checkbox" name="category"
+                 id="digital-products" value="کالای دیجیتال">
+            </label>
+
+            <label for="fun-hobby" class="form-check-label mx-3 my-2 border-end pe-3 ">
+                <span>سرگرمی و فراغت</span>
+                <input class="form-check-input " type="checkbox" name="category"
+                 id="fun-hobby" value="سرگرمی و فراغت" >
+            </label>
+            
+            <label for="services" class="form-check-label mx-3 my-2 border-end pe-3">
+                <span>خدمات</span>
+                <input class="form-check-input " type="checkbox" name="category"
+                 id="services" value="خدمات" >
+            </label>
+            
+            <label for="sell-center" class="form-check-label mx-3 my-2  pe-3">
+            <span>نمایندگی فروش</span>
+            <input class="form-check-input " type="checkbox" name="category"
+             id="sell-center" value="نمایندگی فروش" >
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label  for="persoanl" class="form-check-label mx-3 my-2 border-end pe-3">
+                <span>وسایل شخصی</span>
+                <input class="form-check-input" type="checkbox" name="category" 
+                id="persoanl" value="وسایل شخصی">
+            </label>
+            
+            <label for="Equipment" class="form-check-label mx-3 my-2" dir="ltr">
+            <span>تجهیزات و صنعتی</span>
+            <input class="form-check-input " type="checkbox" name="category"
+             id="Equipment" value="تجهیزات و صنعتی">
+            </label>
+            
+            <label for="hire_work" class="form-check-label mx-3 my-2">
+            <span>استخدام و کاریابی</span>
+            <input class="form-check-input " type="checkbox" name="category"
+             id="hire_work" value="استخدام و کاریابی">
+            </label>
+
+            <label for="social" class="form-check-label mx-3 my-2">
+            <span>اجتماعی</span>
+            <input class="form-check-input " type="checkbox" name="category"
+             id="social" value="اجتماعی" >
+            </label>
+            
+            
+            <label for="unknown" class="form-check-label mx-3 my-2">
+            <span>متفرقه</span>
+            <input class="form-check-input " type="checkbox" name="category"
+             id="unknown" value="متفرقه" >
+            </label>
+        </div>
+
+        </div>  
+    </div>
+
+
+    <div class="select-city my-3">
+        <h5 class="text-muted">شهر</h5>
+        <select name="city" id="city_published" class="form-control">
+            <option value="کرج">کرج</option>
+            <option value="کرج">کرج</option>
+            <option value="کرج">کرج</option>
+            <option value="کرج">کرج</option>
+        </select>
+    </div>
+    
+
+    <div class="my-5">
+        <h5 class="text-muted">نقشه</h5>
+        <div class="w-100 border rounded">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13860094.336640837!2d62.68687010469828!3d31.993108951090473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef7ec2ec16b1df1%3A0x40b095d39e51face!2z2KfbjNix2KfZhg!5e0!3m2!1sfa!2sde!4v1664303089950!5m2!1sfa!2sde" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+
+    <!-- fix it later -->
+    <div class="my-5">
+
+        <h5 class="">عکس آگهی</h5>
+        <p class="text-muted fs-8">افزودنِ عکس بازدید آگهی شما را تا سه برابر افزایش می‌دهد.</p>
+        <p class="text-muted fs-11">حداکثر تعداد عکس های انتخابی <u>3</u> عدد است</p>
+        <input type="file" accept="image/*" class="form-control"
+         name="post_img" id="" multiple>
+        <p class="text-muted fs-10 my-2 text-center">
+        برای انتخاب چندین فایل کلید شیفت را نگه دارید و فایل هارو انتخاب کنید
+        </p>
+        
+    </div>
+
+
+    <div class="infotmation my-5 pt-4">
+        <h5 class="">اطلاعات حساب کاربری</h5>
+        <p class="text-muted fs-8">حساب شما در دیوار با شمارهٔ ۰۹۳۳۱۰۱۶۸۷۹ فعال است. تماس و چت نیز با این شماره انجام می‌شود.</p>
+        <p class="text-muted fs-8">توجه: لطفاً پس از ثبت آگهی، به پیامک‌های پرداخت وجه بی‌اعتنا باشید.</p>
+    </div>
+
+
+    <div class="chat my-5">
+        <h5>چت دیوار</h5>
+        <div class="form-check">
+            <label for="chat-option">
+                <span class="fs-8">چت دیوار فعال شود</span>
+                <input class="form-check-input" type="checkbox" name="chat-option" id="chat-option">
+            </label>
+        </div>
+    </div>
+
+
+    <div class="price my-5">
+        <h5>قیمت</h5>
+        <div class="form-group">
+            {{form.price_post(class="form-control",placeholder="قیمت به تومان")}}
+            {% if form.price_post.errors %}
+            <div class="text-danger fs-8 text-center">
+                {% for error in form.price_post.errors %}
+                        <span>{{error}}</span>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-check my-2">
+            <label for="trade">
+                <span class="fs-8">حاضر به معاوضه هستم</span>
+                <input id="trade" type="checkbox" class="form-check-input" name="trade-option">
+            </label>
+        </div>
+    </div>
+
+
+    <div class="title my-5 pt-3">
+        <h5>عنوان آگهی</h5>
+        <p class="text-muted fs-8">در عنوان آگهی به موارد مهم و چشمگیر اشاره کنید.</p>
+        <div class="form-group">
+            {{form.title_post(class="form-control",placeholder=" مثال : پراید مدل 94 کم کارکرد")}}
+            {% if form.title_post.errors %}
+            <div class="text-danger fs-8 text-center">
+                {% for error in form.title_post.errors %}
+                        <span>{{error}}</span>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    
+    <div class="description my-5">
+        <h5 >توضیحات آگهی</h5>
+        <p class="text-muted fs-8">جزئیات و نکات قابل توجه آگهی خود را کامل و دقیق بنویسید. درج شماره موبایل در متن آگهی مجاز نیست .</p>
+        {{form.caption_post(class="form-control",cols="100%" ,rows="10")}}
+        {% if form.caption_post.errors %}
+        <div class="text-danger fs-8 text-center">
+            {% for error in form.caption_post.errors %}
+                    <span>{{error}}</span>
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="submiting text-center my-2 mb-md-4  pb-md-5">
+        <a class="btn bg-brand-color text-white px-3 py-2 bg-brand-hover transition-all-1s" href="{{url_for('register_post')}}">انصراف</a>
+        <button class="btn bg-brand-color text-white px-3 py-2 bg-brand-hover transition-all-1s" type="submit">ارسال آگهی</button>
+    </div>
+
+
+    </form>
+</div>
+
+  <!-- footer of the page  -->
+  <div class="d-md-none d-lg-inline-block w-100 h-100 my-2 py-3 d-flex justify-content-between align-items-center">
+    
+    <div class=" d-flex justify-content-center align-center">
+      <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-twitter"></i>
+      </a>
+      <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-instagram"></i>
+      </a>
+      <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-linkedin"></i>
+      </a>
+      <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-github"></i></a>
+    </div>
+
+    <div class="text-muted fs-7 d-flex justify-content-center align-center">
+      <span class="px-2 border-end cursor-pointer text-black-hover transition-all-1s ">درباره دیوار</span>
+      <span class="px-2 border-end cursor-pointer text-black-hover transition-all-1s">پشتیبانی و قوانین</span>
+      <span class="px-2  cursor-pointer text-black-hover transition-all-1s">بلاگ دیوار</span>
+   </div>
+
+  </div>
+<!-- footer of the page  -->
+
+
+{% endblock %}

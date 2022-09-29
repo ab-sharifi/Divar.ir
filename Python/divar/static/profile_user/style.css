@@ -2,10 +2,6 @@
     width:360px;
 }
 
-.modal{
-    color: var(--brand-color);
-}
-
 #form-upload{
     border :1px dashed var(--brand-color);
 }
@@ -20,3 +16,4 @@
     }
     
 }
+
