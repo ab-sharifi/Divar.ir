@@ -1,0 +1,204 @@
+<!-- all Modals here modals (For Search) -->
+<!-- The Modal Citys-->
+<div class="modal fade" id="selectAreaModal" dir="rtl">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header d-flex flex-column border-0 p-4">
+
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="modal-title fs-5">انتخاب شهر</h4>
+            <!-- <button class="btn btn-outline-brand fs-8 text-danger border-radius-30 bg-danger-hover">حذف همه</button> -->
+          </div>
+
+          <div class="d-flex w-100 mt-2 p-2 overflow-auto" id="city-tag-names">
+            <h6 class="text-muted fs-8 pt-2">حداقل یک شهر را انتخاب کنید.</h6>
+          </div>
+
+          <div class="form-group position-relative w-100 mt-3 pt-1">
+            <input type="text" class="form-control input-focus border-gray-hover fs-8 ps-5"
+              placeholder="جستجوی در شهرها" />
+            <i class="bi bi-search position-absolute text-muted top-0 m-2 fs-5"></i>
+          </div>
+
+
+        </div>
+
+        <!-- Modal body -->
+        <!-- city here -->
+        <div class="modal-body ">
+          <div class="w-100 overflow-auto " id="container-city" style="height:300px !important">
+
+
+
+
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer border-0">
+          <div class="row w-100">
+            <div class="col-md-6 px-1">
+              <button type="button" class="btn bg-white border-1 border-dark text-muted text-black-hover w-100"
+                data-bs-dismiss="modal" id="btn_close_modal_city">انصراف</button>
+            </div>
+            <div class="col-md-6 px-1">
+              <!-- <button type="button" class="btn bg-color-brand border-0 text-black-hover w-100 text-white" -->
+                <!-- id="btnSelectCities" disabled>تایید</button> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!-- End of The Modal Citys-->
+
+  <!-- modal of categories -->
+  <div class="modal fade" id="opencategories" dir="rtl">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content ">
+        <div class="div modal-header cursor-pointer">
+          <span class="h4">دسته بندی ها</span>
+          <i class="bi bi-archive"></i>
+        </div>
+        <!-- body of modal   -->
+        <div class="modal-body p-1 fs-8 ">
+          <div class='px-3 py-2 w-100 hover-light  cursor-pointer transition-bgcolor-1s border-bottom'>
+            <i class="bi bi-house-door text-muted"></i>
+            <a href="" class="text-muted">املاک و خانه</a>
+          </div>
+
+          <div class='px-3 py-2 w-100 cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-car-front text-muted"></i>
+            <a href="" class="text-muted">وسایل نقلیه</a>
+          </div>
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-phone text-muted"></i>
+            <a href="" class="text-muted">کالای دیجیتال</a>
+          </div>
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-lamp text-muted"></i>
+            <a href="" class="text-muted">خانه و آشپزخانه</a>
+          </div>
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-palette2 text-muted"></i>
+            <a href="" class="text-muted">خدمات</a>
+          </div>
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-smartwatch text-muted"></i>
+            <a href="" class="text-muted">وسایل شخصی</a>
+          </div>
+
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-dice-5 text-muted"></i>
+            <a href="" class="text-muted">سرگرمی و فراغت</a>
+          </div>
+
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-people-fill text-muted"></i>
+            <a href="" class="text-muted">اجتماعی</a>
+          </div>
+
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s  border-bottom'>
+            <i class="bi bi-mic text-muted"></i>
+            <a href="" class="text-muted">تحهیزات و صنعتی</a>
+          </div>
+
+          <div class='px-3 py-2 w-100  cursor-pointer  hover-light transition-bgcolor-1s '>
+            <i class="bi bi-briefcase text-muted"></i>
+            <a href="" class="text-muted">استخدام و کاریابی</a>
+          </div>
+        </div>
+        <!-- end of body modal -->
+        <div class="modal-footer justify-content-between ">
+          <a href="" class="btn bg-brand-color text-white">
+            همه آگهی ها
+          </a>
+          <button class="btn bg-light-owen" data-bs-dismiss="modal">
+            <span>خروج</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal of categories -->
+
+
+  <div class="modal fade" id="modal-mudivar-mini">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" dir="rtl">
+        <div class="modal-header text-muted">
+          <span class="fs-5">دیوار من</span>
+          <i class="bi bi-person-square"></i>
+        </div>
+        <div class="modal-body">
+
+          {% if user_status.login == True %}
+          <a href="{{ url_for('profile') }}" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
+            <div class="fs-11 ">
+              <div class="px-1 py-2">
+                <span>{{user_status.name}}</span>
+                <i class="bi bi-person"></i>
+              </div>
+              <div class="p-1 ">
+                <span class="text-muted-light">تلفن</span>
+                <span class="text-muted-light">{{user_status.phone}}</span>
+              </div>
+            </div>
+          </a>
+          {% endif %}
+
+          <a href="{{url_for('login')}}"
+            class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
+            <span> ورود </span>
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+                            
+          <a href="{{url_for('register')}}" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>ساخت حساب کاربری</span>
+            <i class="bi bi-person-plus fs-8"></i>
+          </a>
+
+          {% if user_status.login == True %}
+            <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
+              <span>آگهی های من</span>
+              <i class=" fs-8 bi bi-book pe-1"></i>
+            </a>
+          {% endif %}
+
+          {% if user_status.login == True %}
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>نشان شده ها</span>
+            <i class="bi bi-bookmark"></i>
+          </a>
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>یادداشت ها</span>
+            <i class="bi bi-card-list"></i>
+          </a>
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>بازدید های اخیر</span>
+            <i class="bi bi-clock-history"></i>
+          </a>
+          {% endif %}
+          
+          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+            <span>دیوار برای کسب و کار ها</span>
+            <i class="bi bi-shop-window"></i>
+          </a> 
+
+          {% if user_status.login == True %}
+            <a href="{{ url_for('logout') }}" class="d-flex justify-content-between  align-items-center fs-11  px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
+              <span>خروج</span>
+              <i class="bi bi-box-arrow-right"></i>
+            </a>
+          {% endif %}
+        </div>
+        <div class="modal-footer d-flex justify-content-between fs-11">
+          <a href="#" class="text-brand">قوانین و مقررات</a>
+          <a href="#" class="text-brand">ارتباط با پشتیبانی</a>
+        </div>
+      </div>
+    </div>
+  </div>

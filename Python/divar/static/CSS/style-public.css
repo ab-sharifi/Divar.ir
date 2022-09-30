@@ -68,9 +68,6 @@ ul {
 /* utils */
 
 
-.fs-8{
-    font-size: .9rem;
-}
 .fs-10{
     font-size: .7rem;
 }
@@ -97,7 +94,9 @@ ul {
     background-color:rgb(225, 221, 221) ;
 }
 
-
+.hover-muted:hover {
+    background-color:hsl(202, 24%, 93%) ;
+}
 
 .bg-brand-hover:hover{
     background-color: var(--brand-color-hover) !important;

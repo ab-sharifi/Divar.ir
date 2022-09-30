@@ -64,12 +64,17 @@ function hidden_city_item(){
 // when user clock on city location in navbar
 const container_city = document.getElementById("container-city");
 const open_city_btn = document.getElementById("city-icon-navbar");
+const back_city_btn = document.getElementById("back-to-cities-btn");
+
+
 
 open_city_btn.addEventListener("click", function(e) {
             // delete Pervouse city in html
             clean_city_item();
             clean_state_item();
-            hidden_city_item()
+            hidden_city_item();
+            // back_city_btn.classList.add("d-none");
+
 
             // request to server to get all states 
             const xhr = new XMLHttpRequest();
@@ -99,7 +104,6 @@ open_city_btn.addEventListener("click", function(e) {
                     for(let city of cities) 
                     {
                         city.addEventListener("click", (e)=>{
-                         // delete Pervouse state in html
 
                             current_city = (e.currentTarget);
                             const key_city = (current_city.childNodes[5].value)
@@ -118,19 +122,18 @@ open_city_btn.addEventListener("click", function(e) {
                                     // convert to actuall value
                                     const array_response = JSON.parse(response_Server);
 
-                                    clean_city_item();
-                                    clean_state_item();
                                     hidden_state_item();
-                                    // console.log(document.getElementsByClassName("city-item"));
-                                    // console.log(document.getElementsByClassName("state-item"));
                                     
+                                    //  show all cities btn
+                                    // back_city_btn.classList.remove("d-none");
+
                                     // replace all cities related with selected state
                                     for(let i = 0 ; i < array_response.length ;i++)
                                     {
                                         container_city.innerHTML += `
-                                        <p class="cursor-pointer city-item w-100 d-flex justify-content-between align-items-center border-bottom py-2 my-3">
+                                        <p class="cursor-pointer hover-muted rounded transition-all-1s city-item w-100 d-flex justify-content-between align-items-center border-bottom py-2 my-3">
                                             <span class="text-black ps-3 fs-6">${array_response[i]}</span>
-                                            <i class="text-muted bi bi-caret-left pe-3"></i>
+                                            <i class="bi bi-hand-index-thumb pe-3"></i>
                                             <input type="hidden" name="${array_response[i]}" value="${array_response[i]}">
                                         </p>
                                         `;

@@ -1,0 +1,32 @@
+      <!-- buttom menu mobile -->
+      <aside class="d-none col-12 mini-sidebar position-fixed bottom-0 start-0 border-top bg-white" dir="rtl">
+        <div class="d-flex align-items-center justify-content-between">
+
+          <a class="d-flex align-items-center text-color-brand p-3 fs-10 miniSidebar-button btn-res-bottom"
+            href="{{url_for('index')}}"><span>دیوار آگهی‌ها</span></a>
+          <!-- open categorie modal -->
+          <button data-bs-target="#opencategories" data-bs-toggle="modal"
+            class="d-flex align-items-center bg-transparent border-0 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom "><i
+              class="bi bi-list-ul pe-3 icon-btn-res-bottom "></i><span>دسته‌ها</span>
+          </button>
+          <!-- open categorie modal -->
+
+          <button
+            class="d-flex align-items-center bg-transparent border-0 bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom">
+            <a class="p-3 text-muted" href="{{url_for("register_post")}}">
+            <i class="bi bi-plus-circle-fill  pe-3 icon-btn-res-bottom "></i><span>ثبت آگهی</span>
+            </a>
+          </button>
+
+          <a class="  d-flex align-items-center text-muted h-100 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"
+            href="#"><i class="bi bi-chat-fill pe-3 icon-btn-res-bottom "></i><span>چت</span>
+          </a>
+
+          <a data-bs-toggle="modal" data-bs-target="#modal-mudivar-mini" class=" d-flex align-items-center text-muted h-100 p-3 text-muted bg-gray-hover text-black-hover miniSidebar-button btn-res-bottom"
+             role="button" >
+              <i class="bi bi-person-fill pe-3 icon-btn-res-bottom"></i>
+              <span >دیوار من</span>
+          </a>
+
+        </div>
+      </aside>

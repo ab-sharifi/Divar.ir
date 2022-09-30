@@ -1,0 +1,30 @@
+{% extends "register-posts/base-register-post.html" %}
+
+{% block body %}
+
+
+
+
+        <div id="" style="margin-top: 15rem;">
+            <div class="modal-dialog modal-dialog-centered" class="shadow" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>لازم به ورود به حساب کاربری</p>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-danger text-center ">
+                            کاربر گرامی تا زمانی که وارد حساب کاربری خود نشوید قادر به ثبت آگهی نخواهید بود
+                        </p>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <a href="{{url_for('login')}}" type="button" class="btn btn-brand text-white">ورود به حساب کاربری</a>
+                        <a href="{{url_for('register')}}" type="button" class="btn btn-brand text-white">ساخت حساب کاربری</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+{% endblock %}

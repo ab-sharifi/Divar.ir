@@ -279,6 +279,7 @@ def verification_code():
                 check_db.activated = 1
                 db.session.add_all([user_obj,check_db])
                 db.session.commit()
+                session["email"] = check_db.email
                 flash("حساب کاربری با موفقیت ساخته شد ", "success")
                 return redirect(url_for("login"))
 
@@ -416,14 +417,21 @@ def logout():
 
 
 @app.route("/new/", methods=["POST", "GET"])
-@login_required
 def register_post():
+
+    if not session.get("user_id"):
+        return render_template("register-posts/error_auth.html" , user_status=g.user_status)
+
     form= RegisterPost()
     if request.method == "GET":
-        return render_template("register-posts/index.html",user_status=g.user_status, form=form)
+        temp = City.query.all()
+        all_city = [temp.city_name for temp in temp]
+        return render_template("register-posts/index.html",user_status=g.user_status, form=form, cities=all_city)
     
     if request.method == "POST":
         if not form.validate():
+            print(form.data)
+            print(request.form)
             flash("فرم دارای اعتبار سنجی نادرست است","warning")
             return render_template("register-posts/index.html",user_status=g.user_status, form=form)
         if form.validate():
@@ -480,14 +488,14 @@ def register_post():
                 # check number of images
                 len_imgs = request.files.getlist("post_img")
                 
-                if len_imgs > 3:
+                if len(len_imgs) > 3:
                     flash("تعداد عکس های انتخاب شده بیش از 3 عدد است","danger")
                     return render_template("register-posts/index.html",user_status=g.user.status, form=form) 
 
                 imgs = request.files.getlist("post_img")
                 for each in imgs:
                     each_filename = each.filename
-                    each_filename = uuid.uuid1() + (each_filename)
+                    each_filename = str(uuid.uuid1())+ (each_filename)
                     each_filename = secure_filename(each_filename)
                     path = os.path.join(app.config["UPLOAD_FOLDER"], "posts", each_filename)
                     images_list.append(each_filename)
@@ -500,14 +508,9 @@ def register_post():
                     db.session.commit()
                 except:
                     db.session.rollback()
+                    print("CANT")
                 
-                return redirect(url_for("my_posts"))
-
-
-@app.route("/my-divar/my-posts/", methods=["GET"])
-@login_required
-def my_posts():
-    return render_template("user-dashboard/index.html",user_status=g.user_status)
+                return redirect(url_for("register_post"))
 
 
 
@@ -563,4 +566,4 @@ def set_city():
 
 @app.route("/temp/", methods=["GET"])
 def tmep():
-    return jsonify()
+    return render_template("user-dashboard/index.html")
