@@ -15,43 +15,6 @@ function sidebarButtons_animation(icon_id) {
         icon.style.transform = "rotateX(180deg)";
 }
 
-function selectCityfromArea(city_id, checkedState) {
-    if (city_tag_names.innerHTML.toString().includes("حداقل یک شهر را انتخاب کنید."))
-        city_tag_names.innerHTML = "";
-        // fix bug here
-        // todo
-        // when user click on city name its display large 
-    if (checkedState) {
-        city_tag_names.innerHTML += `
-    
-        <div class="d-flex align-items-center bg-transparent text-muted border-color-brand border-radius-30 px-2 pt-2 me-2" id="city-tag-` + city_id + `">
-        <h6 class="text-danger fs-8">` + city_id + `</h6>
-        <button
-          class="bg-transparent text-danger border-0 border-radius-circle bg-danger-hover fs-10 fw-bold px-2 py-1 ms-1"
-          onclick="removeElement('`+ 'city-tag-' + city_id + `'); document.querySelector('` + '#checkbox-tag-' + city_id + `').checked = false;">X</button>
-      </div>
-        
-        `;
-
-        document.querySelector("#btnSelectCities").disabled = false;
-    }
-    else
-        removeElement("city-tag-" + city_id);
-
-}
-
-function removeElement(elemnt_id) {
-    document.querySelector("#" + elemnt_id).remove();
-    check_cityTagNames();
-}
-
-function check_cityTagNames() {
-    if (!city_tag_names.innerHTML.includes("div"))
-    {
-        city_tag_names.innerHTML = "<h6 class='text-muted fs-8 pt-2'>حداقل یک شهر را انتخاب کنید.</h6>";
-        document.querySelector("#btnSelectCities").disabled = true;
-    }
-}
 
 function unchecked_checkboxes(checkbox_class) {
     let checkboxes = document.getElementsByClassName(checkbox_class);
@@ -60,6 +23,164 @@ function unchecked_checkboxes(checkbox_class) {
         checkboxes[i].checked = false;
     }
 }
+
+
+
+
+function clean_city_item()
+{
+    // this function delete all city item elements that contains before in document
+    const cities = document.getElementsByClassName("city-item");
+
+    for(let elm of cities){
+        elm.remove();
+    }
+}
+
+function clean_state_item()
+{
+    // this function delete all state item elements that contains before in document
+    const states = document.getElementsByClassName("state-item");
+
+    for(let elm of states){
+        elm.remove();
+    }
+}
+
+function hidden_state_item(){
+    const states = document.getElementsByClassName("state-item");
+    for(let state of states){
+        state.classList.add("d-none");
+    }
+}
+function hidden_city_item(){
+    const cities = document.getElementsByClassName("city-item");
+    for(let city of cities){
+        city.classList.add("d-none");
+    }
+}
+
+
+// when user clock on city location in navbar
+const container_city = document.getElementById("container-city");
+const open_city_btn = document.getElementById("city-icon-navbar");
+
+open_city_btn.addEventListener("click", function(e) {
+            // delete Pervouse city in html
+            clean_city_item();
+            clean_state_item();
+            hidden_city_item()
+
+            // request to server to get all states 
+            const xhr = new XMLHttpRequest();
+            const formdata = new FormData();
+        
+            formdata.append("csrf_token", document.getElementById("csrf_token").value);
+        
+            xhr.open("GET", "/states/", true);
+
+            xhr.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200) {
+                    const response_Server = JSON.parse(this.responseText);
+                    
+                    // add each state to modal
+                    for(let city in response_Server)
+                    {
+                        container_city.innerHTML += `
+                        <p class="cursor-pointer state-item w-100 d-flex justify-content-between align-items-center border-bottom py-2 my-3">
+                           <span class="text-black ps-3 fs-6">${city}</span>
+                            <i class="text-muted bi bi-caret-left pe-3"></i>
+                            <input type="hidden" name="${city}" value="${response_Server[city]}">
+                        </p>
+                        `;
+                    }
+
+                    const cities = document.getElementsByClassName("state-item");
+                    for(let city of cities) 
+                    {
+                        city.addEventListener("click", (e)=>{
+                         // delete Pervouse state in html
+
+                            current_city = (e.currentTarget);
+                            const key_city = (current_city.childNodes[5].value)
+
+                            const xhr = new XMLHttpRequest();
+                            const formdata = new FormData();
+
+                            formdata.append("csrf_token", document.getElementById("csrf_token").value);
+                            formdata.append("cities", key_city);
+
+                            xhr.open("POST", "/state/cities/", true);
+                            
+                            xhr.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    const response_Server = this.responseText;
+                                    // convert to actuall value
+                                    const array_response = JSON.parse(response_Server);
+
+                                    clean_city_item();
+                                    clean_state_item();
+                                    hidden_state_item();
+                                    // console.log(document.getElementsByClassName("city-item"));
+                                    // console.log(document.getElementsByClassName("state-item"));
+                                    
+                                    // replace all cities related with selected state
+                                    for(let i = 0 ; i < array_response.length ;i++)
+                                    {
+                                        container_city.innerHTML += `
+                                        <p class="cursor-pointer city-item w-100 d-flex justify-content-between align-items-center border-bottom py-2 my-3">
+                                            <span class="text-black ps-3 fs-6">${array_response[i]}</span>
+                                            <i class="text-muted bi bi-caret-left pe-3"></i>
+                                            <input type="hidden" name="${array_response[i]}" value="${array_response[i]}">
+                                        </p>
+                                        `;
+                                    }
+                                    
+                                    // after put all city in modal we should put event lisiner to them
+                                    const city_item = document.getElementsByClassName("city-item");
+                                    for(let city of city_item)
+                                    {
+                                        city.addEventListener("click", (e)=>{
+                                            const current_click = e.currentTarget;
+                                            const city_selected = (current_click.children[2].value);
+                                            
+                                            const xhr = new XMLHttpRequest();
+                                            const formdata = new FormData();
+
+                                            formdata.append("user_selected_city",city_selected)
+                                            console.log(document.getElementById("csrf_token"));
+                                            formdata.append("csrf_token",document.getElementById("csrf_token").value)
+
+                                            xhr.open("POST", "/user/city/", true)
+                                            
+                                            xhr.onreadystatechange = function(){
+                                                if (this.status ==  200 && this.readyState == 4)
+                                                {
+                                                    // user city changed
+                                                    const current_user_city = document.getElementById("current_user_city");
+                                                    current_user_city.innerHTML = city_selected.trim();
+                                                    const btn_close_modal = document.getElementById("btn_close_modal_city");
+                                                    btn_close_modal.click();    
+                                                    
+                                                }
+                                            }
+
+                                            xhr.send(formdata);
+                                        })
+                                    }
+
+
+                                }
+                            }
+                            xhr.send(formdata);
+
+                        })
+                    }
+
+            }}
+            xhr.send(formdata);
+
+});
 
 
 

@@ -124,8 +124,8 @@ class State(db.Model):
     """
     __tablename__ = 'states'
     id = db.Column(db.Integer, primary_key=True)
-    state_name = db.Column(db.String(64))
-
+    state_name = db.Column(db.String(64), unique=True, nullable=False)
+    
     cities = db.relationship("City", backref="state_Cities", lazy=True)
 
 class City(db.Model):
@@ -134,7 +134,7 @@ class City(db.Model):
     """
     __tablename__ = 'cities'
     id = db.Column(db.Integer, primary_key=True)
-    city_name = db.Column(db.String(64))
+    city_name = db.Column(db.String(64), unique=True, nullable=False)
 
     state_id = db.Column(db.Integer, db.ForeignKey("states.id"))
 

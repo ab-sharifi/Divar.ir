@@ -1,10 +1,6 @@
-import re
-import random
-from divar.models import MailVerification
-from flask import render_template, flash
+#   TODO:
+#   add to db and remove hard coded
 
-#    TODO:
-#        add to db and remove hard coded
 categories = {
 "category-car":"خودرو","category-home" : "خانه",
 "category-digital-products":"کالای دیجیتال", "category-fun-hobby":"سرگرمی و فراغت" ,"category-services":"خذمات",
@@ -12,7 +8,7 @@ categories = {
 "category-hire-work":"استخدام و کاریابی", "category-social":"اجتماعی", "category-unknown":"متفرقه"
 }
 
-
+from flask import render_template, flash
 from divar.models import Category
 def check_category(category):
     """
@@ -37,7 +33,7 @@ def check_category(category):
 
 
 
-
+import re
 def check_email(email):
     # regex for email validation
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -48,6 +44,8 @@ def check_email(email):
     return False
 
 
+import random
+from divar.models import MailVerification
 def code_generator():
     while True:
         ver_code = random.randint(999_99,1000_000)
@@ -59,9 +57,9 @@ def code_generator():
             continue
     return ver_code
 
+
 from flask import redirect, session, url_for
 from functools import wraps
-
 def login_required(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -69,3 +67,16 @@ def login_required(f):
             return redirect(url_for("index"))
         return f(*args, **kwargs)
     return inner
+
+
+
+import arabic_reshaper
+from bidi.algorithm import get_display
+def persian(text):
+    """
+    This Function take a text and convert it to Persian(arabic)
+    to can display it in terminal
+    """
+    reshaped_txt= arabic_reshaper.reshape(text)
+    farsi_txt = get_display(reshaped_txt)
+    return farsi_txt

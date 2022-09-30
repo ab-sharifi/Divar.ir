@@ -1,8 +1,13 @@
 import os
+from traceback import print_tb
 import uuid
 import datetime
+from divar import app,db
 from . import helpers
 from .helpers import login_required 
+from werkzeug.utils import secure_filename
+
+
 from flask import(
     jsonify,
     render_template,
@@ -19,10 +24,13 @@ from werkzeug.security import(
     check_password_hash,
     generate_password_hash
     )
-from werkzeug.utils import secure_filename
 
-from divar import app,db
-from divar.models import MailVerification,User,Post
+from divar.models import( 
+    MailVerification,
+    User,
+    Post,
+    State,
+    City)
 from divar.Email import send_email
 from divar.forms import Register, ActiveCode, Login, UserUpload, RegisterPost
 
@@ -30,11 +38,28 @@ from divar.forms import Register, ActiveCode, Login, UserUpload, RegisterPost
 static = ['کرج','تهران','قم','مشهد','گیلان','گلستان','شیراز','اصفهان','کرمانشاه','تبریز']
 
 
+#########################  Attention #################################
+from views.add_CategoryDB import add_category
+from views.add_StatesDB import add_state
+from views.add_CitiesDB import add_city
+# Before start project be sure you call above function to add categories and states and cities to db
+# becarfull you sould call below function in order to work correctly
+# 
+# 01 ->  add_category()
+# 02 ->  add_state()
+# 03 ->  add_city()
+#
+#  add_category() add_state() add_city()
+#####################################################################
+
 @app.before_request
 def before_Request():
     """
     before each request we get user status and save it to g variable 
     """
+
+
+
     # set up user status and access
     g.user_status = {"login" : False, 'phone':" " ,"name":"کاربر دیوار"}
     
@@ -48,7 +73,6 @@ def before_Request():
                     g.user_status['phone'] = "شماره تماس وارد نشده است"
 
 
-
 @app.errorhandler(500)
 def error_500():
     db.session.rollback()
@@ -60,21 +84,19 @@ def error_500():
 @app.route("/", methods=["GET","POST"])
 def index():
     if request.method == "GET":
-        if not session.get("city"):
+        
+        if not session.get("member"):
             return render_template("first-index/index.html",cities=static)
         else:
-            return render_template("home-index/index.html",user_status=g.user_status)
-    
-    if request.method == "POST":
-        if request.form.get("email",None) != None:
-            email = request.form.get("email")
+            return render_template("home-index/index.html",
+            user_status=g.user_status)
 
 
 
 @app.route("/s/<string:city>" ,methods=["GET"])
 def index_city(city):
     if city in static:
-        session["city"] = city
+        session["member"] = True
     return redirect(url_for("index"))
 
 
@@ -370,6 +392,7 @@ def profile():
                     
                     check_user.profile_image = image_name
                     path = (os.path.join(app.config["UPLOAD_FOLDER"],"profiles",image_name))
+                    print(path)
                     img.save(path)
                     db.session.add(check_user)
                     db.session.commit()
@@ -406,10 +429,8 @@ def register_post():
         if form.validate():
             # check for validate categories  
             categories = request.form.getlist("category")
-            print(categories)
             # check categories to db 
             categury_answer = helpers.check_category(categories)
-            print(categury_answer)
             if not categury_answer:
                 flash("دسته ای برای آگهی مورد نظرانتخاب نشده است","info")
                 return redirect(url_for("register_post"))
@@ -491,4 +512,55 @@ def my_posts():
 
 
 
+@app.route("/state/cities/", methods=["POST"])
+def get_cities():
+    """
+    This take a post request of a state id 
+    and return all cities in that state
+    """
+    if (request.form.get("cities")):
+        id_state="temp"
+        try:
+            id_state = int(request.form.get("cities"))
+        except ValueError:
+            return jsonify(), 400
+        
+        state_db = State.query.filter(State.id==id_state).first()
+        if not state_db:
+            return jsonify(), 400
 
+        temp = [city.city_name for city in state_db.cities]
+    return jsonify(temp), 200
+
+
+@app.route("/states/", methods=["GET"])
+def get_states():
+    """
+    This view take a request and return all states
+    """
+    temp = {}
+    states = State.query.all()
+    for each in states:
+        temp[each.state_name] = each.id
+    return jsonify(temp), 200
+
+@app.route("/user/city/", methods=["POST"])
+def set_city():
+    """
+    This view take a city form client side and set city for user in session
+    """
+    if request.form.get("user_selected_city"):
+        session["city"] = request.form.get("user_selected_city")
+        print(session["city"])
+        return jsonify(), 200
+    else:
+        return jsonify(), 400
+
+
+
+
+
+
+@app.route("/temp/", methods=["GET"])
+def tmep():
+    return jsonify()

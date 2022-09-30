@@ -31,7 +31,7 @@
 
 <body>
 
-
+  <input id="csrf_token" type="hidden" name="csrf_token" value="{{csrf_token()}}">
 
   <!-- START navbar -->
   <div class="container-fluid shadow-sm position-fixed top-0 end-0 start-0 bg-white pb-sm-3 pb-lg-0 " style="z-index:100">
@@ -48,12 +48,19 @@
         <div class="navbar-collapse collapse fs-8" id="mynavbar">
           <ul class="navbar-nav flex-row-reverse w-100">
 
-            <li class="rounded nav-item mx-2">
-              <a href="" class="nav-link text-muted" data-bs-toggle="modal" data-bs-target="#selectAreaModal">
-                <span>کرج</span>
+            <li class="rounded nav-item mx-2"  id="city-icon-navbar">
+              <a href="" class="nav-link text-muted" data-bs-toggle="modal"
+               data-bs-target="#selectAreaModal">
+               {% if session["city"] %}
+               <span id="current_user_city" >{{session["city"]}}</span>
+               {% else %}
+               <span id="current_user_city" >انتخاب شهر</span>
+               {% endif %}
+
                 <i class="bi bi-geo-alt"></i>
               </a>
             </li>
+            
             <li class="cursor-pointer rounded nav-item mx-2">
               <a data-bs-toggle="modal" data-bs-target="#opencategories"
                 class="text-muted fs-8 nav-link dropdown-toggle position-relative">
@@ -468,10 +475,7 @@
 
           <div class="d-flex w-100 justify-content-between">
             <h4 class="modal-title fs-5">انتخاب شهر</h4>
-            <button type="button"
-              class="bg-transparent text-danger border-0 bg-danger-hover border-radius-30 pe-3 ps-3 fs-10"
-              onclick="document.querySelector('#city-tag-names').innerHTML ='<h6 class=\'text-muted fs-8 pt-2\'>حداقل یک شهر را انتخاب کنید.</h6>'; unchecked_checkboxes('city-tag-checkbox'); document.querySelector('#btnSelectCities').disabled = true;">حذف
-              همه</button>
+            <button class="btn btn-outline-brand fs-8 text-danger border-radius-30 bg-danger-hover">حذف همه</button>
           </div>
 
           <div class="d-flex w-100 mt-2 p-2 overflow-auto" id="city-tag-names">
@@ -487,155 +491,11 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body">
-          <ul>
+        <!-- city here -->
+        <div class="modal-body ">
+          <div class="w-100 overflow-auto " id="container-city" style="height:300px !important">
 
-            <div id="sectionShowAreas">
-
-              <!-- Each Area -->
-              <li>
-                <div class="border-dark border-bottom text-muted  d-flex flex-column">
-                  <div class="d-flex">
-                    <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
-                      onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
-                      id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
-                      غربی
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <!-- End Each Area -->
-              <!-- Each Area -->
-              <li>
-                <div class="border-dark border-bottom  text-muted d-flex flex-column">
-                  <div class="d-flex">
-                    <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
-                      onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
-                      id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
-                      غربی
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <!-- End Each Area -->
-              <!-- Each Area -->
-              <li>
-                <div class="border-dark border-bottom text-muted d-flex flex-column">
-                  <div class="d-flex">
-                    <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
-                      onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
-                      id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
-                      غربی
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <!-- End Each Area -->
-              <!-- Each Area -->
-              <li>
-                <div class="border-dark border-bottom d-flex flex-column">
-                  <div class="d-flex">
-                    <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
-                      onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
-                      id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
-                      غربی
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <!-- End Each Area -->
-              <!-- Each Area -->
-              <li>
-                <div class="border-dark border-bottom d-flex flex-column">
-                  <div class="d-flex">
-                    <a class="text-muted d-flex flex-row-reverse justify-content-between fs-8 w-100 py-3 text-black-hover"
-                      onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
-                      id="city_id" href="#">
-                      <label class="transition-all-1s"><i class="bi bi-caret-left pe-3"></i></label>آذربایجان
-                      غربی
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <!-- End Each Area -->
-
-            </div>
-
-
-            <!-- Partial view for select CITY in each AREA -->
-
-            <div class="d-none d-flex flex-column overflow-auto" id="sectionShowCities">
-
-              <div class="d-flex">
-                <a class="text-dark fs-11 w-100 p-3 ps-0 d-flex"
-                  onclick="document.querySelector('#sectionShowAreas').classList.toggle('d-none'); document.querySelector('#sectionShowCities').classList.toggle('d-none');"
-                  href="#">
-                  <label class="text-muted fs-5"><i class="bi bi-arrow-right pe-3"></i></label>همه شهرها
-                </a>
-              </div>
-
-              <div>
-                <ul>
-
-                  <!-- Each City -->
-                  <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
-                      href="#">
-                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-فردیس"
-                        onclick="selectCityfromArea('فردیس', this.checked)">فردیس
-                    </a>
-                  </li>
-                  <!-- End Each City -->
-                  <!-- Each City -->
-                  <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
-                      href="#">
-                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-کرج"
-                        onclick="selectCityfromArea('کرج', this.checked)">کرج
-                    </a>
-                  </li>
-                  <!-- End Each City -->
-                  <!-- Each City -->
-                  <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
-                      href="#">
-                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-گوهردشت"
-                        onclick="selectCityfromArea('گوهردشت', this.checked)">گوهردشت
-                    </a>
-                  </li>
-                  <!-- End Each City -->
-                  <!-- Each City -->
-                  <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
-                      href="#">
-                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-زورآباد"
-                        onclick="selectCityfromArea('عظیمیه جنوبی (اسلام آباد)', this.checked)">زورآباد
-                    </a>
-                  </li>
-                  <!-- End Each City -->
-                  <!-- Each City -->
-                  <li>
-                    <a class="text-dark d-flex flex-row-reverse justify-content-between fs-11 w-100 my-3 p-2 py-0 d-flex"
-                      href="#">
-                      <input class="city-tag-checkbox mx-5 pe-3" type="checkbox" name="" id="checkbox-tag-عظیمیه"
-                        onclick="selectCityfromArea('عظیمیه', this.checked)">عظیمیه
-                    </a>
-                  </li>
-                  <!-- End Each City -->
-
-
-                </ul>
-              </div>
-
-            </div>
-
-            <!-- END Partial view for select area in each city -->
-
-          </ul>
+          </div>
         </div>
 
         <!-- Modal footer -->
@@ -643,7 +503,7 @@
           <div class="row w-100">
             <div class="col-md-6 px-1">
               <button type="button" class="btn bg-light border-1 border-dark text-muted text-black-hover w-100"
-                data-bs-dismiss="modal">انصراف</button>
+                data-bs-dismiss="modal" id="btn_close_modal_city">انصراف</button>
             </div>
             <div class="col-md-6 px-1">
               <button type="button" class="btn bg-color-brand border-0 text-black-hover w-100 text-white"
