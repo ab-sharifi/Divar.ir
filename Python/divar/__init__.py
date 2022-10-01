@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
-if app.config["ENV"] == "development":
+if config.ENV == "development":
     app.config.from_object(config.Development)
 else:
     app.config.from_object(config.Production)

@@ -162,22 +162,22 @@
           </a>
 
           {% if user_status.login == True %}
-            <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
+            <a href="{{url_for('my_posts')}}" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
               <span>آگهی های من</span>
               <i class=" fs-8 bi bi-book pe-1"></i>
             </a>
           {% endif %}
 
           {% if user_status.login == True %}
-          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+          <a href="{{url_for('my_bookmarks')}}" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
             <span>نشان شده ها</span>
             <i class="bi bi-bookmark"></i>
           </a>
-          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+          <a href="{{url_for('my_notes')}}" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
             <span>یادداشت ها</span>
             <i class="bi bi-card-list"></i>
           </a>
-          <a href="" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+          <a href="{{url_for('my_resent_seen')}}" class="d-flex justify-content-between align-items-center fs-11  px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
             <span>بازدید های اخیر</span>
             <i class="bi bi-clock-history"></i>
           </a>

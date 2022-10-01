@@ -51,14 +51,14 @@
             <!-- left side menu in navbar -->
             <li class="rounded nav-item ms-auto dropdown">
               <div class="">
-                <a href="" class="nav-link text-muted " data-bs-toggle="dropdown">
+                <a href="" class="nav-link text-muted" data-bs-toggle="dropdown">
                   <span>دیوار من</span>
                   <i class="bi bi-person"></i>
                 </a>
                 <!-- دیوار من dropdown -->
                 <div class="dropdown-menu text-muted fs-11  ">
                   {% if user_status.login == True %}
-                  <a href="{{ url_for('profile') }}" class="dropdown-item px-4 text-black-muted-cs border-bottom transition-bgcolor-1s ">
+                  <a href="{{ url_for('profile') }}" class="dropdown-item px-4 text-muted border-bottom transition-bgcolor-1s rounded">
                     <div class="fs-11 ">
                       <div class="px-1 py-2">
                         <span>{{user_status.name}}</span>
@@ -74,46 +74,47 @@
 
                 {% if not (user_status.login == True) %}
                     <a href="{{url_for('login')}}"
-                    class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s">
+                    class="dropdown-item px-5 text-muted border-bottom py-3 transition-bgcolor-1s ">
                     <span> ورود </span>
                     <i class="bi bi-box-arrow-right"></i>
                     </a>
                 {% endif %}
                     
-                    <a href="{{url_for('register')}}" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+                    <a href="{{url_for('register')}}" 
+                    class="dropdown-item px-5 text-muted py-3 border-bottom transition-bgcolor-1s ">
                       <span>ساخت حساب کاربری</span>
                       <i class="bi bi-person-plus fs-8"></i>
                     </a>
 
                   {% if user_status.login == True %}
-                    <a href="" class="dropdown-item px-5 text-black-muted-cs border-bottom py-3 transition-bgcolor-1s ">
+                    <a href=" {{url_for('my_posts')}} " class="dropdown-item px-5 text-muted border-bottom py-3 transition-bgcolor-1s ">
                       <span>آگهی های من</span>
                       <i class=" fs-8 bi bi-book pe-1"></i>
                     </a>
                   {% endif %}
 
                   {% if user_status.login == True %}
-                  <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+                  <a href="{{url_for('my_bookmarks')}}" class="dropdown-item px-5 text-muted py-3 border-bottom transition-bgcolor-1s ">
                     <span>نشان شده ها</span>
                     <i class="bi bi-bookmark"></i>
                   </a>
-                  <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+                  <a href="{{url_for('my_notes')}}" class="dropdown-item px-5 text-muted py-3 border-bottom transition-bgcolor-1s ">
                     <span>یادداشت ها</span>
                     <i class="bi bi-card-list"></i>
                   </a>
-                  <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+                  <a href="{{url_for('my_resent_seen')}}" class="dropdown-item px-5 text-muted py-3 border-bottom transition-bgcolor-1s ">
                     <span>بازدید های اخیر</span>
                     <i class="bi bi-clock-history"></i>
                   </a>
                   {% endif %}
                   
-                  <a href="" class="dropdown-item px-5 text-black-muted-cs py-3 border-bottom transition-bgcolor-1s ">
+                  <a href="" class="dropdown-item px-5 text-muted py-3 border-bottom transition-bgcolor-1s ">
                     <span>دیوار برای کسب و کار ها</span>
                     <i class="bi bi-shop-window"></i>
                   </a> 
 
                   {% if user_status.login == True %}
-                    <a href="{{ url_for('logout') }}" class="dropdown-item px-5 text-black-muted-cs py-3 transition-bgcolor-1s ">
+                    <a href="{{ url_for('logout') }}" class="dropdown-item px-5 text-muted py-3 transition-bgcolor-1s ">
                       <span>خروج</span>
                       <i class="bi bi-box-arrow-right"></i>
                     </a>

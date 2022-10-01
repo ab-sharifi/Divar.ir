@@ -1,5 +1,4 @@
 import os
-from traceback import print_tb
 import uuid
 import datetime
 from divar import app,db
@@ -57,8 +56,9 @@ def before_Request():
     """
     before each request we get user status and save it to g variable 
     """
-
-
+    # add_category()
+    # add_state()
+    # add_city()
 
     # set up user status and access
     g.user_status = {"login" : False, 'phone':" " ,"name":"کاربر دیوار"}
@@ -393,7 +393,6 @@ def profile():
                     
                     check_user.profile_image = image_name
                     path = (os.path.join(app.config["UPLOAD_FOLDER"],"profiles",image_name))
-                    print(path)
                     img.save(path)
                     db.session.add(check_user)
                     db.session.commit()
@@ -419,98 +418,166 @@ def logout():
 @app.route("/new/", methods=["POST", "GET"])
 def register_post():
 
+    temp = City.query.all()
+    all_city = [temp.city_name for temp in temp]
+
     if not session.get("user_id"):
-        return render_template("register-posts/error_auth.html" , user_status=g.user_status)
+        return render_template("register-posts/error_auth.html" ,
+        user_status=g.user_status)
 
     form= RegisterPost()
     if request.method == "GET":
-        temp = City.query.all()
-        all_city = [temp.city_name for temp in temp]
-        return render_template("register-posts/index.html",user_status=g.user_status, form=form, cities=all_city)
+
+        return render_template("register-posts/index.html",
+        user_status=g.user_status,
+        form=form, cities=all_city)
     
     if request.method == "POST":
+
         if not form.validate():
-            print(form.data)
-            print(request.form)
-            flash("فرم دارای اعتبار سنجی نادرست است","warning")
-            return render_template("register-posts/index.html",user_status=g.user_status, form=form)
+            flash("برخی فیلد ها مقدار نشده است","warning")
+            return render_template("register-posts/index.html",
+            user_status=g.user_status, form=form, cities=all_city)
+
+
         if form.validate():
             # check for validate categories  
             categories = request.form.getlist("category")
-            # check categories to db 
             categury_answer = helpers.check_category(categories)
             if not categury_answer:
                 flash("دسته ای برای آگهی مورد نظرانتخاب نشده است","info")
-                return redirect(url_for("register_post"))
+                return render_template("register-posts/index.html",
+                 user_status=g.user_status, form=form, cities=all_city)
 
-            # add to user db posts
+            # check user id
             user_db = User.query.filter(User.id == session["user_id"]).first()
             if not user_db:
                 flash("خطایی رخ داد لطفا دوباره به حساب کاربری خود وارد شوید","danger")
                 return redirect(url_for("register_post"))
             
             # check to user select price or trade option
-            # if both is empty
-            if form.price_post.data == "" and (not request.form.get("trade-option",None)):
+            if not (form.price_post.data.strip()) and not (request.form.get("trade-option",None)):
                 flash("لطفا وضعیت پست را تعیین کنید (فروش قیمت یا معاوضه)","info")
-                return render_template("register-posts/index.html", user_status=g.user_status, form=form)
+                return render_template("register-posts/index.html", 
+                user_status=g.user_status, form=form, cities=all_city)
 
             # if both is selected
-            if form.price_post != "" and request.form.get("trade-option", False):
+            if (form.price_post.data.strip()) and (request.form.get("trade-option", False)):
                 flash("یک پست نمی تواند هم قیمت و هم قابل معاوضه باشد","danger")
                 form.price_post.errors = ["خطا : پست باید دارای قیمت یا قابل معاوضه باشد"]
-                return render_template("register-posts/index.html", user_status=g.user_status, form=form)
-            
-            # check price is number
-            try:
-                form.price_post.data = int(form.price_post.data)
-            except ValueError:
-                flash("قیمت آگهی باید عدد باشد !","danger")
-                form.price_post.errors = ["خطا : قیمت پست اشتباه است !"]
-                return render_template("register-posts/index.html", user_status=g.user_status, form=form)
-            
-            post_price = 0
-            if form.price_post.data:
-                post_price = form.price_post.data
-            else:
-                post_price = request.form.get("trade-option",None)
+                return render_template("register-posts/index.html",
+                 user_status=g.user_status, form=form, cities=all_city)
 
+            # find value of post price  
+            post_trade_option = None
+            if request.form.get("trade-option"):
+                post_trade_option = request.form.get("trade-option")
+            else:
+                # if user just type price for post
+                # try to convert it to number(int)
+                post_trade_option = form.price_post.data.strip()
+                try:
+                    post_trade_option = int(post_trade_option)
+                except ValueError:
+                    flash("مبلغ آگهی ناممعتبر است","danger")
+                    return render_template("register-posts/index.html",
+                     user_status=g.user_status, form=form, cities=all_city)
+
+
+
+            # check user select a city
+            if request.form.get("city"):
+                # check city is in db
+                city_db = City.query.filter(City.city_name == request.form.get("city")).first()
+                if not city_db:
+                    flash("شهر انتخاب شده نامعتبر است","danger")
+                    return render_template("register-posts/index.html",
+                     user_status=g.user_status, form=form, cities=all_city)
+            else:
+                    flash("شهری برای آگهی انتخاب نشده است","danger")
+                    return render_template("register-posts/index.html",
+                     user_status=g.user_status, form=form, cities=all_city)
+
+                
+
+
+            
+            # check chat option
+            chat_option = None
+            if request.form.get("chat-option"):
+                chat_option = True if request.form["chat-option"] else False
+                
+
+            # create user post object for db
             new_post = Post(post_title=form.title_post.data.strip(),
             post_caption = form.caption_post.data.strip(),
-            post_price = post_price,post_status="موجود",created_date=datetime.datetime.utcnow(),
-            post_categories = categury_answer,
-            user_id = user_db
+            post_price = str(post_trade_option),
+            post_status = "موجود" , 
+            created_date = datetime.datetime.utcnow(),
+            post_categories = str(categury_answer),
+            user_id = user_db.id,
+            chat_available = chat_option
             )
 
             # save image
-            images_list= []
+            images_list = []
             if request.files:
                 # check number of images
                 len_imgs = request.files.getlist("post_img")
                 
                 if len(len_imgs) > 3:
                     flash("تعداد عکس های انتخاب شده بیش از 3 عدد است","danger")
-                    return render_template("register-posts/index.html",user_status=g.user.status, form=form) 
+                    return render_template("register-posts/index.html",
+                    user_status=g.user_status, form=form, cities = all_city) 
 
                 imgs = request.files.getlist("post_img")
                 for each in imgs:
                     each_filename = each.filename
-                    each_filename = str(uuid.uuid1())+ (each_filename)
+                    each_filename = str(uuid.uuid1()) + (each_filename)
                     each_filename = secure_filename(each_filename)
                     path = os.path.join(app.config["UPLOAD_FOLDER"], "posts", each_filename)
+                    
                     images_list.append(each_filename)
                     each.save(path)
                 
-                new_post.image_location = images_list
+                new_post.image_location = str(images_list)
 
-                try:
-                    db.session.add(new_post)
-                    db.session.commit()
-                except:
-                    db.session.rollback()
-                    print("CANT")
-                
+            # add user post to db
+            try:
+                db.session.add(new_post)
+                db.session.commit()
+                flash("پست با موفقیت ثبت شد", "success")
                 return redirect(url_for("register_post"))
+            except Exception as e:
+                print(e)
+                flash("خطایی هنگام ثبت آگهی رخ داد دوباره امتحان کنید","danger")
+                return redirect(url_for("register_post"))
+                
+
+
+@app.route("/my-divar/my-posts/")
+@login_required
+def my_posts():
+    my_posts = True
+    return render_template("user-dashboard/index.html",user_status=g.user_status,my_posts=my_posts)
+
+@app.route("/my-divar/bookmarks/")
+@login_required
+def my_bookmarks():
+    my_bookmarks = True
+    return render_template("user-dashboard/index.html",user_status=g.user_status,my_bookmarks=my_bookmarks)
+
+@app.route("/my-divar/my-notes/")
+@login_required
+def my_notes():
+    my_notes = True
+    return render_template("user-dashboard/index.html",user_status=g.user_status,my_notes=my_notes)
+
+@app.route("/my-divar/resent-seen/")
+@login_required
+def my_resent_seen():
+    resent_seen = True
+    return render_template("user-dashboard/index.html",user_status=g.user_status, resent_seen=resent_seen)
 
 
 
@@ -547,6 +614,7 @@ def get_states():
         temp[each.state_name] = each.id
     return jsonify(temp), 200
 
+
 @app.route("/user/city/", methods=["POST"])
 def set_city():
     """
@@ -554,10 +622,48 @@ def set_city():
     """
     if request.form.get("user_selected_city"):
         session["city"] = request.form.get("user_selected_city")
-        print(session["city"])
         return jsonify(), 200
     else:
         return jsonify(), 400
+
+
+@app.route("/api/divar/set_number/", methods=["POST"])
+@login_required
+def set_phone_number():
+    """
+    This view take ajax request from client side and set phonenumber for user
+    """
+    print(request.form)
+    if request.form.get("phone_number"):
+        user_db = User.query.filter(User.id == session["user_id"]).first()
+        if not user_db:
+            return jsonify("ERROR"), 404
+        # make sure user send a phone number
+        # first make sure user send number 
+        user_phone = request.form["phone_number"]
+        try:
+            user_phone = int(user_phone)
+        except ValueError:
+            return jsonify("NAN"), 400
+
+        # check len of number
+        if len(str(user_phone)) != 10:
+            return jsonify("SHORT"), 400
+        
+        user_phone = "0" + str(user_phone) 
+
+        user_db.phone = user_phone
+
+        try:
+            db.session.add(user_db)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+        
+        return jsonify("OK"), 200
+    else:
+        return jsonify("missing phone number"), 400
 
 
 
@@ -566,4 +672,15 @@ def set_city():
 
 @app.route("/temp/", methods=["GET"])
 def tmep():
-    return render_template("user-dashboard/index.html")
+        new_post = Post(post_title="temp",
+        post_caption = "temp",
+        post_price = "temp",
+        post_status = "موجود" , 
+        created_date = datetime.datetime.utcnow(),
+        post_categories = "temp",
+        chat_available = 0
+        )
+
+        db.session.add(new_post)
+        db.session.commit()
+        return "OK"

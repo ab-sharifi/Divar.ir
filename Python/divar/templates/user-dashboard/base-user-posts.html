@@ -33,10 +33,10 @@
 
 
 {% include "navbar/navbar.html" %}
-
 <div class="container-fluid mt-5 pt-5">
   {% block body %}
   {% endblock %}
+  <input type="hidden" name="csrf_token" value="{{csrf_token()}}" id="csrf_token">
 </div>
 
 {% include "modals/all_modals.html" %}

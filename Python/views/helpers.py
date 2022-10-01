@@ -19,7 +19,6 @@ def check_category(category):
     id_list = []
     # check categories and return id number of each categoies in list
     for value in category:
-        print(value)
         db_query = Category.query.filter(Category.category == value).first()
         if not db_query:
             continue

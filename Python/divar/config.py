@@ -1,5 +1,8 @@
 import os
 
+# ENV=development or ENV=production
+ENV = "production"
+
 # temp database
 db_username = 'alisharify'
 db_password = '123654'
@@ -7,7 +10,6 @@ db_password = '123654'
 
 EMAIL_USERNAME = os.getenv("username-mail")
 EMAIL_PASSWORD = os.getenv("password-mail")
-
 MAIL_PORT = 587
 
 if not EMAIL_USERNAME or not EMAIL_USERNAME:
@@ -40,4 +42,3 @@ class Development(Config):
 
 class Production(Config):
     DEBUG = False
-    FLASK_DEBUG = False
