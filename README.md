@@ -26,6 +26,8 @@ More info : https://en.wikipedia.org/wiki/Divar_(website)
 
 ### 01.First Index page
 <img src="https://github.com/alisharify7/Html-Page/raw/main/Indexs-pages/01-Divar/divar-First-index/image/index.png" style="width:50%;"> 
+
+
 ### 02.First Home index in (Mobile size)
 <img src="https://github.com/alisharify7/Divar.ir/blob/main/Python/Readme-files/home-mobile-size.png" style="width:50%;"> 
 
