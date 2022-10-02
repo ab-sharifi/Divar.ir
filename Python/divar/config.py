@@ -31,7 +31,7 @@ class Config:
     WTF_CSRF_SECRET_KEY = "c8bb66efe3a2ade70047b32af1786bb2aebeb31e7ebace965a73a582a025a06d"
     TEMPLATES_AUTO_RELOAD = True
     
-    SESSION_PERMANENT = False
+    SESSION_PERMANENT = True
     # SESSION_COOKIE_SECURE = True
     SESSION_TYPE = "filesystem"
     

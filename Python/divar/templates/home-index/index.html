@@ -215,7 +215,7 @@
 
       <!-- start MAIN CARD -->
       <div class="col-md-12 col-lg-9 ms-auto">
-        <div class="row" dir="ltr">
+        <div class="row pb-5 mb-4" dir="ltr">
           <!-- card start -->
 
 
@@ -223,27 +223,26 @@
           {% for post in posts %}
           <div class="col-md-6 col-lg-6 p-2">
             <div class="bg-light shadow-sm rounded border p-2">
-              <a class="link-ind-page d-flex justify-content-between" href="">
+
+              <a class="link-ind-page d-flex justify-content-between" href="{{url_for('posts', name=post.post_title|url_post )}}">
                 <div>
                   {% if post.image_location %}
-                  <img class="img-card" src="{{post.image_location|path}}" alt="">
+                  <img class="img-card" src="{{post.image_location|path_index}}" alt="">
                   {% else %}
                   <img class="img-card" src="https://s101.divarcdn.com/static/pictures/1662608653/wYZQmt9o.jpg" alt="">
-                  
                   {% endif %}
                 
                 </div>
                 <div class="text-start d-flex flex-column justify-content-around ">
-                  <h4 class="fs-8 p-2 text-black costumer-title">{{post.post_title}}</h4>
+                  <h4 class="fs-8 p-2 text-black costumer-title " dir='rtl'>{{post.post_title | truncate(20, true,"...") }}</h4>
                   <div>
                     <span class="text-muted fs-11  costumer-info-caption">در حد نو</span>
                     <br>
-                    {% if post.post_price == True %}
-                    <span class="text-muted fs-11  costumer-info-caption">توافقی</span>
-                    {% else %}
-                    <span class="text-muted fs-11  costumer-info-caption">{{post.post_price}}</span>
-                    
-                    {% endif %}
+                  {% if post.post_price == "on" %}
+                      <span class="text-muted fs-11  costumer-info-caption">توافقی</span>
+                  {% else %}
+                      <span class="text-muted fs-11  costumer-info-caption">{{post.post_price}}</span>
+                  {% endif %}
                     
                     <br>
                     <span class="text-muted fs-11  costumer-info-caption">لحاظی پیش {{city}}</span>
@@ -299,6 +298,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
     crossorigin="anonymous"></script>
+  <script src="{{ url_for('static',filename='index-home/JS/script.js') }}"></script>
+
   <script src="{{ url_for('static',filename='index-home/JS/script.js') }}"></script>
 </body>
 

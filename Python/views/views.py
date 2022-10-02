@@ -6,6 +6,7 @@ from . import helpers
 from .helpers import login_required
 from divar.Email import send_email
 from werkzeug.utils import secure_filename
+from views.compress_image import compress_image
 
 from .template_filters import *
 
@@ -394,6 +395,7 @@ def profile():
         if form.validate():
             if request.files:
                 img = request.files.get("file", None)
+
                 image_name = str(uuid.uuid1()) + "-" + img.filename
                 image_name = secure_filename(image_name)
 
@@ -553,6 +555,7 @@ def register_post():
                     each_filename = each.filename
                     each_filename = str(uuid.uuid1()) + (each_filename)
                     each_filename = secure_filename(each_filename)
+                    each = compress_image(each)
                     path = os.path.join(app.config["UPLOAD_FOLDER"], "posts", each_filename)
 
                     images_list.append(each_filename)
@@ -684,6 +687,21 @@ def set_phone_number():
 
 
 
+@app.route("/v/<string:name>", methods=["GET"])
+def posts(name):
+    """
+    This view take a name in query string and return page of post if exists
+    """
+    # fix name remove - from url
+    name = name.replace("-", " ")
+    
+    # check db for post
+    res = Post.query.filter(Post.post_title == name).first()
+    if not res:
+        return redirect(url_for("index"))
+    
+    return render_template("post-page/index.html",
+     user_status=g.user_status, post=res)
 
 
 
