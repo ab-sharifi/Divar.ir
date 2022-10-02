@@ -79,3 +79,5 @@ def persian(text):
     reshaped_txt= arabic_reshaper.reshape(text)
     farsi_txt = get_display(reshaped_txt)
     return farsi_txt
+
+

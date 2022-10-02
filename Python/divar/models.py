@@ -13,7 +13,6 @@ class MailVerification(db.Model):
     active_code = db.Column(db.Integer, nullable=True)
     # 0 not active || 1 activated
     activated = db.Column(db.Integer,default=0)
-    
 
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
@@ -27,7 +26,7 @@ class User(db.Model):
     username = db.Column(db.String(128),nullable=True)
     # if you are using a hash generator that create more than 128 character 
     # change password field
-    password = db.Column(db.String(128),nullable=True)
+    password = db.Column(db.String(128),nullable=False)
     phone = db.Column(db.String(11),nullable=True)
     # in this app login is via email of user so email should be unique here
     email = db.Column(db.String(256),unique=True,nullable=False)
@@ -66,6 +65,7 @@ class Post(db.Model):
     chat_available = db.Column(db.Boolean(),default=False, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    city_id = db.Column(db.Integer, db.ForeignKey("cities.id"))
 
     notes = db.relationship("Note", backref="post_notes", lazy=True)
     histories = db.relationship("History", backref="post_hostories", lazy=True) 
@@ -137,6 +137,7 @@ class City(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String(64), unique=True, nullable=False)
 
-    state_id = db.Column(db.Integer, db.ForeignKey("states.id"))
+    state_id = db.Column(db.Integer, db.ForeignKey("states.id"))    
+    posts = db.relationship("Post", backref="post_cities", lazy=True)
 
 db.create_all()

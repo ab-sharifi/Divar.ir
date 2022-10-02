@@ -1,22 +1,26 @@
 import os
 
 # ENV=development or ENV=production
-ENV = "production"
-
-# temp database
-db_username = 'alisharify'
-db_password = '123654'
+ENV = "development"
 
 
 EMAIL_USERNAME = os.getenv("username-mail")
 EMAIL_PASSWORD = os.getenv("password-mail")
 MAIL_PORT = 587
 
-if not EMAIL_USERNAME or not EMAIL_USERNAME:
-    raise RuntimeError("Email Username or Password is Not Set/ from config.py set it")
+
+# temp database local
+db_username = 'alisharify'
+# super secure password :)
+db_password = '123654'
+
 
 if not db_username or not db_password:
     raise RuntimeError("DateBase Username or Password is Not Set/ from config.py set it")
+
+
+if not EMAIL_USERNAME or not EMAIL_USERNAME:
+    raise RuntimeError("Email Username or Password is Not Set/ from config.py set it")
 
 class Config:
 
@@ -42,3 +46,6 @@ class Development(Config):
 
 class Production(Config):
     DEBUG = False
+
+
+

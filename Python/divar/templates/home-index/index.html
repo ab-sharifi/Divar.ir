@@ -218,27 +218,47 @@
         <div class="row" dir="ltr">
           <!-- card start -->
 
+
+          {% if posts %}
+          {% for post in posts %}
           <div class="col-md-6 col-lg-6 p-2">
             <div class="bg-light shadow-sm rounded border p-2">
               <a class="link-ind-page d-flex justify-content-between" href="">
                 <div>
+                  {% if post.image_location %}
+                  <img class="img-card" src="{{post.image_location|path}}" alt="">
+                  {% else %}
                   <img class="img-card" src="https://s101.divarcdn.com/static/pictures/1662608653/wYZQmt9o.jpg" alt="">
+                  
+                  {% endif %}
+                
                 </div>
                 <div class="text-start d-flex flex-column justify-content-around ">
-                  <h4 class="fs-8 p-2 text-black costumer-title">اجاق گاز مبله فردارچهارشعله خیلی تمیز</h4>
+                  <h4 class="fs-8 p-2 text-black costumer-title">{{post.post_title}}</h4>
                   <div>
                     <span class="text-muted fs-11  costumer-info-caption">در حد نو</span>
                     <br>
-                    <span class="text-muted fs-11  costumer-info-caption">850000تومان</span>
+                    {% if post.post_price == True %}
+                    <span class="text-muted fs-11  costumer-info-caption">توافقی</span>
+                    {% else %}
+                    <span class="text-muted fs-11  costumer-info-caption">{{post.post_price}}</span>
+                    
+                    {% endif %}
+                    
                     <br>
-                    <span class="text-muted fs-11  costumer-info-caption">لحاظی پیش درکرج</span>
+                    <span class="text-muted fs-11  costumer-info-caption">لحاظی پیش {{city}}</span>
                   </div>
                 </div>
               </a>
             </div>
           </div>
+          
+          {% endfor %}
+          {% endif %}
 
-          <div class="col-md-6 col-lg-6 p-2">
+
+
+           <!-- <div class="col-md-6 col-lg-6 p-2">
             <div class="bg-light shadow-sm rounded border p-2 ">
               <a class="link-ind-page d-flex justify-content-between" href="">
                 <div>
@@ -256,7 +276,7 @@
                 </div>
               </a>
             </div>
-          </div>
+          </div> -->
 
 
           <!-- card start -->

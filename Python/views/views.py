@@ -3,9 +3,11 @@ import uuid
 import datetime
 from divar import app,db
 from . import helpers
-from .helpers import login_required 
+from .helpers import login_required
+from divar.Email import send_email
 from werkzeug.utils import secure_filename
 
+from .template_filters import *
 
 from flask import(
     jsonify,
@@ -24,14 +26,18 @@ from werkzeug.security import(
     generate_password_hash
     )
 
-from divar.models import( 
+from divar.models import(
     MailVerification,
     User,
     Post,
     State,
     City)
-from divar.Email import send_email
-from divar.forms import Register, ActiveCode, Login, UserUpload, RegisterPost
+from divar.forms import (
+    Register,
+    ActiveCode,
+    Login,
+    UserUpload,
+    RegisterPost)
 
 # list of cities (hard coded)
 static = ['کرج','تهران','قم','مشهد','گیلان','گلستان','شیراز','اصفهان','کرمانشاه','تبریز']
@@ -43,7 +49,7 @@ from views.add_StatesDB import add_state
 from views.add_CitiesDB import add_city
 # Before start project be sure you call above function to add categories and states and cities to db
 # becarfull you sould call below function in order to work correctly
-# 
+#
 # 01 ->  add_category()
 # 02 ->  add_state()
 # 03 ->  add_city()
@@ -54,7 +60,7 @@ from views.add_CitiesDB import add_city
 @app.before_request
 def before_Request():
     """
-    before each request we get user status and save it to g variable 
+    before each request we get user status and save it to g variable
     """
     # add_category()
     # add_state()
@@ -62,7 +68,7 @@ def before_Request():
 
     # set up user status and access
     g.user_status = {"login" : False, 'phone':" " ,"name":"کاربر دیوار"}
-    
+
     if session.get('user_id', False):
         UserStatus = User.query.filter(User.id==session["user_id"]).first()
         if UserStatus:
@@ -71,7 +77,7 @@ def before_Request():
                 g.user_status["name"] = UserStatus.username
                 if not UserStatus.phone:
                     g.user_status['phone'] = "شماره تماس وارد نشده است"
-
+                g.user_status["phone"] = UserStatus.phone
 
 @app.errorhandler(500)
 def error_500():
@@ -81,15 +87,26 @@ def error_500():
 
 
 # index home route
-@app.route("/", methods=["GET","POST"])
+@app.route("/", methods=["GET"])
 def index():
-    if request.method == "GET":
+    # first index page showed
+    if not session.get("member"):
+        return render_template("first-index/index.html",cities=static)
+
+     # by default if user does not select any city we show tehran posts
+    if session.get("city"):
+         posts = City.query.filter(City.city_name == session["city"]).all()
+         posts = posts[0].posts
+         return render_template("home-index/index.html",
+         user_status=g.user_status , posts=posts,city=session["city"])
+    else:
+        # return tehran posts by default
+        posts = City.query.filter(City.city_name == "تهران").all()
+        posts = posts[0].posts
+        city="تهران"
         
-        if not session.get("member"):
-            return render_template("first-index/index.html",cities=static)
-        else:
-            return render_template("home-index/index.html",
-            user_status=g.user_status)
+        return render_template("home-index/index.html",
+         user_status=g.user_status , posts=posts,city=city)
 
 
 
@@ -103,14 +120,14 @@ def index_city(city):
 @app.route("/login/",methods=["POST","GET"])
 def login():
     form = Login(request.form)
-    
+
     if request.method == "GET":
         return render_template("login/index.html",user_status=g.user_status,form=form)
-    
+
     if request.method == "POST":
         if not form.validate_on_submit():
             return render_template("login/index.html",user_status=g.user_status,form=form)
-        
+
         if form.validate_on_submit():
             # query to db to find user with email
             login_user = User.query.filter_by(email=form.email.data).first()
@@ -132,7 +149,7 @@ def login():
                 db.session.commit()
                 db.session.rollback()
                 flash("اکانت کاربری شما فعال نمی باشد لطفا دوباره اقدام به ساخت اکانت و فعال سازی آن کنید","danger")
-                
+
                 return redirect(url_for("login"))
             return redirect(url_for("user_profile"))
 
@@ -144,23 +161,23 @@ def register():
     account he should logut from his last account
 
     """
-    
+
     form = Register()
     form_active_code = ActiveCode()
 
     if request.method == "GET":
-        # if user request resend code 
+        # if user request resend code
         if session.get("resend"):
             if session.get("resend") == True:
                 session.pop("resend")
                 return render_template("activate_code.html", user_status=g.user_status, user_id=session["user_id"], form=form_active_code )
-        
+
         return render_template("register/index.html",user_status=g.user_status,form=form)
-    
+
 
     if request.method == "POST":
 
-        if not form.validate(): 
+        if not form.validate():
             return render_template("register/index.html",user_status=g.user_status,form=form)
 
         if form.validate():
@@ -168,10 +185,10 @@ def register():
             db_duplicate = MailVerification.query.filter(MailVerification.email == form.email.data.strip()).first()
 
             if db_duplicate:
-                if (db_duplicate.activated == 1): 
+                if (db_duplicate.activated == 1):
                     flash("ایمیل قبلا ثبت شده است", "danger")
                     return render_template("register/index.html",user_status=g.user_status, form=form)
-                
+
                 # delete user if it already exists and did not activate his account
                 if (db_duplicate.activated == 0):
                     old_user = User.query.filter(User.email == form.email.data.strip()).first()
@@ -184,12 +201,12 @@ def register():
 
             # duplicate request handler
             if not db_duplicate:
-                
-                # add to user db 
+
+                # add to user db
                 new_user = User(email =form.email.data.strip(),password=generate_password_hash(form.password.data.strip()),
                 username=form.username.data.strip())
 
-                # create time and code 
+                # create time and code
                 code = helpers.code_generator()
                 time_send = datetime.datetime.utcnow()
                 exp_time = time_send + datetime.timedelta(minutes=3)
@@ -205,14 +222,14 @@ def register():
 
                 if(send_email(form.email.data.strip(),code)):
                     # if email was succesfully send it we add users to db
-                    # otherwise we rollback it 
-                    
+                    # otherwise we rollback it
+
                     db.session.commit()
                     # commit for get user id
                     new_user_mail.user_id = new_user.id
                     db.session.add(new_user_mail)
                     db.session.commit()
-                    
+
                     if session.get("user_id",None):
                         session.pop("user_id")
                     session["user_id"] = new_user.id
@@ -238,10 +255,10 @@ def verification_code():
     if request.method == "POST":
         uuid_user_value = request.form.get("uuid_user_value",None).strip()
         code_activation = request.form.get("activate_code", None).strip()
-        
+
         if not code_activation or not uuid_user_value:
             flash("درخواست دارای اشکال است","warning")
-            return redirect(url_for("register")) 
+            return redirect(url_for("register"))
 
         if uuid_user_value == None or (uuid_user_value != str(session["user_id"])):
             flash("200 خطایی در ثبت نام شما رخ داده است دوباره سعی کنید","danger")
@@ -264,7 +281,7 @@ def verification_code():
             db.session.delete(user_obj)
             db.session.commit()
             flash("کد منقضی شده است دوباره تلاش کنید", "warning")
-            return redirect(url_for("register"))    
+            return redirect(url_for("register"))
         else:
             # check code
             try:
@@ -272,7 +289,7 @@ def verification_code():
             except ValueError:
                 flash("کد ارسال شده نامعتبر می باشد","danger")
                 return redirect(url_for("register"))
-            
+
             if (check_db.active_code == code_activation):
                 user_obj = User.query.filter(User.id==session["user_id"]).first()
                 user_obj.is_active = 1
@@ -300,11 +317,11 @@ def resend():
     if request.method == "POST":
         form_active_code = ActiveCode()
         uuid_user_value = request.form.get('uuid_user_value')
-        
+
         if not uuid_user_value:
             flash("مشکلی در درخواست شما وحود دارد/ بعدا امتحان کنید","danger")
             return redirect(url_for("register"))
-        
+
         # check user is activate or not
         validate_user_db = MailVerification.query.filter(MailVerification.user_id==uuid_user_value).first()
         if not validate_user_db:
@@ -312,16 +329,16 @@ def resend():
             return redirect(url_for("register"))
         if validate_user_db.activated == 1:
             return redirect(url_for("profile"))
-        
+
         if validate_user_db.activated == 0:
-            # update activated code 
+            # update activated code
             new_code = helpers.code_generator()
             validate_user_db.active_code = new_code
             # update time
             exp_time = datetime.datetime.utcnow() +  datetime.timedelta(minutes=3)
             validate_user_db.exp_time = exp_time
             validate_user_db.send_time = datetime.datetime.utcnow()
-            db.session.add(validate_user_db) 
+            db.session.add(validate_user_db)
             db.session.commit()
             if  (send_email(validate_user_db.email, new_code)):
                 # set to true to route register
@@ -341,23 +358,23 @@ def user_profile():
     form = UserUpload()
 
     if request.method == "GET":
-        # emtyp user placeholder information 
+        # emtyp user placeholder information
         user={}
-        
+
         if (session.get("user_id")):
             # query for user images in db
             user_in_dn = User.query.filter(User.id==session["user_id"]).first()
             if user_in_dn:
                 img_profile = "/static/uploads/profiles/" + user_in_dn.profile_image
-                
+
                 user = {"image" : img_profile, "join_date" : user_in_dn.create_time}
-                
+
                 if user_in_dn.username:
                     user["username"] = user_in_dn.username
-                
+
                 if user_in_dn.phone:
                     user["phone"] = user_in_dn.phone
-                
+
                 if user_in_dn.email:
                     user["email"] = user_in_dn.email
 
@@ -390,7 +407,7 @@ def profile():
                     if  pri_img != app.config["DEFAULT_PICTURE"]:
                         os.remove(os.path.join(app.config["UPLOAD_FOLDER"],"profiles",pri_img))
                     # replace pictures
-                    
+
                     check_user.profile_image = image_name
                     path = (os.path.join(app.config["UPLOAD_FOLDER"],"profiles",image_name))
                     img.save(path)
@@ -431,7 +448,7 @@ def register_post():
         return render_template("register-posts/index.html",
         user_status=g.user_status,
         form=form, cities=all_city)
-    
+
     if request.method == "POST":
 
         if not form.validate():
@@ -441,7 +458,7 @@ def register_post():
 
 
         if form.validate():
-            # check for validate categories  
+            # check for validate categories
             categories = request.form.getlist("category")
             categury_answer = helpers.check_category(categories)
             if not categury_answer:
@@ -454,11 +471,11 @@ def register_post():
             if not user_db:
                 flash("خطایی رخ داد لطفا دوباره به حساب کاربری خود وارد شوید","danger")
                 return redirect(url_for("register_post"))
-            
+
             # check to user select price or trade option
             if not (form.price_post.data.strip()) and not (request.form.get("trade-option",None)):
                 flash("لطفا وضعیت پست را تعیین کنید (فروش قیمت یا معاوضه)","info")
-                return render_template("register-posts/index.html", 
+                return render_template("register-posts/index.html",
                 user_status=g.user_status, form=form, cities=all_city)
 
             # if both is selected
@@ -468,7 +485,7 @@ def register_post():
                 return render_template("register-posts/index.html",
                  user_status=g.user_status, form=form, cities=all_city)
 
-            # find value of post price  
+            # find value of post price
             post_trade_option = None
             if request.form.get("trade-option"):
                 post_trade_option = request.form.get("trade-option")
@@ -486,6 +503,7 @@ def register_post():
 
 
             # check user select a city
+            city_id= 0
             if request.form.get("city"):
                 # check city is in db
                 city_db = City.query.filter(City.city_name == request.form.get("city")).first()
@@ -493,30 +511,30 @@ def register_post():
                     flash("شهر انتخاب شده نامعتبر است","danger")
                     return render_template("register-posts/index.html",
                      user_status=g.user_status, form=form, cities=all_city)
+                
+                city_id = city_db.id
             else:
                     flash("شهری برای آگهی انتخاب نشده است","danger")
                     return render_template("register-posts/index.html",
                      user_status=g.user_status, form=form, cities=all_city)
 
-                
 
-
-            
             # check chat option
             chat_option = None
             if request.form.get("chat-option"):
                 chat_option = True if request.form["chat-option"] else False
-                
+
 
             # create user post object for db
             new_post = Post(post_title=form.title_post.data.strip(),
             post_caption = form.caption_post.data.strip(),
             post_price = str(post_trade_option),
-            post_status = "موجود" , 
+            post_status = "موجود" ,
             created_date = datetime.datetime.utcnow(),
             post_categories = str(categury_answer),
             user_id = user_db.id,
-            chat_available = chat_option
+            chat_available = chat_option,
+            city_id = city_id
             )
 
             # save image
@@ -524,11 +542,11 @@ def register_post():
             if request.files:
                 # check number of images
                 len_imgs = request.files.getlist("post_img")
-                
+
                 if len(len_imgs) > 3:
                     flash("تعداد عکس های انتخاب شده بیش از 3 عدد است","danger")
                     return render_template("register-posts/index.html",
-                    user_status=g.user_status, form=form, cities = all_city) 
+                    user_status=g.user_status, form=form, cities = all_city)
 
                 imgs = request.files.getlist("post_img")
                 for each in imgs:
@@ -536,10 +554,10 @@ def register_post():
                     each_filename = str(uuid.uuid1()) + (each_filename)
                     each_filename = secure_filename(each_filename)
                     path = os.path.join(app.config["UPLOAD_FOLDER"], "posts", each_filename)
-                    
+
                     images_list.append(each_filename)
                     each.save(path)
-                
+
                 new_post.image_location = str(images_list)
 
             # add user post to db
@@ -552,7 +570,7 @@ def register_post():
                 print(e)
                 flash("خطایی هنگام ثبت آگهی رخ داد دوباره امتحان کنید","danger")
                 return redirect(url_for("register_post"))
-                
+
 
 
 @app.route("/my-divar/my-posts/")
@@ -585,7 +603,7 @@ def my_resent_seen():
 @app.route("/state/cities/", methods=["POST"])
 def get_cities():
     """
-    This take a post request of a state id 
+    This take a post request of a state id
     and return all cities in that state
     """
     if (request.form.get("cities")):
@@ -594,7 +612,7 @@ def get_cities():
             id_state = int(request.form.get("cities"))
         except ValueError:
             return jsonify(), 400
-        
+
         state_db = State.query.filter(State.id==id_state).first()
         if not state_db:
             return jsonify(), 400
@@ -633,13 +651,12 @@ def set_phone_number():
     """
     This view take ajax request from client side and set phonenumber for user
     """
-    print(request.form)
     if request.form.get("phone_number"):
         user_db = User.query.filter(User.id == session["user_id"]).first()
         if not user_db:
             return jsonify("ERROR"), 404
         # make sure user send a phone number
-        # first make sure user send number 
+        # first make sure user send number
         user_phone = request.form["phone_number"]
         try:
             user_phone = int(user_phone)
@@ -649,8 +666,8 @@ def set_phone_number():
         # check len of number
         if len(str(user_phone)) != 10:
             return jsonify("SHORT"), 400
-        
-        user_phone = "0" + str(user_phone) 
+
+        user_phone = "0" + str(user_phone)
 
         user_db.phone = user_phone
 
@@ -660,7 +677,7 @@ def set_phone_number():
         except Exception as e:
             print(e)
             db.session.rollback()
-        
+
         return jsonify("OK"), 200
     else:
         return jsonify("missing phone number"), 400
@@ -671,16 +688,5 @@ def set_phone_number():
 
 
 @app.route("/temp/", methods=["GET"])
-def tmep():
-        new_post = Post(post_title="temp",
-        post_caption = "temp",
-        post_price = "temp",
-        post_status = "موجود" , 
-        created_date = datetime.datetime.utcnow(),
-        post_categories = "temp",
-        chat_available = 0
-        )
-
-        db.session.add(new_post)
-        db.session.commit()
-        return "OK"
+def tmep():    
+    return "OK"
