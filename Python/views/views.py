@@ -1,4 +1,5 @@
 import os
+import re
 import uuid
 import datetime
 from divar import app,db
@@ -490,7 +491,7 @@ def register_post():
             # find value of post price
             post_trade_option = None
             if request.form.get("trade-option"):
-                post_trade_option = request.form.get("trade-option")
+                post_trade_option = True if request.form.get("trade-option") == "on" else False
             else:
                 # if user just type price for post
                 # try to convert it to number(int)
@@ -502,7 +503,7 @@ def register_post():
                     return render_template("register-posts/index.html",
                      user_status=g.user_status, form=form, cities=all_city)
 
-
+            print(post_trade_option)
 
             # check user select a city
             city_id= 0
@@ -541,7 +542,7 @@ def register_post():
 
             # save image
             images_list = []
-            if request.files:
+            if request.files.get("post_img"):
                 # check number of images
                 len_imgs = request.files.getlist("post_img")
 
@@ -708,3 +709,15 @@ def posts(name):
 @app.route("/temp/", methods=["GET"])
 def tmep():    
     return "OK"
+
+
+@app.route("/api/divar/agree", methods=["POST"])
+def agree_terms():
+    """
+    This view take a post request and set for user agree with terms
+    """    
+    if request.form.get("agree"):
+        if request.form["agree"] == True:
+            session["agree"]="True"
+            return jsonify("status":"OK"), 200
+    return jsonify("status":"failed"), 400

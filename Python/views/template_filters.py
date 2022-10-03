@@ -47,6 +47,7 @@ def url_post(v):
 def path_images(v):
     """
     this filter take a value and return path to that file(value) in static in server
+    used in post pages for slider image
     """
     if "[" in v:
         v = v.replace("[","")
@@ -70,3 +71,39 @@ def path_images(v):
     return value
 
 
+
+
+from divar.models import Category
+from views import helpers
+@app.template_filter("get_categories")
+def get_categories(v):
+    """
+    This filter take a string list of categories id and return value of categories
+    used in post page for display tag of categories  
+    """
+    
+    if "[" in v:
+        v = v.replace("[","")
+    
+    if "]" in v:
+        v = v.replace("]","")
+        
+    if "'" in v:
+        v = v.replace("'","")
+    
+    if "'" in v:
+        v = v.replace("'","")
+    
+    v= v.split(",")
+    values = []
+
+    for each in v:
+        try:
+            each = int(each)
+        except ValueError:
+            continue
+        res = Category.query.filter(Category.id == each).first()
+        if res:
+            values.append(res.category)
+
+    return values 
