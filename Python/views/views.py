@@ -77,9 +77,11 @@ def before_Request():
             if UserStatus.is_active == 1:
                 g.user_status["login"] = True
                 g.user_status["name"] = UserStatus.username
-                if not UserStatus.phone:
+                if UserStatus.phone == None or not UserStatus.phone:
+                    print("Here")
                     g.user_status['phone'] = "شماره تماس وارد نشده است"
-                g.user_status["phone"] = UserStatus.phone
+                else:
+                    g.user_status["phone"] = UserStatus.phone
 
 @app.errorhandler(500)
 def error_500():
@@ -91,6 +93,7 @@ def error_500():
 # index home route
 @app.route("/", methods=["GET"])
 def index():
+    # print(session["agreed"])
     # first index page showed
     if not session.get("member"):
         return render_template("first-index/index.html",cities=static)
@@ -644,9 +647,9 @@ def set_city():
     """
     if request.form.get("user_selected_city"):
         session["city"] = request.form.get("user_selected_city")
-        return jsonify(), 200
+        return jsonify({"status":"OK"}), 200
     else:
-        return jsonify(), 400
+        return jsonify({"status":"OK"}), 400
 
 
 @app.route("/api/divar/set_number/", methods=["POST"])
@@ -706,18 +709,46 @@ def posts(name):
 
 
 
-@app.route("/temp/", methods=["GET"])
-def tmep():    
-    return "OK"
 
 
-@app.route("/api/divar/agree", methods=["POST"])
+
+@app.route("/api/divar/agree/", methods=["POST"])
 def agree_terms():
     """
-    This view take a post request and set for user agree with terms
+    This view take a post request and turn on user agree session to True
     """    
-    if request.form.get("agree"):
-        if request.form["agree"] == True:
-            session["agree"]="True"
-            return jsonify("status":"OK"), 200
-    return jsonify("status":"failed"), 400
+    if request.form.get("agree") and request.form.get("post-uuid") and request.form.get("post-title"):
+        if request.form.get("agree"):
+            session["agree"] = True
+
+        # check for post email
+        uuid, title = request.form.get("post-uuid"), request.form.get("post-title")
+        if not uuid or not title:
+            return jsonify("failed"), 400
+        try:
+            uuid = int(uuid)
+        except ValueError:
+            return jsonify("failed"), 400
+            
+        post_title_db = Post.query.filter(Post.post_title == title).first()
+        post_uuid_db= Post.query.filter(Post.id == uuid).first()
+        if not post_title_db or not post_uuid_db:
+            return jsonify("failed"), 400
+        
+        if post_uuid_db == post_title_db:
+            # GET user email
+            email = User.query.filter(Post.id == post_title_db.user_id).first()
+            if not email:
+                return jsonify("failed"), 400
+            return jsonify({"status":"OK", "email":email.email}), 200
+
+        return jsonify("failed"), 400
+    return jsonify("failed"), 400
+
+
+
+@app.route("/temp/", methods=["GET"])
+def tmep():
+    if session.get("agree"):
+        session.pop("agree")    
+    return "cleaned OK"

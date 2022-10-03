@@ -107,3 +107,20 @@ def get_categories(v):
             values.append(res.category)
 
     return values 
+
+
+from divar.models import User
+@app.template_filter("get_email")
+def get_email(v):
+    """
+    This filter take an user id and return email of it
+    used in post page show information btn
+    """
+    try:
+        v= int(v)
+    except ValueError:
+        return "None"
+    temp = User.query.filter (User.id == v).first()
+    if temp :
+        return temp.email
+    return "None" 
