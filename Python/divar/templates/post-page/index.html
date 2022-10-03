@@ -103,13 +103,13 @@
             </span>
           </div>
           <div dir="rtl" class="mt-4 ">
-            <a href="" class="text-decoration-none text-muted fs-9 text-black-hover transition-bgcolor-1s">
+            <a href="" class="text-decoration-none text-muted fs-9 text-black-hover transition-all-1s">
               <div class=" border-bottom py-3">
                 <i class="bi bi-question-circle"></i>
                 <span>راهنمای خرید امن</span>
               </div>
             </a>
-            <a href="" class="text-decoration-none text-muted fs-9 text-black-hover transition-bgcolor-1s ">
+            <a href="" class="text-decoration-none text-muted fs-9 text-black-hover transition-all-1s ">
               <div class=" border-bottom py-3">
                 <i class="bi bi-exclamation-circle"></i>
                 <span>ثبت تخلف یا مشکل آگهی</span>
@@ -130,7 +130,7 @@
 
               <div class="d-flex justify-content-between align-items-center my-4">
                 <div class="w-auto ">
-                    <a href="" class="responsive-btn btn btn-brand btn-cs px-lg-2 px-md-4 fs-11  px-4 text-white text-brand-hover">اطلاعات
+                    <a href="" role="button" id="contact_btn" data-bs-toggle="modal" data-bs-target="#modal_contact_post" class="responsive-btn btn btn-brand btn-cs px-lg-2 px-md-4 fs-11  px-4 text-white text-brand-hover">اطلاعات
                       تماس</a>
                     <a href=""
                       class="responsive-btn btn btn-brand btn-cs px-lg-4 px-md-5 px-4 fs-11 text-brand bg-white btn-outline-brand">چت
@@ -147,7 +147,7 @@
                   <span>نو</span>
                 </div>
                 <div class="d-flex justify-content-between border-bottom  p-2">
-                {% if post.post_price == 'on' %}
+                {% if post.post_price == "True" %}
                       <span class="text-muted">قیمت</span>
                       <span>توافقی</span>
                 {% else %}
@@ -169,17 +169,20 @@
                 </p>
               </div>
 
-              <div class="category-about-product mt-4 w-100 mb-3">
-                <a href="#"
-                  class="category text-muted fs-8 px-2 py-1 overflow-hidden bg-light rounded text-muted-hover-light">مصالح
-                  ساختمای</a>
-                <a href="#"
-                  class="category text-muted fs-8 px-2 py-1 overflow-hidden bg-light rounded text-muted-hover-light">خانه
-                  و سلامت</a>
-                <a href="#"
-                  class="category text-muted fs-8 px-2 py-1 overflow-hidden bg-light rounded text-muted-hover-light">موتور
-                  و خودرو</a>
-              </div>
+
+<div class="category-about-product mt-4 w-100 mb-3 row text-center">
+{% if post.post_categories %}
+      {% for category in post.post_categories|get_categories %}
+
+              <a href="#"
+                class="text-muted category col-2 fs-7 py-2 px-1 m-2  bg-light rounded text-muted-hover-light">
+                {{category}}
+              </a>
+
+      {% endfor %}
+{% endif %}
+</div>
+
 
             </div>
           </div>
@@ -196,18 +199,18 @@
 <!-- footer of the page  -->
     <div class=" w-100 h-100 mt-4 p-3 d-flex justify-content-between align-items-center">
       <div class=" d-flex justify-content-center align-center">
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-twitter"></i>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-twitter"></i>
         </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-instagram"></i>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-instagram"></i>
         </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-linkedin"></i>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-linkedin"></i>
         </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer" href=""><i class="bi bi-github"></i></a>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-github"></i></a>
       </div>
       <div class="text-muted fs-7">
-        <span class="px-2 border-end cursor-pointer text-black-hover ">درباره دیوار</span>
-        <span class="px-2 border-end cursor-pointer text-black-hover">پشتیبانی و قوانین</span>
-        <span class="px-2  cursor-pointer text-black-hover">بلاگ دیوار</span>
+        <span class="px-2 border-end cursor-pointer text-black-hover  transition-all-1s">درباره دیوار</span>
+        <span class="px-2 border-end cursor-pointer text-black-hover transition-all-1s">پشتیبانی و قوانین</span>
+        <span class="px-2  cursor-pointer text-black-hover transition-all-1s">بلاگ دیوار</span>
       </div>
     </div>
 <!-- footer of the page  -->
@@ -223,6 +226,7 @@
   integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
   crossorigin="anonymous"></script>
   <script src="{{ url_for('static',filename='index-home/JS/script.js') }}"></script>
+  <script src="{{ url_for('static',filename='post-page/JS/script.js') }}"></script>
 
 </body>
 
