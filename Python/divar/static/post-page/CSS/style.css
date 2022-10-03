@@ -83,6 +83,10 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.bg-info-light{
+    background-color:#e8f5fb;
+}
+
 
 
 @media (max-width:1200px)

@@ -17,23 +17,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-react-helmet="true">دیوار کرج: مرجع انواع نیازمندی و آگهی‌های نو و دست دو در شهر کرج</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="https://s100.divarcdn.com/static/thewall-assets/favicon-32x32.png">  
-  <link rel="apple-touch-icon" sizes="180x180" href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png  ">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://s100.divarcdn.com/static/thewall-assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://s100.divarcdn.com/static/thewall-assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="https://s100.divarcdn.com/static/thewall-assets/apple-touch-icon.png  ">
+  <link rel="icon" type="image/png" sizes="16x16"
+    href="https://s100.divarcdn.com/static/thewall-assets/favicon-16x16.png">
   <link rel="mask-icon" href="https://s100.divarcdn.com/static/thewall-assets/safari-pinned-tab.svg" color="#a62626">
 </head>
+
 <body class="mt-cs">
 
 
-{% include "navbar/navbar.html"%}
-  <input type="hidden" name="csrf_token" value="csrf_token()" id="csrf_token">
+  {% include "navbar/navbar.html"%}
+  <input type="hidden" name="csrf_token" value="{{csrf_token()}}" id="csrf_token">
   <!-- 000000000000000000000000000000000000000000000000000000000  -->
 
-<div class="container mt-5 pt-5 ">
-<!-- breadcrumb -->
+  <div class="container mt-5 pt-5 ">
+    <!-- breadcrumb -->
     <div class="breadcrumb-container" dir="rtl">
       <ol class="breadcrumb rounded px-1 fs-8">
-        
+
         <li class="breadcrumb-item">
           <a class="text-muted" href="{{url_for('index')}}">خانه</a>
         </li>
@@ -48,21 +52,22 @@
         </li>
       </ol>
     </div>
-<!-- breadcrumb -->
+    <!-- breadcrumb -->
 
-<!-- 000000000000000000000000000000000000000000000000000000000  -->
+    <!-- 000000000000000000000000000000000000000000000000000000000  -->
 
-<!-- content page  MIAN -->
+    <!-- content page  MIAN -->
     <div class="row mt-3">
-      
-    <!-- lef side picture -->
-          <div class="col-lg-8 col-md-12">
+
+      <!-- lef side picture -->
+      <div class="col-lg-8 col-md-12">
         <div class="carousel slide" data-bs-interval="7000" data-bs-ride="carousel" id="carousel-cs">
           <ol class="carousel-indicators">
             <li data-bs-target="#carousel-cs" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#carousel-cs" data-bs-slide-to="1"></li>
             <li data-bs-target="#carousel-cs" data-bs-slide-to="2"></li>
           </ol>
+          <input type="hidden" name="post-uuid" id="post_uuid" value="{{post.id}}">
           <div class="carousel-inner">
             <!-- control for slider -->
             <a href="#carousel-cs" data-bs-slide="prev" role="button" class="carousel-control-prev">
@@ -72,22 +77,22 @@
               <span class="carousel-control-next-icon bg-dark"></span>
             </a>
             <!-- control for slider -->
-{% if post.image_location %}
-          {% set images = post.image_location|path_images %}
-        {% for img in images %}
-            
-                {% if loop.index == 1 %}
-                <div class="carousel-item active">
-                  <img class="d-block carousel-img img-md-fluid" src="{{img}}" alt="">
-                </div>
-                {% else %}
-                <div class="carousel-item">
-                  <img class="d-block carousel-img img-md-fluid" src="{{img}}" alt="">
-                </div>
-                {% endif %}
+            {% if post.image_location %}
+            {% set images = post.image_location|path_images %}
+            {% for img in images %}
 
-        {% endfor %}
-{% endif %}
+            {% if loop.index == 1 %}
+            <div class="carousel-item active">
+              <img class="d-block carousel-img img-md-fluid" src="{{img}}" alt="">
+            </div>
+            {% else %}
+            <div class="carousel-item">
+              <img class="d-block carousel-img img-md-fluid" src="{{img}}" alt="">
+            </div>
+            {% endif %}
+
+            {% endfor %}
+            {% endif %}
 
           </div>
         </div>
@@ -117,44 +122,108 @@
             </a>
           </div>
         </div>
-          </div>
+      </div>
       <!-- lef side picture -->
       <!-- right side info -->
-          <div class="col-lg-4 col-md-12" dir="rtl">
+      <div class="col-lg-4 col-md-12" dir="rtl">
         <div>
           <div class="container-cs  d-flex flex-direction-column mt-4 w-100">
             <div class="headers-body text-right w-100">
-              <h1 class="h4 bold-title mb-4 title-costumer">{{post.post_title}}</h1>
+              <h1 id="post-title" class="h4 bold-title mb-4 title-costumer">{{post.post_title}}</h1>
               <h5 class="text-muted fs-8"><span>دو ساعت پیش در کرج</span> <span>مشکین دشت</span> <span>مهارت فنی و
                   خدمات</span></h5>
 
-              <div class="d-flex justify-content-between align-items-center my-4">
-                <div class="w-auto ">
-                    <a href="" role="button" id="contact_btn" data-bs-toggle="modal" data-bs-target="#modal_contact_post" class="responsive-btn btn btn-brand btn-cs px-lg-2 px-md-4 fs-11  px-4 text-white text-brand-hover">اطلاعات
-                      تماس</a>
-                    <a href=""
-                      class="responsive-btn btn btn-brand btn-cs px-lg-4 px-md-5 px-4 fs-11 text-brand bg-white btn-outline-brand">چت
-                    </a>
+
+              <div id="conatiner_accordion">
+                {% if session.get("agree") == True %}
+                <div class="accordion" id="info-user">
+
+                  <div class="d-flex justify-content-between align-items-center my-4">
+                    <div class="w-auto ">
+
+                      <div>
+                        <a href="" role="button" data-bs-toggle="collapse" role="button"
+                          data-bs-target="#user-info-open"
+                          class="responsive-btn btn btn-brand btn-cs px-lg-2 px-md-4 fs-11  px-4 text-white text-brand-hover">اطلاعات
+                          تماس
+                        </a>
+
+                        <a href=""
+                          class="responsive-btn btn btn-brand btn-cs px-lg-4 px-md-5 px-4 fs-11 text-brand bg-white btn-outline-brand">چت
+                        </a>
+                      </div>
+
+                    </div>
+                    <div class="w-auto pe-2">
+                      <a href="#" class="icon-save-share text-muted p-2 "><i class="fs-10 bi bi-share-fill"></i></a>
+                    </div>
+                  </div>
+                  <div class="collapse" id="user-info-open" data-parent="#info-user">
+                    <div id="user-information">
+                      <div class="my-3 add-information d-flex justify-content-between align-items-center">
+                        <div>
+                          <span class="text-muted">
+                            ایمیل
+                          </span>
+                        </div>
+                        <div>
+                          <span id="call_number" class="text-brand">{{post.user_id|get_email}}</span>
+                          <i id="save-cliboard" class="text-muted bi bi-clipboard2 cursor-pointer icon-save-share"></i>
+                        </div>
+                      </div>
+                      <div class="bg-info-light px-1 py-2 my-3 rounded fs-8 text-muted ">
+                        <span>
+                          هشدار پلیس
+                        </span>
+                        <br>
+                        <br>
+                        <p>
+                          لطفاً پیش از انجام معامله و هر نوع پرداخت وجه، از صحت کالا یا خدمات ارائه‌شده، به‌صورت حضوری
+                          اطمینان حاصل نمایید.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="w-auto pe-2">
-                  <a href="#" class="icon-save-share text-muted p-2 "><i class="fs-10 fa-solid fa-bookmark"></i></a>
-                  <a href="#" class="icon-save-share text-muted p-2 "><i class="fs-10 bi bi-share-fill"></i></a>
+                {% else %}
+                <div class="d-flex justify-content-between align-items-center my-4">
+                  <div class="w-auto ">
+
+                    <div>
+                      <a href="" role="button" id="contact_btn" data-bs-toggle="modal"
+                        data-bs-target="#modal_contact_post"
+                        class="responsive-btn btn btn-brand btn-cs px-lg-2 px-md-4 fs-11  px-4 text-white text-brand-hover">اطلاعات
+                        تماس
+                      </a>
+
+                      <a href=""
+                        class="responsive-btn btn btn-brand btn-cs px-lg-4 px-md-5 px-4 fs-11 text-brand bg-white btn-outline-brand">چت
+                      </a>
+                    </div>
+
+                  </div>
+                  <div class="w-auto pe-2">
+                    <a href="#" class="icon-save-share text-muted p-2 "><i class="fs-10 bi bi-share-fill"></i></a>
+                  </div>
                 </div>
+                {% endif %}
               </div>
+
+
+
               <div class="customer-info fs-info">
                 <div class="d-flex justify-content-between border-bottom  p-2">
                   <span class="text-muted">وضعیت</span>
                   <span>نو</span>
                 </div>
                 <div class="d-flex justify-content-between border-bottom  p-2">
-                {% if post.post_price == "True" %}
-                      <span class="text-muted">قیمت</span>
-                      <span>توافقی</span>
-                {% else %}
-                      <span class="text-muted">قیمت</span>
-                      <span>{{post.post_price}}</span>
-                {% endif %}
-                
+                  {% if post.post_price == "True" %}
+                  <span class="text-muted">قیمت</span>
+                  <span>توافقی</span>
+                  {% else %}
+                  <span class="text-muted">قیمت</span>
+                  <span>{{post.post_price}}</span>
+                  {% endif %}
                 </div>
                 <div class="d-flex justify-content-between border-bottom  p-2">
                   <span class="text-muted">آخرین به‌روزرسانی آگهی</span>
@@ -170,42 +239,46 @@
               </div>
 
 
-<div class="category-about-product mt-4 w-100 mb-3 row text-center">
-{% if post.post_categories %}
-      {% for category in post.post_categories|get_categories %}
+              <div class="category-about-product mt-4 w-100 mb-3 row text-center">
+                {% if post.post_categories %}
+                {% for category in post.post_categories|get_categories %}
 
-              <a href="#"
-                class="text-muted category col-2 fs-7 py-2 px-1 m-2  bg-light rounded text-muted-hover-light">
-                {{category}}
-              </a>
+                <a href="#"
+                  class="text-muted category col-2 fs-7 py-2 px-1 m-2  bg-light rounded text-muted-hover-light">
+                  {{category}}
+                </a>
 
-      {% endfor %}
-{% endif %}
-</div>
+                {% endfor %}
+                {% endif %}
+              </div>
 
 
             </div>
           </div>
 
         </div>
-          </div>
+      </div>
       <!-- right side info -->
 
     </div>
-<!-- content page  MIAN -->
+    <!-- content page  MIAN -->
 
-<!--  000000000000000000000000000000000000000000000000000000000  -->
+    <!--  000000000000000000000000000000000000000000000000000000000  -->
 
-<!-- footer of the page  -->
+    <!-- footer of the page  -->
     <div class=" w-100 h-100 mt-4 p-3 d-flex justify-content-between align-items-center">
       <div class=" d-flex justify-content-center align-center">
-        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-twitter"></i>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i
+            class="bi bi-twitter"></i>
         </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-instagram"></i>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i
+            class="bi bi-instagram"></i>
         </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-linkedin"></i>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i
+            class="bi bi-linkedin"></i>
         </a>
-        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i class="bi bi-github"></i></a>
+        <a class="m-3 text-muted text-black-hover cursor-pointer transition-all-1s" href=""><i
+            class="bi bi-github"></i></a>
       </div>
       <div class="text-muted fs-7">
         <span class="px-2 border-end cursor-pointer text-black-hover  transition-all-1s">درباره دیوار</span>
@@ -213,18 +286,18 @@
         <span class="px-2  cursor-pointer text-black-hover transition-all-1s">بلاگ دیوار</span>
       </div>
     </div>
-<!-- footer of the page  -->
+    <!-- footer of the page  -->
 
-</div>
+  </div>
 
 
 
-{% include "modals/all_modals.html" %}
+  {% include "modals/all_modals.html" %}
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-  crossorigin="anonymous"></script>
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
   <script src="{{ url_for('static',filename='index-home/JS/script.js') }}"></script>
   <script src="{{ url_for('static',filename='post-page/JS/script.js') }}"></script>
 
