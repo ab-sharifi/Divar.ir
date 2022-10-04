@@ -17,6 +17,17 @@ class MailVerification(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
 
+
+# class Bookmark(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     post_id = db.Column(db.Integer, db.ForeignKey("posts.id", ondelete="cascade"))
+#     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="cascade"))
+
+user_bookmarks = db.Table("user_bookmarks",
+    db.Column("users_id",db.Integer, db.ForeignKey("users.id", ondelete="cascade")),
+    db.Column("posts_id",db.Integer, db.ForeignKey("posts.id", ondelete="cascade"))
+)
+
 class User(db.Model):
     """
     This Table carries all user information
@@ -43,6 +54,10 @@ class User(db.Model):
     histories = db.relationship("History", backref="user_history", lazy=True)
     notes = db.relationship("Note", backref="user_notes", lazy=True)
     VisitHistories = db.relationship("VisitHistory", backref="user_VisitHistory", lazy=True) 
+    
+    bookmarks = db.relationship("Post", secondary=user_bookmarks, backref='user_bookmark', lazy=True)
+
+
 
 class Post(db.Model):
     """
@@ -64,12 +79,13 @@ class Post(db.Model):
     post_categories = db.Column(db.String(256))
     chat_available = db.Column(db.Boolean(),default=False, nullable=False)
 
+
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     city_id = db.Column(db.Integer, db.ForeignKey("cities.id"))
-
     notes = db.relationship("Note", backref="post_notes", lazy=True)
     histories = db.relationship("History", backref="post_hostories", lazy=True) 
     VisitHistories = db.relationship("VisitHistory", backref="post_VisitHistory", lazy=True) 
+    
 
 class Note(db.Model):
     """
@@ -78,7 +94,6 @@ class Note(db.Model):
     __tablename__ = 'notes'
     id = db.Column(db.Integer, primary_key=True)
     notes = db.Column(db.String(256))
-
 
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -95,7 +110,6 @@ class History(db.Model):
 
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-
 
 class Category(db.Model):
     """

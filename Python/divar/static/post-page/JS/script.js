@@ -1,32 +1,4 @@
 
-
-
-let user_info = `
-<div id="user-information">
-<div class="my-3 add-information d-flex justify-content-between align-items-center">
-  <div>
-    <span class="text-muted">
-      شماره تماس
-    </span>
-  </div>
-  <div>
-    <span id="call_number" class="text-brand">09331016879</span>
-    <i id="save-cliboard" class="text-muted bi bi-clipboard2 cursor-pointer icon-save-share"></i>
-  </div>
-</div>
-<div class="bg-info-light px-1 py-2 my-3 rounded fs-8 text-muted ">
-  <span>
-    هشدار پلیس
-  </span>
-  <br>
-  <br>
-  <p>
-  لطفاً پیش از انجام معامله و هر نوع پرداخت وجه، از صحت کالا یا خدمات ارائه‌شده، به‌صورت حضوری اطمینان حاصل نمایید.
-  </p>
-</div>
-</div>
-`;
-
 function show_contact(email){
     
 let show = `
@@ -83,6 +55,8 @@ let show = `
 }
 
 const contact_btn = document.getElementById("contact_btn");
+if (contact_btn != null) 
+{
 contact_btn.addEventListener("click", (e)=>{
     const agree_btn = document.getElementById("agree_button");
     agree_btn.addEventListener("click", (e)=>{
@@ -123,6 +97,25 @@ contact_btn.addEventListener("click", (e)=>{
         xhr.send(formdata);
 
     })
+})
+}
+
+
+const button_bookmark = document.getElementById("bookmark_button");
+button_bookmark.addEventListener("click", (e)=>{
+    const xhr = new XMLHttpRequest();
+    const formdata = new FormData();
+
+    formdata.append("csrf_token", document.getElementById("csrf_token").value)
+    formdata.append("post-uuid", document.getElementById("post_uuid").value)
+    xhr.open("POST", "/api/divar/bookmark/",true);
+    xhr.onreadystatechange = function(e){
+      if (this.readyState == 4 && this.status == 200)
+      {
+        document.getElementById("container_bookmark").innerHTML = "<i class='bi bi-bookmark-fill'></i>";
+      }
+    }
+    xhr.send(formdata);
 })
 
 

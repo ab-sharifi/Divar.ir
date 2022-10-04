@@ -7,6 +7,115 @@
     <div class="col-md-12 col-lg-9">
         <div class="mt-2 ">
 
+        {% if my_posts and user_posts|length == 0 %}
+                <div class="d-flex flex-column justify-content-center align-items-center" dir="rtl">
+                    <img src="{{url_for('static',filename='image/my-divar-posts.svg')}}" alt="">
+                    <p class="text-muted">تا به‌حال در دیوار آگهی ثبت نکرده‌اید.</p>
+                    <a href="{{url_for('register_post')}}" class="btn btn-brand text-white px-2 py-1 bg-brand-hover">ثبت آگهی</a>
+                </div>
+        {% endif %}
+                
+        {% if my_bookmarks and user_bookmarks|length == 0 %}
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <img src="{{url_for('static',filename='image/my-divar-bookmarks.svg')}}" alt="">
+                    <div>
+                        <p class="fs-8 text-muted" dir="rtl" style="line-height: 2">
+                            برای نشان‌کردن آگهی‌ها از دکمهٔ <span><i><i class="bi bi-bookmark"></i></i></span> در صفحهٔ  <br> آگهی استفاده کنید.
+                        </p>
+                    </div>
+                </div>
+        {% endif %}
+                
+        {% if my_notes %}
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <img src="{{url_for('static', filename='image/my-divar-notes.svg')}}" alt="">
+                <p class="text-muted fs-8 " dir="rtl" style="line-height: 2">
+                    برای یادداشت گذاشتن روی آگهی‌ها می‌توانید از <br> دکمهٔ <span><i class="bi bi-sticky"></i></span> در صفحهٔ آگهی استفاده کنید.
+                </p>
+            </div>
+        {% endif %}
+
+
+
+        <!-- content -->
+
+        {% if user_posts %}
+        <div class="row">
+            {% for post in user_posts %}
+            <div class="col-md-6 col-lg-6 p-2">
+              <div class="bg-light shadow-sm rounded border p-2">
+  
+                <a class="link-ind-page d-flex justify-content-between" href="{{url_for('posts', name=post.post_title|url_post )}}">
+                  <div>
+                    {% if post.image_location %}
+                    <img class="img-card" src="{{post.image_location|path_index}}" alt="">
+                    {% else %}
+                    <img class="img-card" src="https://s101.divarcdn.com/static/pictures/1662608653/wYZQmt9o.jpg" alt="">
+                    {% endif %}
+                  
+                  </div>
+                  <div class="text-start d-flex flex-column justify-content-around ">
+                    <h4 class="fs-8 p-2 text-black costumer-title " dir='rtl'>{{post.post_title | truncate(20, true,"...") }}</h4>
+                    <div>
+                      <span class="text-muted fs-11  costumer-info-caption">در حد نو</span>
+                      <br>
+                    {% if post.post_price == "True" %}
+                        <span class="text-muted fs-11  costumer-info-caption">توافقی</span>
+                    {% else %}
+                        <span class="text-muted fs-11  costumer-info-caption">{{post.post_price}}</span>
+                    {% endif %}
+                      
+                      <br>
+                      <span class="text-muted fs-11  costumer-info-caption">لحاظی پیش {{city}}</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        {% if my_bookmarks %}
+        <div class="row">
+            {% for post in user_bookmarks %}
+            <div class="col-md-6 col-lg-6 p-2">
+              <div class="bg-light shadow-sm rounded border p-2">
+  
+                <a class="link-ind-page d-flex justify-content-between" href="{{url_for('posts', name=post.post_title|url_post )}}">
+                  <div>
+                    {% if post.image_location %}
+                    <img class="img-card" src="{{post.image_location|path_index}}" alt="">
+                    {% else %}
+                    <img class="img-card" src="https://s101.divarcdn.com/static/pictures/1662608653/wYZQmt9o.jpg" alt="">
+                    {% endif %}
+                  
+                  </div>
+                  <div class="text-start d-flex flex-column justify-content-around ">
+                    <h4 class="fs-8 p-2 text-black costumer-title " dir='rtl'>{{post.post_title | truncate(20, true,"...") }}</h4>
+                    <div>
+                      <span class="text-muted fs-11  costumer-info-caption">در حد نو</span>
+                      <br>
+                    {% if post.post_price == "True" %}
+                        <span class="text-muted fs-11  costumer-info-caption">توافقی</span>
+                    {% else %}
+                        <span class="text-muted fs-11  costumer-info-caption">{{post.post_price}}</span>
+                    {% endif %}
+                      
+                      <br>
+                      <span class="text-muted fs-11  costumer-info-caption">لحاظی پیش {{city}}</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+        {% endif %}
+
 
         </div>
     </div>
