@@ -23,9 +23,9 @@ def path_index(v):
     images = v.split(",")
     
     if len(images) == 0:
-        return (os.path.join("static/uploads" , "posts" , v))
+        return (os.path.join("/static/uploads" , "posts" , v))
     else:
-        return (os.path.join("static/uploads" , "posts" , images[0]))
+        return (os.path.join("/static/uploads" , "posts" , images[0]))
 
 
 

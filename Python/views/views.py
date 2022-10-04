@@ -1,3 +1,4 @@
+from distutils.command.clean import clean
 import os
 import re
 import uuid
@@ -78,7 +79,6 @@ def before_Request():
                 g.user_status["login"] = True
                 g.user_status["name"] = UserStatus.username
                 if UserStatus.phone == None or not UserStatus.phone:
-                    print("Here")
                     g.user_status['phone'] = "شماره تماس وارد نشده است"
                 else:
                     g.user_status["phone"] = UserStatus.phone
@@ -93,7 +93,6 @@ def error_500():
 # index home route
 @app.route("/", methods=["GET"])
 def index():
-    # print(session["agreed"])
     # first index page showed
     if not session.get("member"):
         return render_template("first-index/index.html",cities=static)
@@ -101,13 +100,16 @@ def index():
      # by default if user does not select any city we show tehran posts
     if session.get("city"):
          posts = City.query.filter(City.city_name == session["city"]).all()
-         posts = posts[0].posts
+         if posts:
+            posts = posts[0].posts
+         else:
+            posts = []
          return render_template("home-index/index.html",
          user_status=g.user_status , posts=posts,city=session["city"])
     else:
         # return tehran posts by default
-        posts = City.query.filter(City.city_name == "تهران").all()
-        posts = posts[0].posts
+        posts = City.query.filter(City.city_name == "تهران").first()
+        posts = posts.posts
         city="تهران"
         
         return render_template("home-index/index.html",
@@ -506,7 +508,6 @@ def register_post():
                     return render_template("register-posts/index.html",
                      user_status=g.user_status, form=form, cities=all_city)
 
-            print(post_trade_option)
 
             # check user select a city
             city_id= 0
@@ -583,14 +584,27 @@ def register_post():
 @app.route("/my-divar/my-posts/")
 @login_required
 def my_posts():
+    if session.get("user_id"):
+        user_db = User.query.filter(User.id == session["user_id"]).first()
+        if not user_db:
+            return redirect(url_for("index"))
     my_posts = True
-    return render_template("user-dashboard/index.html",user_status=g.user_status,my_posts=my_posts)
+    user_posts = (user_db.posts)
+    if not user_posts:
+        return render_template("user-dashboard/index.html",user_status=g.user_status,
+        my_posts=my_posts)
+    else:
+        return render_template("user-dashboard/index.html",user_status=g.user_status,
+        my_posts=my_posts,user_posts=user_posts)
+        
 
 @app.route("/my-divar/bookmarks/")
 @login_required
 def my_bookmarks():
     my_bookmarks = True
-    return render_template("user-dashboard/index.html",user_status=g.user_status,my_bookmarks=my_bookmarks)
+    user_db = User.query.filter(User.id == session["user_id"]).first()
+    return render_template("user-dashboard/index.html",user_status=g.user_status,
+    my_bookmarks=my_bookmarks, user_bookmarks=user_db.bookmarks)
 
 @app.route("/my-divar/my-notes/")
 @login_required
@@ -710,40 +724,40 @@ def posts(name):
 
 
 
-
-
 @app.route("/api/divar/agree/", methods=["POST"])
 def agree_terms():
     """
     This view take a post request and turn on user agree session to True
     """    
     if request.form.get("agree") and request.form.get("post-uuid") and request.form.get("post-title"):
-        if request.form.get("agree"):
-            session["agree"] = True
-
         # check for post email
         uuid, title = request.form.get("post-uuid"), request.form.get("post-title")
         if not uuid or not title:
-            return jsonify("failed"), 400
+            return jsonify("failed-1"), 400
         try:
             uuid = int(uuid)
         except ValueError:
-            return jsonify("failed"), 400
-            
+            return jsonify("failed-2"), 400
+
+        
         post_title_db = Post.query.filter(Post.post_title == title).first()
         post_uuid_db= Post.query.filter(Post.id == uuid).first()
+
         if not post_title_db or not post_uuid_db:
-            return jsonify("failed"), 400
+            return jsonify("failed-3"), 400
         
         if post_uuid_db == post_title_db:
             # GET user email
-            email = User.query.filter(Post.id == post_title_db.user_id).first()
+            email = User.query.filter(User.id == post_title_db.user_id).first()
             if not email:
-                return jsonify("failed"), 400
+                return jsonify("failed-4"), 400
+        if request.form.get("agree"):
+            session["agree"] = True
+            
             return jsonify({"status":"OK", "email":email.email}), 200
 
-        return jsonify("failed"), 400
-    return jsonify("failed"), 400
+        return jsonify("failed-5"), 400
+    return jsonify("failed-6"), 400
 
 
 
@@ -751,4 +765,52 @@ def agree_terms():
 def tmep():
     if session.get("agree"):
         session.pop("agree")    
+
     return "cleaned OK"
+
+@app.route("/api/divar/bookmark/", methods=["POST"])
+def set_bookmark():
+    """
+    This view Take a post request for bookmark a post for user in DB
+    """
+    # 401 http code  Authentication Error
+    if not session.get("user_id"):
+        return jsonify({"status":"auth Failed"}), 401
+    
+    if not request.form.get("post-uuid"):
+        return jsonify({"status":"auth Failed"}), 401
+
+    try:
+        post_uuid = int(request.form.get("post-uuid"))
+    except ValueError:
+        return jsonify({"status":"post id error"}), 400
+
+    user_db = User.query.filter(User.id == session.get("user_id")).first()
+    if not user_db:
+        return jsonify({"status":"auth Failed"}), 401
+    
+
+    bookmarked_post= Post.query.filter(Post.id == post_uuid).first()
+    if not bookmarked_post:
+        return jsonify({"status":"post Not found"}), 404
+    
+    user_db.bookmarks.append(bookmarked_post)
+    db.session.add(user_db)
+    db.session.commit()
+
+    return "ko"
+
+
+@app.route("/clean")
+def clean():
+    session.clear()
+    return "OK"
+
+@app.route("/see")
+def see():
+    bookmarks = User.query.filter(User.id == session["user_id"]).all()
+    # print(bookmarks.bookmarks[0].post_title)
+    print(bookmarks[0].bookmarks)
+    for e in bookmarks[0].bookmarks:
+        print(e.post_title)
+    return "OK"
